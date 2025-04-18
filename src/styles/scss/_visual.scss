@@ -1,0 +1,131 @@
+.visual-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  // padding-bottom: 30vh;
+  background-color: #000;
+
+
+  // canvas
+
+  .mosaic-canvas {
+    display: block;
+    width: 20vw;
+    height: 30vw;
+  }
+
+  .visual-txt {
+    padding: 20vh 0 0 5vw;
+
+    &.motion-txt-wrap {
+      overflow: hidden;
+      display: flex;
+
+      .motion-txt {
+        font-size: 15vw;
+        font-family: "Anton", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #eee;
+      }
+    }
+  }
+
+  .visual-sub {
+    text-align: center;
+    z-index: 1;
+
+    .motion-txt {
+      font-size: 14vw;
+      font-family: "Anton", sans-serif;
+      font-weight: 400;
+      color: #eee;
+      mix-blend-mode: difference;
+
+      &.stroke {
+        font-size: 13vw;
+        z-index: 2;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #eee;
+        // -webkit-text-stroke: 2px #f8f8f4;
+        font-family: "Playfair Display", serif;
+        font-weight: 400;
+
+        &+.motion-txt {
+          padding: 28vh 0 0;
+        }
+      }
+    }
+  }
+
+  .img-con {
+    z-index: 1;
+    position: absolute;
+
+    .img-box {
+      width: 20vw;
+      height: 30vw;
+      // border-radius: 30px;
+      overflow: hidden;
+      // filter: grayscale(0);
+      transition: filter .6s;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .eyes-container {
+        display: none;
+        position: absolute;
+        top: 32.5%;
+        left: 40.5%;
+        // display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .eye {
+          width: 40px;
+          height: 40px;
+          background: #fff;
+          border-radius: 50%;
+          position: relative;
+          overflow: hidden;
+
+          & + .eye {
+            margin-left: 25px;
+          }
+
+          .eye-ball {
+            width: 20px;
+            height: 20px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            // transition: transform 0.02s ease-out;
+          }
+        }
+      }
+    }
+
+    .img-rotate {
+      position: absolute;
+      top: -9%;
+      right: -13%;
+      width: 26%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}

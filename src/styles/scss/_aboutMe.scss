@@ -1,0 +1,55 @@
+.aboutme-section {
+  min-height: 400vh;
+  background: #000;
+
+  .slogan {
+    padding: 50vh 0;
+
+    .motion-txt-wrap {
+      display: flex;
+      justify-content: center;
+
+      .motion-txt {
+        color: #f8f8f4;
+        text-transform: uppercase;
+        font-size: 1.5vw;
+        font-family: "Anton", sans-serif;
+      }
+
+      &+.motion-txt-wrap {
+        margin-top: 2vh;
+
+        .motion-txt {
+          color: #f8f8f4;
+          font-size: .7vw;
+        }
+      }
+    }
+  }
+
+  .skill-sec {
+    display: flex;
+    .skill-tit {
+      margin-left: 10vw;
+      width: 40%;
+      font-size: 5vw;
+      font-family: "Anton", sans-serif;
+      color: #f8f8f4;
+    }
+    .skill-list-wrap {
+      width: 60%;
+      overflow: hidden;
+      .skill-list {
+        font-size: 3vw;
+        font-family: "Anton", sans-serif;
+        color: #f8f8f4;
+      
+        & + .skill-list {
+          margin-top: 2vh;
+        }
+      }
+      
+    }
+  }
+
+}
