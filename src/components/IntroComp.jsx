@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useLayoutEffect, useRef } from 'react';
-import { useRouter } from 'next/router';
 import { gsap } from 'gsap';
 
 // 이미지 불러오기
@@ -82,7 +81,7 @@ export default function IntroPage({ setIntroStatus }) {
         onComplete() {
           document.querySelector('.intro-img-wrap:nth-child(5)').classList.add('active');
           gsap.delayedCall(0.5, () => {
-            setIntroStatus(true);
+            setIntroStatus(false);
           });
         }
       }, '+=1');

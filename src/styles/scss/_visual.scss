@@ -6,13 +6,33 @@
   // padding-bottom: 30vh;
   background-color: #000;
 
+  &.active {
+    .fluid-image-wrap {
+      max-height: 100vh;
+      transition: max-height .6s ease;
+    }
+  }
+
 
   // canvas
 
-  .mosaic-canvas {
-    display: block;
-    width: 20vw;
-    height: 30vw;
+  .fluid-image-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-height: 0; 
+    height: auto; 
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 9;
+    transition: max-height .6s ease;
+    transition-delay: 2s;
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
   }
 
   .visual-txt {
