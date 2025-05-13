@@ -4,7 +4,42 @@
     right: 0;
     width: 100%;
     height: 100vh;
-    background: #000;
+    // background: #000;
+    background: #fff;
+    overflow: hidden;
+
+    // twice
+    .intro-txt-con {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 150px;
+      text-align: center;
+      overflow: hidden;
+
+      .intro-txt-wrap {
+        transform: translateY(100%);
+        .intro-txt {
+          font-size: 150px;
+        }
+      
+      }
+    }
+    .square {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      margin: 0 auto;
+      width: 200px;
+      height: 200px;
+      background: #000;
+      border-radius: 50%;
+    }
+
 
     .logo-loading {
       position: absolute;
@@ -15,6 +50,7 @@
       justify-content: center;
       width: 100%;
       height: 100%;
+
       .loading-txt {
         position: relative;
         font-size: 4vw;
@@ -23,7 +59,7 @@
         color: transparent;
         -webkit-text-stroke: 1px #eee;
         overflow: hidden;
-      
+
         &::after {
           content: attr(data-text);
           position: absolute;
@@ -37,7 +73,7 @@
           -webkit-background-clip: text;
           transition: background-position 2s ease;
         }
-      
+
         &.active::after {
           background-position: 0 0; // 위로 올라가며 색 채우기
         }
@@ -62,6 +98,7 @@
         left: 50%;
         width: 150px;
         height: 150px;
+
         // border-radius: 30px;
         .img-list {
           position: absolute;
@@ -69,6 +106,7 @@
           left: 0;
           width: 100%;
           height: 100%;
+
           img {
             width: 100%;
             height: 100%;
@@ -82,18 +120,23 @@
           top: calc(50% - 150px - 40px);
           left: calc(50% - 150px - 40px);
         }
+
         &:nth-child(2) {
           top: calc(50% - 150px - 40px);
         }
+
         &:nth-child(3) {
           top: calc(50% - 150px - 40px);
           left: calc(50% + 150px + 40px);
         }
+
         &:nth-child(4) {
           left: calc(50% - 150px - 40px);
         }
+
         &:nth-child(5) {
           z-index: 2;
+
           &::after {
             content: "";
             position: absolute;
@@ -104,6 +147,7 @@
             background: #000;
             transition: .6s ease;
           }
+
           &.active {
             &::after {
               height: 100%;
@@ -111,16 +155,20 @@
             }
           }
         }
+
         &:nth-child(6) {
           left: calc(50% + 150px + 40px);
         }
+
         &:nth-child(7) {
           top: calc(50% + 150px + 40px);
           left: calc(50% - 150px - 40px);
         }
+
         &:nth-child(8) {
           top: calc(50% + 150px + 40px);
         }
+
         &:nth-child(9) {
           top: calc(50% + 150px + 40px);
           left: calc(50% + 150px + 40px);
@@ -145,8 +193,8 @@
       width: 30px;
       height: 30px;
       border-radius: 50%;
-    background: #eee;
+      background: #eee;
 
     }
-    
+
   }

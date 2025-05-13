@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  height: 200vh;
   // padding-bottom: 30vh;
   background-color: #000;
 
@@ -17,7 +18,7 @@
   // canvas
 
   .fluid-image-wrap {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -25,7 +26,7 @@
     height: auto; 
     overflow: hidden;
     pointer-events: none;
-    z-index: 9;
+    z-index: 0;
     transition: max-height .6s ease;
     transition-delay: 2s;
 
@@ -35,7 +36,17 @@
     }
   }
 
+  // wall
+
+  .fake-wall-wrap {
+    position: absolute;
+  }
+
   .visual-txt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
     padding: 20vh 0 0 5vw;
 
     &.motion-txt-wrap {

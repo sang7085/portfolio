@@ -69,7 +69,36 @@ header {
   right: 0;
   width: 100%;
   height: 100vh;
+  background: #fff;
+  overflow: hidden;
+}
+.intro-sec .intro-txt-con {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 150px;
+  text-align: center;
+  overflow: hidden;
+}
+.intro-sec .intro-txt-con .intro-txt-wrap {
+  transform: translateY(100%);
+}
+.intro-sec .intro-txt-con .intro-txt-wrap .intro-txt {
+  font-size: 150px;
+}
+.intro-sec .square {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
   background: #000;
+  border-radius: 50%;
 }
 .intro-sec .logo-loading {
   position: absolute;
@@ -209,6 +238,7 @@ header {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  height: 200vh;
   background-color: #000;
 }
 .visual-section.active .fluid-image-wrap {
@@ -216,7 +246,7 @@ header {
   transition: max-height 0.6s ease;
 }
 .visual-section .fluid-image-wrap {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -224,7 +254,7 @@ header {
   height: auto;
   overflow: hidden;
   pointer-events: none;
-  z-index: 9;
+  z-index: 0;
   transition: max-height 0.6s ease;
   transition-delay: 2s;
 }
@@ -232,7 +262,14 @@ header {
   width: 100% !important;
   height: 100% !important;
 }
+.visual-section .fake-wall-wrap {
+  position: absolute;
+}
 .visual-section .visual-txt {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
   padding: 20vh 0 0 5vw;
 }
 .visual-section .visual-txt.motion-txt-wrap {
