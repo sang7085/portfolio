@@ -4,8 +4,6 @@
     right: 0;
     width: 100%;
     height: 100vh;
-    // background: #000;
-    background: #fff;
     overflow: hidden;
 
     // twice
@@ -15,186 +13,186 @@
       left: 50%;
       transform: translate(-50%, -50%);
       width: 100%;
-      height: 150px;
+      height: 50px;
       text-align: center;
       overflow: hidden;
 
       .intro-txt-wrap {
         transform: translateY(100%);
+
         .intro-txt {
-          font-size: 150px;
+          font-size: 50px;
         }
-      
+
       }
     }
-    .square {
+  }
+
+  .intro-piano-wrap {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    .intro-piano {
+      width: 10%;
+      height: 100%;
+      background: #fff;
+    }
+  }
+
+
+  .logo-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    .loading-txt {
+      position: relative;
+      font-size: 4vw;
+      font-family: "Anton", sans-serif;
+      font-weight: 400;
+      color: transparent;
+      -webkit-text-stroke: 1px #eee;
+      overflow: hidden;
+
+      &::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, #eee 50%, transparent 50%);
+        background-size: 100% 200%;
+        background-position: 0 100%; // 아래에서 시작
+        -webkit-background-clip: text;
+        transition: background-position 2s ease;
+      }
+
+      &.active::after {
+        background-position: 0 0; // 위로 올라가며 색 채우기
+      }
+    }
+  }
+
+  .intro-area {
+    z-index: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+
+    .intro-img-wrap {
+      z-index: 1;
+      overflow: hidden;
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-      margin: 0 auto;
-      width: 200px;
-      height: 200px;
-      background: #000;
-      border-radius: 50%;
-    }
+      width: 150px;
+      height: 150px;
 
+      // border-radius: 30px;
+      .img-list {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
 
-    .logo-loading {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          image-rendering: crisp-edges;
+          backface-visibility: hidden;
+        }
+      }
 
-      .loading-txt {
-        position: relative;
-        font-size: 4vw;
-        font-family: "Anton", sans-serif;
-        font-weight: 400;
-        color: transparent;
-        -webkit-text-stroke: 1px #eee;
-        overflow: hidden;
+      &:nth-child(1) {
+        top: calc(50% - 150px - 40px);
+        left: calc(50% - 150px - 40px);
+      }
+
+      &:nth-child(2) {
+        top: calc(50% - 150px - 40px);
+      }
+
+      &:nth-child(3) {
+        top: calc(50% - 150px - 40px);
+        left: calc(50% + 150px + 40px);
+      }
+
+      &:nth-child(4) {
+        left: calc(50% - 150px - 40px);
+      }
+
+      &:nth-child(5) {
+        z-index: 2;
 
         &::after {
-          content: attr(data-text);
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
-          height: 100%;
-          background: linear-gradient(to top, #eee 50%, transparent 50%);
-          background-size: 100% 200%;
-          background-position: 0 100%; // 아래에서 시작
-          -webkit-background-clip: text;
-          transition: background-position 2s ease;
+          height: 0%;
+          background: #000;
+          transition: .6s ease;
         }
 
-        &.active::after {
-          background-position: 0 0; // 위로 올라가며 색 채우기
-        }
-      }
-    }
-
-    .intro-area {
-      z-index: 1;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-
-      .intro-img-wrap {
-        z-index: 1;
-        overflow: hidden;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 150px;
-        height: 150px;
-
-        // border-radius: 30px;
-        .img-list {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            image-rendering: crisp-edges;
-            backface-visibility: hidden;
-          }
-        }
-
-        &:nth-child(1) {
-          top: calc(50% - 150px - 40px);
-          left: calc(50% - 150px - 40px);
-        }
-
-        &:nth-child(2) {
-          top: calc(50% - 150px - 40px);
-        }
-
-        &:nth-child(3) {
-          top: calc(50% - 150px - 40px);
-          left: calc(50% + 150px + 40px);
-        }
-
-        &:nth-child(4) {
-          left: calc(50% - 150px - 40px);
-        }
-
-        &:nth-child(5) {
-          z-index: 2;
-
+        &.active {
           &::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 0%;
-            background: #000;
+            height: 100%;
             transition: .6s ease;
           }
-
-          &.active {
-            &::after {
-              height: 100%;
-              transition: .6s ease;
-            }
-          }
-        }
-
-        &:nth-child(6) {
-          left: calc(50% + 150px + 40px);
-        }
-
-        &:nth-child(7) {
-          top: calc(50% + 150px + 40px);
-          left: calc(50% - 150px - 40px);
-        }
-
-        &:nth-child(8) {
-          top: calc(50% + 150px + 40px);
-        }
-
-        &:nth-child(9) {
-          top: calc(50% + 150px + 40px);
-          left: calc(50% + 150px + 40px);
         }
       }
-    }
 
-    .bg-noise {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.1;
-      background: url(/assets/images/bg-noise.jpg) no-repeat 0 / cover;
-    }
+      &:nth-child(6) {
+        left: calc(50% + 150px + 40px);
+      }
 
-    .wide-circle {
-      opacity: 0;
-      z-index: 0;
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #eee;
+      &:nth-child(7) {
+        top: calc(50% + 150px + 40px);
+        left: calc(50% - 150px - 40px);
+      }
 
+      &:nth-child(8) {
+        top: calc(50% + 150px + 40px);
+      }
+
+      &:nth-child(9) {
+        top: calc(50% + 150px + 40px);
+        left: calc(50% + 150px + 40px);
+      }
     }
+  }
+
+  .bg-noise {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background: url(/assets/images/bg-noise.jpg) no-repeat 0 / cover;
+  }
+
+  .wide-circle {
+    opacity: 0;
+    z-index: 0;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #eee;
 
   }

@@ -3,43 +3,33 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  height: 200vh;
-  // padding-bottom: 30vh;
+  height: 100vh;
   background-color: #000;
 
   &.active {
-    .fluid-image-wrap {
+    .canvas-image-wrap {
       max-height: 100vh;
       transition: max-height .6s ease;
     }
   }
 
-
   // canvas
 
-  .fluid-image-wrap {
+  .canvas-image-wrap {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    max-height: 0; 
-    height: auto; 
+    height: auto;
     overflow: hidden;
     pointer-events: none;
     z-index: 0;
     transition: max-height .6s ease;
     transition-delay: 2s;
-
     canvas {
       width: 100% !important;
       height: 100% !important;
     }
-  }
-
-  // wall
-
-  .fake-wall-wrap {
-    position: absolute;
   }
 
   .visual-txt {
@@ -48,11 +38,11 @@
     left: 0;
     z-index: 10;
     padding: 20vh 0 0 5vw;
-
+  
     &.motion-txt-wrap {
       overflow: hidden;
       display: flex;
-
+  
       .motion-txt {
         font-size: 15vw;
         font-family: "Anton", sans-serif;
@@ -62,18 +52,18 @@
       }
     }
   }
-
+  
   .visual-sub {
     text-align: center;
     z-index: 1;
-
+  
     .motion-txt {
       font-size: 14vw;
       font-family: "Anton", sans-serif;
       font-weight: 400;
       color: #eee;
       mix-blend-mode: difference;
-
+  
       &.stroke {
         font-size: 13vw;
         z-index: 2;
@@ -84,18 +74,18 @@
         // -webkit-text-stroke: 2px #f8f8f4;
         font-family: "Playfair Display", serif;
         font-weight: 400;
-
+  
         &+.motion-txt {
           padding: 28vh 0 0;
         }
       }
     }
   }
-
+  
   .img-con {
     z-index: 1;
     position: absolute;
-
+  
     .img-box {
       width: 20vw;
       height: 30vw;
@@ -103,13 +93,13 @@
       overflow: hidden;
       // filter: grayscale(0);
       transition: filter .6s;
-
+  
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
-
+  
       .eyes-container {
         display: none;
         position: absolute;
@@ -118,7 +108,7 @@
         // display: flex;
         justify-content: center;
         align-items: center;
-
+  
         .eye {
           width: 40px;
           height: 40px;
@@ -126,11 +116,11 @@
           border-radius: 50%;
           position: relative;
           overflow: hidden;
-
-          & + .eye {
+  
+          &+.eye {
             margin-left: 25px;
           }
-
+  
           .eye-ball {
             width: 20px;
             height: 20px;
@@ -145,13 +135,13 @@
         }
       }
     }
-
+  
     .img-rotate {
       position: absolute;
       top: -9%;
       right: -13%;
       width: 26%;
-
+  
       img {
         width: 100%;
         height: 100%;

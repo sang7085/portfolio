@@ -1,55 +1,27 @@
-.aboutme-section {
-  min-height: 400vh;
-  background: #000;
+.about-sec {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-color: #000;
+  z-index: 1;
 
-  .slogan {
-    padding: 50vh 0;
+  // &::after {
+  //   content: "";
+  //   position: absolute;
+  //   top: -100px;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100px;
+  //   z-index: 1;
+  //   background: linear-gradient(transparent, #000);
+  // }
 
-    .motion-txt-wrap {
-      display: flex;
-      justify-content: center;
-
-      .motion-txt {
-        color: #f8f8f4;
-        text-transform: uppercase;
-        font-size: 1.5vw;
-        font-family: "Anton", sans-serif;
-      }
-
-      &+.motion-txt-wrap {
-        margin-top: 2vh;
-
-        .motion-txt {
-          color: #f8f8f4;
-          font-size: .7vw;
-        }
-      }
-    }
+  .fluid-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
-
-  .skill-sec {
-    display: flex;
-    .skill-tit {
-      margin-left: 10vw;
-      width: 40%;
-      font-size: 5vw;
-      font-family: "Anton", sans-serif;
-      color: #f8f8f4;
-    }
-    .skill-list-wrap {
-      width: 60%;
-      overflow: hidden;
-      .skill-list {
-        font-size: 3vw;
-        font-family: "Anton", sans-serif;
-        color: #f8f8f4;
-      
-        & + .skill-list {
-          margin-top: 2vh;
-        }
-      }
-      
-    }
-  }
-
 }

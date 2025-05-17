@@ -1,8 +1,14 @@
 'use client';
+
+// font
+import { Anton } from "next/font/google";
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { CustomEase } from 'gsap/dist/CustomEase';
+
 gsap.registerPlugin(CustomEase);
+const anton = Anton({ subsets: ["latin"], weight: ["400"] });
+
 
 
 // // 이미지 불러오기
@@ -115,7 +121,7 @@ gsap.registerPlugin(CustomEase);
 // }
 
 
-export default function IntroComp() {
+export default function IntroComp({setIntroStatus}) {
 
   useEffect(() => {
     CustomEase.create("bounceSmooth", "M0,0 C0.175, 0.885, 0.32, 1.275, 1,1");
@@ -125,7 +131,7 @@ export default function IntroComp() {
 
     const tl = gsap.timeline();
     const introTxtWrap = document.querySelector(".intro-txt-wrap");
-    const introSquare = document.querySelector(".square");
+    const piano = document.querySelectorAll(".intro-piano ");
     const introTxt = document.querySelectorAll('.intro-txt');
 
     tl.to(introTxtWrap, {
@@ -134,70 +140,60 @@ export default function IntroComp() {
       ease: 'gentleEase',
     })
     tl.to(introTxtWrap, {
-      y: "-150px",
+      y: "-50px",
       duration: 1,
       delay: 2,
       ease: 'gentleEase',
     })
     tl.to(introTxtWrap, {
-      y: "-300px",
+      y: "-100px",
       duration: 1,
       ease: 'gentleEase',
     })
     tl.to(introTxtWrap, {
-      y: "-450px",
+      y: "-150px",
       duration: 1,
       ease: 'gentleEase',
     })
     tl.to(introTxtWrap, {
-      y: "-600px",
+      opacity: 0,
       duration: 1,
       ease: 'gentleEase',
     })
-    tl.to(introSquare, {
-      y: "0",
-      opacity: 1,
-      duration: 1,
+    tl.to(piano, {
+      height: "0",
+      duration: .5,
+      stagger: .1,
       ease: 'gentleEase',
-    }, "+=.1")
-    tl.to(introSquare, {
-      scale: 20,
-      duration: 1,
-      ease: 'gentleEase',
-    })
-
-
-
-    // elements.forEach((el, index) => {
-    //   if (index <= 4) {
-    //     tl.to(el, {
-    //       top: "0%",
-    //       delay: (index + 1) * 0.5,
-    //       ease: 'power2.out',
-    //     })
-    //   }
-    //   if (index <= 3) {
-    //     tl.to(el, {
-    //       top: "-120%",
-    //       delay: (index + 1) * .5,
-    //       ease: 'power2.out',
-    //     })
-    //   }
-    // });
+      onComplete() {
+        setIntroStatus(false);
+      }
+    }, "+=.2")
   }, []);
 
   return (
     <>
       <div className="intro-sec">
+        <div className="intro-piano-wrap">
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+        </div>
         <div className="intro-txt-con">
           <div className="intro-txt-wrap">
-            <div className="intro-txt">HELLO!</div>
-            <div className="intro-txt">INTERACTIVE</div>
-            <div className="intro-txt">PUBLISHING</div>
-            <div className="intro-txt">DEVELOP</div>
+            <div className={`intro-txt ${anton.className}`}>HELLO!</div>
+            <div className={`intro-txt ${anton.className}`}>INTERACTIVE</div>
+            <div className={`intro-txt ${anton.className}`}>PUBLISHING</div>
+            <div className={`intro-txt ${anton.className}`}>DEVELOP</div>
           </div>
         </div>
-        <div className="square"></div>
       </div>
     </>
   )

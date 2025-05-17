@@ -12,6 +12,7 @@
     "@react-three/drei": "^10.0.7",
     "@react-three/fiber": "^9.1.2",
     "@react-three/postprocessing": "^3.0.4",
+    "@studio-freight/lenis": "^1.0.42",
     "@whatisjery/react-fluid-distortion": "^1.4.4",
     "gsap": "^3.12.7",
     "leva": "^0.10.0",
