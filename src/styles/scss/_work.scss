@@ -1,0 +1,26 @@
+.work-sec {
+  z-index: 11;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  background: #fff;
+  // border: 1px solid red;
+
+
+  .work-tit-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+    height: 100%;
+    .work-tit {
+      flex-shrink: 0;
+      transform: translateY(100px);
+      opacity: 0;
+      font-size: 150px;
+      text-align: center;
+    }
+  }
+}

@@ -1,152 +1,107 @@
 .visual-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  height: 100vh;
-  background-color: #000;
-
-  &.active {
-    .canvas-image-wrap {
-      max-height: 100vh;
-      transition: max-height .6s ease;
-    }
-  }
-
+  position: relative;
+  overflow: hidden;
+  // background-color: #fff;
+  padding-top: 0;
+  margin-top: 0;
+  border: none;
+  
   // canvas
-
   .canvas-image-wrap {
+    z-index: var(--canvas-z);
     position: fixed;
     top: 0;
-    left: 0;
+    opacity: 0;
+    display: block;
     width: 100vw;
-    height: auto;
+    height: 100vh;
     overflow: hidden;
     pointer-events: none;
-    z-index: 0;
-    transition: max-height .6s ease;
-    transition-delay: 2s;
+    transform: translateY(100px);
+    background: transparent;
+
     canvas {
-      width: 100% !important;
-      height: 100% !important;
+      position: relative;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+  }
+  .txt-wrap-area {
+    z-index: var(--section-z);
+    position: relative; 
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+
+    .txt-wrap {
+      position: absolute;
+      top: 0;
+      left: 30px;
+      display: flex;
+      opacity: 1;
+  
+      &.under {
+        top: unset;
+        left: unset;
+        right: 30px;
+        bottom: 0;
+      }
+  
+      &.center {
+        top: 50%;
+        left: 50%;
+        right: unset;
+        bottom: unset;
+        transform: translate(-50%, -50%);
+      }
+  
+      .visual-txt {
+        font-size: 12.5vw;
+        font-weight: 400;
+        transform: translateY(100px);
+        opacity: 0;
+  
+        &.motion-txt-wrap {
+          overflow: hidden;
+          display: flex;
+  
+          .motion-txt {
+            font-size: 15vw;
+            font-family: "Anton", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            color: #eee;
+          }
+        }
+      }
     }
   }
 
-  .visual-txt {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    padding: 20vh 0 0 5vw;
-  
-    &.motion-txt-wrap {
-      overflow: hidden;
+  .flow-txt-wrap {
+    z-index: var(--section-z);
+    position: relative;
+    width: 100%;
+    .flow-txt {
       display: flex;
-  
-      .motion-txt {
-        font-size: 15vw;
-        font-family: "Anton", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-        color: #eee;
+      justify-content: flex-end;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      font-size: 50px;
+      color: #000;
+      .txt {
+        margin-right: 10vw;
+        width: 50%;
+        mix-blend-mode: lighten;
       }
     }
   }
-  
-  .visual-sub {
-    text-align: center;
-    z-index: 1;
-  
-    .motion-txt {
-      font-size: 14vw;
-      font-family: "Anton", sans-serif;
-      font-weight: 400;
-      color: #eee;
-      mix-blend-mode: difference;
-  
-      &.stroke {
-        font-size: 13vw;
-        z-index: 2;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #eee;
-        // -webkit-text-stroke: 2px #f8f8f4;
-        font-family: "Playfair Display", serif;
-        font-weight: 400;
-  
-        &+.motion-txt {
-          padding: 28vh 0 0;
-        }
-      }
-    }
-  }
-  
-  .img-con {
-    z-index: 1;
+
+  .scroll-down {
     position: absolute;
-  
-    .img-box {
-      width: 20vw;
-      height: 30vw;
-      // border-radius: 30px;
-      overflow: hidden;
-      // filter: grayscale(0);
-      transition: filter .6s;
-  
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-  
-      .eyes-container {
-        display: none;
-        position: absolute;
-        top: 32.5%;
-        left: 40.5%;
-        // display: flex;
-        justify-content: center;
-        align-items: center;
-  
-        .eye {
-          width: 40px;
-          height: 40px;
-          background: #fff;
-          border-radius: 50%;
-          position: relative;
-          overflow: hidden;
-  
-          &+.eye {
-            margin-left: 25px;
-          }
-  
-          .eye-ball {
-            width: 20px;
-            height: 20px;
-            background: #000;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            // transition: transform 0.02s ease-out;
-          }
-        }
-      }
-    }
-  
-    .img-rotate {
-      position: absolute;
-      top: -9%;
-      right: -13%;
-      width: 26%;
-  
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
+    bottom: 30px;
+    left: 30px;
+    font-size: 20px;
   }
+
 }

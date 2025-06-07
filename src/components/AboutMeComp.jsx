@@ -1,12 +1,16 @@
 'use client';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { Canvas, useThree, useFrame, useLoader } from '@react-three/fiber';
 import { EffectComposer } from "@react-three/postprocessing";
 import { Fluid, useConfig } from "@whatisjery/react-fluid-distortion";
 import { TextureLoader } from 'three'
+import { Noto_Sans } from "next/font/google";
+import { CustomEase } from 'gsap/dist/CustomEase';
 import * as THREE from 'three';
+
+const notoSans = Noto_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 
 function MyProfile() {
   const texture = useLoader(THREE.TextureLoader, "/assets/images/my-profile.webp");
@@ -39,7 +43,8 @@ function CanvasContent() {
           rainbow={false}
           blend={0}
           showBackground={false}
-          fluidColor="#000"
+          backgroundColor="#fff"
+          fluidColor="#fff"
         />
       </EffectComposer>
     </>
@@ -47,9 +52,39 @@ function CanvasContent() {
 }
 
 export default function AboutMeComp() {
+
+  const wrapRef = useRef();
+  const txtRef = useRef([]);
+  const text = "I build responsive, accessible, and interactive interfaces with a focus on clean, reusable code.".split("");
+
+  useLayoutEffect(() => {
+    gsap.set(".txt-list", { y: "60%", x: "-50%", opacity: 0 });
+  }, []);
+
+  useEffect(() => {
+    gsap.to(txtRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: .5,
+      ease: "CustomEase",
+      stagger: 0.05,
+      scrollTrigger: {
+        trigger: ".txt-sec",
+        start: "top top",
+        end: "bottom center",
+        // markers: true,
+      }
+    });
+
+  }, []);
+
+
   return (
     <>
-      <div className="about-sec">
+      <section className="about-sec" ref={wrapRef}>
+        <div className="txt-sec">
+          {text.map((txt, index) => (<p className={`txt ${notoSans}`} ref={(el) => (txtRef.current[index] = el)} key={index}>{txt === " " ? "\u00A0" : txt}</p>))}
+        </div>
         <div className="fluid-wrap">
           <Canvas>
             <MyProfile />
@@ -57,7 +92,14 @@ export default function AboutMeComp() {
             <directionalLight intensity={2} position={[0, 2, 3]} />
           </Canvas>
         </div>
-      </div>
+        <div className={`txt-wrap ${notoSans.className}`} ref={wrapRef}>
+          <p className="txt-list">I am currently active as</p>
+          <p className="txt-list">a frontend engineer.</p>
+          <p className="txt-list">i specialize in animations</p>
+          <p className="txt-list">and interactive expressions.</p>
+          <p className="txt-list">and above all, i love this job.</p>
+        </div>
+      </section>
     </>
   )
 }

@@ -162,24 +162,19 @@ export default function IntroComp({setIntroStatus}) {
     })
     tl.to(piano, {
       height: "0",
-      duration: .5,
+      duration: .2,
       stagger: .1,
       ease: 'gentleEase',
       onComplete() {
         setIntroStatus(false);
       }
-    }, "+=.2")
+    }, "+=.2");
   }, []);
 
   return (
     <>
-      <div className="intro-sec">
+      <section className="intro-sec">
         <div className="intro-piano-wrap">
-          <div className="intro-piano"></div>
-          <div className="intro-piano"></div>
-          <div className="intro-piano"></div>
-          <div className="intro-piano"></div>
-          <div className="intro-piano"></div>
           <div className="intro-piano"></div>
           <div className="intro-piano"></div>
           <div className="intro-piano"></div>
@@ -194,7 +189,7 @@ export default function IntroComp({setIntroStatus}) {
             <div className={`intro-txt ${anton.className}`}>DEVELOP</div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   )
 }
