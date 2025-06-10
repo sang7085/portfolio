@@ -22,7 +22,7 @@ time, mark, audio, video {
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+footer, header, hgroup, menu, nav, section, a {
   display: block;
 }
 
@@ -381,25 +381,65 @@ header {
 }
 
 .work-sec {
-  z-index: 11;
+  z-index: var(--section-z);
   position: relative;
   width: 100%;
-  height: 100vh;
   min-height: 100vh;
   background: #fff;
 }
 .work-sec .work-tit-wrap {
-  position: relative;
+  z-index: var(--section-z);
+  position: absolute;
+  top: 10vh;
+  left: 5vw;
   display: flex;
-  justify-content: center;
-  align-self: center;
-  width: 100%;
-  height: 100%;
+  justify-content: flex-start;
+  mix-blend-mode: difference;
 }
 .work-sec .work-tit-wrap .work-tit {
-  flex-shrink: 0;
-  transform: translateY(100px);
   opacity: 0;
+  transform: translateY(100px);
   font-size: 150px;
   text-align: center;
+  color: #fff;
+}
+.work-sec .work-list-con {
+  position: relative;
+  z-index: var(--canvas-z);
+  width: 100%;
+  height: 100vh;
+}
+.work-sec .work-list-con .work-list-wrap {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200%;
+  height: 100%;
+  border: 1px solid red;
+}
+.work-sec .work-list-con .work-list-wrap .work-list {
+  position: relative;
+  width: 55vw;
+  height: 55vh;
+  border: 1px solid blue;
+  overflow: hidden;
+}
+.work-sec .work-list-con .work-list-wrap .work-list:hover img {
+  transform: translate(-50%, -50%) scale(1.1);
+  transition: transform 0.6s ease;
+}
+.work-sec .work-list-con .work-list-wrap .work-list.first {
+  top: 0;
+}
+.work-sec .work-list-con .work-list-wrap .work-list img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.6s ease;
 }/*# sourceMappingURL=main.css.map */
