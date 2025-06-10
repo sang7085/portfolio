@@ -43,23 +43,21 @@ export default function workComp({ introStatus }) {
           start: "-=30% top",
           end: "bottom bottom",
         }
-      });
+      }); 
 
-      workList.forEach((el, index) => {
-        if (index === 0) return;
+      gsap.to(".work-list-wrap", {
+        x: "-100%",
+        scrollTrigger: {
+          trigger: ".work-list-con",
+          start: "top top",
+          end: "+=200% bottom",
+          markers: true,
+          pin: true,
+          scrub: 1,
+        }
+      })
+      
 
-        // gsap.to(el, {
-        //   top: 0,
-        //   ease: "gentleEase",
-        //   scrollTrigger: {
-        //     trigger: ".work-list-con",
-        //     start: `top top`,
-        //     end: `${index * 100}% bottom`,
-        //     scrub: true,
-        //     markers: true,
-        //   }
-        // });
-      });
     }
   }, [introStatus]);
 
@@ -75,12 +73,16 @@ export default function workComp({ introStatus }) {
         </div>
         <div className="work-list-con">
           <div className="work-list-wrap" ref={imgWrapMotion}>
-            <a href="javascript:" className="work-list first">
-              <Image src={workImg} alt="로고" />
-            </a>
-            <a href="javascript:" className="work-list">
-              <Image src={workImg} alt="로고" />
-            </a>
+            <div className="work-list first">
+              <a href="javascript:" className="content-wrap">
+                <Image src={workImg} alt="로고" />
+              </a>
+            </div>
+            <div className="work-list">
+              <a href="javascript:" className="content-wrap">
+                <Image src={workImg} alt="로고" />
+              </a>
+            </div>
           </div>
         </div>
       </section>

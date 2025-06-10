@@ -390,7 +390,7 @@ header {
 .work-sec .work-tit-wrap {
   z-index: var(--section-z);
   position: absolute;
-  top: 10vh;
+  top: 6vh;
   left: 5vw;
   display: flex;
   justify-content: flex-start;
@@ -408,11 +408,12 @@ header {
   z-index: var(--canvas-z);
   width: 100%;
   height: 100vh;
+  overflow: hidden;
 }
 .work-sec .work-list-con .work-list-wrap {
   overflow: hidden;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 200%;
   height: 100%;
@@ -420,19 +421,29 @@ header {
 }
 .work-sec .work-list-con .work-list-wrap .work-list {
   position: relative;
-  width: 55vw;
-  height: 55vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   border: 1px solid blue;
   overflow: hidden;
-}
-.work-sec .work-list-con .work-list-wrap .work-list:hover img {
-  transform: translate(-50%, -50%) scale(1.1);
-  transition: transform 0.6s ease;
 }
 .work-sec .work-list-con .work-list-wrap .work-list.first {
   top: 0;
 }
-.work-sec .work-list-con .work-list-wrap .work-list img {
+.work-sec .work-list-con .work-list-wrap .work-list .content-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 55vw;
+  height: 55vh;
+  border: 1px solid red;
+}
+.work-sec .work-list-con .work-list-wrap .work-list .content-wrap:hover img {
+  transform: translate(-50%, -50%) scale(1.1);
+  transition: transform 0.6s ease;
+}
+.work-sec .work-list-con .work-list-wrap .work-list .content-wrap img {
   position: absolute;
   top: 50%;
   left: 50%;
