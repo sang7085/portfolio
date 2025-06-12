@@ -122,6 +122,7 @@ export default function VisualComp({ introStatus }) {
 
   const topRef = useRef([]);
   const bottomRef = useRef([]);
+  const circleRef = useRef([]);
 
   useEffect(() => {
 
@@ -160,10 +161,9 @@ export default function VisualComp({ introStatus }) {
         }
       });
 
-      tl.to(topRef.current, { y: "-100%" })
-        .to(bottomRef.current, { y: "100%" }, "<")
-        // .to(lineRefs.current.map(line => line.material), { opacity: 0, visibility: "hidden" }, "<")
-        .to(blobRef.current.position, { x: -6.5 }, "<")
+      tl.to(topRef.current, { x: "-110%" })
+        .to(bottomRef.current, { x: "110%" }, "<")
+        .to(blobRef.current.position, { x: -6.5, y: 0, }, "<")
 
       // flow section start
       const flowTxt = document.querySelectorAll(".flow-txt");
@@ -196,6 +196,7 @@ export default function VisualComp({ introStatus }) {
               }
               if (index === 2) {
                 blobRendersRef.current.bumpy = true;
+                gsap.set(blobRef.current.position, { x: -6.5 });
               }
             },
             onLeaveBack() {
@@ -222,6 +223,32 @@ export default function VisualComp({ introStatus }) {
         });
       });
 
+      // gsap.to(blobRef.current.position, {
+      //   x: 0,
+      //   scrollTrigger: {
+      //     trigger: ".flow-area",
+      //     start: "top top",
+      //     end: "bottom bottom",
+      //     markers: true,
+      //     scrub: 1,
+      //   }
+      // })
+
+      // const tl2 = gsap.timeline({
+      //   scrollTrigger: {
+      //     trigger: ".flow-area",
+      //     start: "top bottom",
+      //     end: "bottom bottom",
+      //     markers: true,
+      //     scrub: 1,
+      //   }
+      // })
+      
+      // tl2.to(circleRef.current, {
+      //   scale: 10,
+      //   opacity: 1,
+      // })
+      // .to(blobWrapRef.current, {opacity: 0})
     }
   }, [introStatus]);
 
@@ -236,7 +263,7 @@ export default function VisualComp({ introStatus }) {
           <Line points={[[-3, -10, 0], [-3, 10, 0]]} color="#eeeeee" lineWidth={2} ref={(el) => (lineRefs.current[2] = el)} />
           <Line points={[[-1, -10, 0], [-1, 10, 0]]} color="#eeeeee" lineWidth={2} ref={(el) => (lineRefs.current[3] = el)} /> */}
           <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
-          <MeshBlob position={[0, 0, 0]} ref={blobRef} blobRendersRef={blobRendersRef} />
+          <MeshBlob position={[-4, -1.5, 0]} ref={blobRef} blobRendersRef={blobRendersRef} />
           <ambientLight intensity={0.5} />
           <directionalLight intensity={1.5} position={[0, 2, 2]} />
           <Environment preset="city" />
@@ -249,11 +276,14 @@ export default function VisualComp({ introStatus }) {
             <h2 className={`visual-txt ${orbitron.className}`} ref={(el) => (motionRef.current[index] = el)} key={index}>{txt}</h2>
           ))}
         </div>
-        <div className="txt-wrap under" ref={bottomRef}>
+        <div className="txt-wrap second" ref={bottomRef}>
           {text2.map((txt, index) => (
             <h2 className={`visual-txt ${orbitron.className}`} ref={(el) => (motionRef2.current[index] = el)} key={index}>{txt}</h2>
           ))}
         </div>
+      </div>
+      <div className="coment-wrap">
+        <p></p>
       </div>
       <ul className="flow-txt-wrap">
         <li className="flow-txt">
@@ -277,14 +307,10 @@ export default function VisualComp({ introStatus }) {
             adaptable, intelligent systems for a global
             audience.</p>
         </li>
-        <li className="flow-txt">
-          <p className={`txt ${anton.className}`}>
-            Optikka leverages Design-as-Code
-            transforming traditional design into
-            adaptable, intelligent systems for a global
-            audience.</p>
-        </li>
       </ul>
+      <div className="flow-area">
+        <div className="circle" ref={circleRef}></div>
+      </div>
     </section>
   );
 }

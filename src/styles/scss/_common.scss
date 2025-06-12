@@ -1,4 +1,12 @@
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/font/PretendardVariable.woff2') format('woff2');
+  font-weight: 45 920;
+  font-display: swap;
+}
+
 :root {
+  --under-z: 9;
   --canvas-z: 10;
   --section-z: 11;
 }

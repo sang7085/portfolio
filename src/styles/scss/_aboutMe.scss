@@ -1,10 +1,10 @@
 .about-sec {
+  z-index: var(--section-z);
   position: relative;
   width: 100%;
   height: 100%;
   min-height: 100vh;
   background-color: #fff;
-  z-index: 1;
 
   .txt-sec {
     position: relative;

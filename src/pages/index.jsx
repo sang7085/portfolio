@@ -42,7 +42,7 @@ export default function Home() {
       {introStatus && <IntroComp setIntroStatus={setIntroStatus} />}
       <VisualComp introStatus={introStatus} />
       <WorkComp introStatus={introStatus} />
-      {/* <AboutMeComp /> */}
+      <AboutMeComp introStatus={introStatus} />
     </>
   );
 }

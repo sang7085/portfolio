@@ -16,18 +16,17 @@ gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 export default function workComp({ introStatus }) {
 
+  const workSecRef = useRef([]);
   const txtMotionWrap = useRef([]);
-  const titRef = useRef([]);
   const txtMotion = useRef([]);
   const imgWrapMotion = useRef([]);
-  const text = "WORKS".split("");
+  const text = "[WORKS]".split("");
 
 
   useEffect(() => {
-    <s></s>
-    CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
     if (!introStatus) {
+      CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
       const workList = document.querySelectorAll(".work-list");
       const workListLeng = workList.length;
 
@@ -43,20 +42,40 @@ export default function workComp({ introStatus }) {
           start: "-=30% top",
           end: "bottom bottom",
         }
-      }); 
+      });
 
-      gsap.to(".work-list-wrap", {
-        x: "-100%",
+      gsap.to(txtMotionWrap.current, {
         scrollTrigger: {
-          trigger: ".work-list-con",
-          start: "top top",
-          end: "+=200% bottom",
-          markers: true,
+          trigger: txtMotionWrap.current,
+          start: "top +=9%",
+          end: "bottom top+=9%",
           pin: true,
+        }
+      })
+
+      gsap.to(workSecRef.current, {
+        backgroundColor: "#000",
+        scrollTrigger: {
+          trigger: workSecRef.current,
+          start: "top 50%",
+          end: "bottom bottom",
+          markers: true,
           scrub: 1,
         }
       })
-      
+
+      workList.forEach((el, i) => {
+        gsap.to(el, {
+          y: 0,
+          opacity: 1,
+          ease: "gentleEase",
+          scrollTrigger: {
+            trigger: el,
+            start: "top +=30%",
+            end: "bottom bottom",
+          }
+        })
+      })
 
     }
   }, [introStatus]);
@@ -64,25 +83,49 @@ export default function workComp({ introStatus }) {
 
   return (
     <>
-      <section className="work-sec">
+      <section className="work-sec" ref={workSecRef}>
         <div className="work-tit-wrap" ref={txtMotionWrap}>
           {text.map((txt, index) => (
-            <h2 className={`work-tit ${anton.className}`} key={index} ref={(el) => (txtMotion.current[index] = el)}>{txt}</h2>
+            <h2 className={`work-tit`} key={index} ref={(el) => (txtMotion.current[index] = el)}>{txt}</h2>
           ))}
           {/* <h2 className={`work-tit ${anton.className}`} ref={titRef}>FEATURED WORKS</h2> */}
         </div>
-        <div className="work-list-con">
-          <div className="work-list-wrap" ref={imgWrapMotion}>
-            <div className="work-list first">
-              <a href="javascript:" className="content-wrap">
-                <Image src={workImg} alt="로고" />
-              </a>
+        <div className="work-list-wrap" ref={imgWrapMotion}>
+          <div className="work-list first">
+            <div className="work-num">
+              <span>(1)</span>
             </div>
-            <div className="work-list">
-              <a href="javascript:" className="content-wrap">
-                <Image src={workImg} alt="로고" />
-              </a>
+            <div className="work-list-tit">
+              <span>HD Hyundai</span>
             </div>
+            <a href="javascript:" className="content-wrap">
+              <Image src={workImg} alt="로고" />
+            </a>
+          </div>
+          <div className="work-list">
+            <div className="work-num">
+              <span>(2)</span>
+            </div>
+            <div className="work-list-tit">
+              <span>삼성화재</span>
+            </div>
+            <div className="work-list-txt">
+              <p></p>
+            </div>
+            <a href="javascript:" className="content-wrap">
+              <Image src={workImg} alt="로고" />
+            </a>
+          </div>
+          <div className="work-list">
+            <div className="work-num">
+              <span>(3)</span>
+            </div>
+            <div className="work-list-tit">
+              <span>삼성화재</span>
+            </div>
+            <a href="javascript:" className="content-wrap">
+              <Image src={workImg} alt="로고" />
+            </a>
           </div>
         </div>
       </section>

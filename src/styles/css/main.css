@@ -28,6 +28,8 @@ footer, header, hgroup, menu, nav, section, a {
 
 body {
   line-height: 1;
+  font-family: "Pretendard";
+  font-weight: 500;
 }
 
 ol, ul {
@@ -49,7 +51,14 @@ table {
   border-spacing: 0;
 }
 
+@font-face {
+  font-family: "Pretendard";
+  src: url("/font/PretendardVariable.woff2") format("woff2");
+  font-weight: 45 920;
+  font-display: swap;
+}
 :root {
+  --under-z: 9;
   --canvas-z: 10;
   --section-z: 11;
 }
@@ -299,6 +308,11 @@ header {
   bottom: unset;
   transform: translate(-50%, -50%);
 }
+.visual-section .txt-wrap-area .txt-wrap.second {
+  top: 23vh;
+  left: unset;
+  right: 1vw;
+}
 .visual-section .txt-wrap-area .txt-wrap .visual-txt {
   font-size: 12.5vw;
   font-weight: 400;
@@ -335,6 +349,24 @@ header {
   width: 50%;
   mix-blend-mode: lighten;
 }
+.visual-section .flow-area {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  border: 1px solid red;
+}
+.visual-section .flow-area .circle {
+  z-index: var(--section-z);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #130F12;
+  opacity: 0;
+}
 .visual-section .scroll-down {
   position: absolute;
   bottom: 30px;
@@ -343,12 +375,12 @@ header {
 }
 
 .about-sec {
+  z-index: var(--section-z);
   position: relative;
   width: 100%;
   height: 100%;
   min-height: 100vh;
   background-color: #fff;
-  z-index: 1;
 }
 .about-sec .txt-sec {
   position: relative;
@@ -383,71 +415,65 @@ header {
 .work-sec {
   z-index: var(--section-z);
   position: relative;
+  display: flex;
+  padding: 5vw 6vh;
   width: 100%;
-  min-height: 100vh;
   background: #fff;
 }
 .work-sec .work-tit-wrap {
   z-index: var(--section-z);
-  position: absolute;
-  top: 6vh;
-  left: 5vw;
   display: flex;
   justify-content: flex-start;
+  width: 30%;
   mix-blend-mode: difference;
+}
+.work-sec .work-tit-wrap.fixed {
+  position: fixed;
 }
 .work-sec .work-tit-wrap .work-tit {
   opacity: 0;
   transform: translateY(100px);
-  font-size: 150px;
   text-align: center;
   color: #fff;
 }
-.work-sec .work-list-con {
+.work-sec .work-list-wrap {
   position: relative;
-  z-index: var(--canvas-z);
-  width: 100%;
-  height: 100vh;
   overflow: hidden;
-}
-.work-sec .work-list-con .work-list-wrap {
-  overflow: hidden;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 200%;
+  width: 70%;
   height: 100%;
   border: 1px solid red;
 }
-.work-sec .work-list-con .work-list-wrap .work-list {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.work-sec .work-list-wrap .work-list {
   width: 100%;
   height: 100%;
-  border: 1px solid blue;
   overflow: hidden;
+  background: transparent;
+  opacity: 0;
+  transform: translateY(100px);
 }
-.work-sec .work-list-con .work-list-wrap .work-list.first {
-  top: 0;
+.work-sec .work-list-wrap .work-list + .work-list {
+  margin-top: 100px;
 }
-.work-sec .work-list-con .work-list-wrap .work-list .content-wrap {
+.work-sec .work-list-wrap .work-list .work-num {
+  margin-bottom: 30px;
+  font-size: 14px;
+  color: #fff;
+}
+.work-sec .work-list-wrap .work-list .work-list-tit {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #fff;
+}
+.work-sec .work-list-wrap .work-list .content-wrap {
   position: relative;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  width: 55vw;
-  height: 55vh;
-  border: 1px solid red;
 }
-.work-sec .work-list-con .work-list-wrap .work-list .content-wrap:hover img {
-  transform: translate(-50%, -50%) scale(1.1);
+.work-sec .work-list-wrap .work-list .content-wrap:hover img {
   transition: transform 0.6s ease;
 }
-.work-sec .work-list-con .work-list-wrap .work-list .content-wrap img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1);
+.work-sec .work-list-wrap .work-list img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;

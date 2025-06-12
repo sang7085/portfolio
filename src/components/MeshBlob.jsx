@@ -58,7 +58,7 @@ const BlobMesh = forwardRef(({ position, blobRendersRef }, ref) => {
       rotation={[-1.33, -0.13, -2.0]}
       position={position}
     >
-      <primitive object={new THREE.SphereGeometry(1, 128, 128)} attach="geometry" />
+      <primitive object={new THREE.SphereGeometry(1, 256, 256)} attach="geometry" />
       <meshPhysicalMaterial
         roughness={0.44}
         metalness={0.73}

@@ -51,7 +51,7 @@ function CanvasContent() {
   );
 }
 
-export default function AboutMeComp() {
+export default function AboutMeComp({introStatus}) {
 
   const wrapRef = useRef();
   const txtRef = useRef([]);
@@ -62,7 +62,8 @@ export default function AboutMeComp() {
   }, []);
 
   useEffect(() => {
-    gsap.to(txtRef.current, {
+    if (!introStatus) {
+      gsap.to(txtRef.current, {
       opacity: 1,
       y: 0,
       duration: .5,
@@ -75,6 +76,7 @@ export default function AboutMeComp() {
         // markers: true,
       }
     });
+    }
 
   }, []);
 
@@ -82,9 +84,9 @@ export default function AboutMeComp() {
   return (
     <>
       <section className="about-sec" ref={wrapRef}>
-        <div className="txt-sec">
+        {/* <div className="txt-sec">
           {text.map((txt, index) => (<p className={`txt ${notoSans}`} ref={(el) => (txtRef.current[index] = el)} key={index}>{txt === " " ? "\u00A0" : txt}</p>))}
-        </div>
+        </div> */}
         <div className="fluid-wrap">
           <Canvas>
             <MyProfile />
@@ -92,13 +94,13 @@ export default function AboutMeComp() {
             <directionalLight intensity={2} position={[0, 2, 3]} />
           </Canvas>
         </div>
-        <div className={`txt-wrap ${notoSans.className}`} ref={wrapRef}>
+        {/* <div className={`txt-wrap ${notoSans.className}`} ref={wrapRef}>
           <p className="txt-list">I am currently active as</p>
           <p className="txt-list">a frontend engineer.</p>
           <p className="txt-list">i specialize in animations</p>
           <p className="txt-list">and interactive expressions.</p>
           <p className="txt-list">and above all, i love this job.</p>
-        </div>
+        </div> */}
       </section>
     </>
   )
