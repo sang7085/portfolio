@@ -294,6 +294,7 @@ header {
   left: 30px;
   display: flex;
   opacity: 1;
+  mix-blend-mode: difference;
 }
 .visual-section .txt-wrap-area .txt-wrap.under {
   top: unset;
@@ -318,6 +319,7 @@ header {
   font-weight: 400;
   transform: translateY(100px);
   opacity: 0;
+  color: #000;
 }
 .visual-section .txt-wrap-area .txt-wrap .visual-txt.motion-txt-wrap {
   overflow: hidden;

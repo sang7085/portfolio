@@ -109,7 +109,7 @@ function CanvasContent() {
 // Main Visual Component
 export default function VisualComp({ introStatus }) {
   // 블롭 초기 설정값
-  const blobRendersRef = useRef({ blobFreq: 1, surfaceFreq: 1, color: "black", bumpy: false, baseRadius: 1,});
+  const blobRendersRef = useRef({ blobFreq: 1, surfaceFreq: 1, color: "black", bumpy: false, baseRadius: 2,});
 
   // 비주얼 텍스트 모션
   const blobRef = useRef([]);
@@ -158,6 +158,7 @@ export default function VisualComp({ introStatus }) {
           scrub: true,
           pin: true,
           pinSpacing: true,
+          // markers: true,
         }
       });
 
@@ -177,7 +178,7 @@ export default function VisualComp({ introStatus }) {
             // markers: true,
             onEnter() {
               if (index === 0) {
-                blobRendersRef.current.baseRadius = 1;
+                blobRendersRef.current.baseRadius = 2;
                 gsap.to(blobRendersRef.current, {
                   baseRadius: 4,
                   duration: 2,
@@ -202,7 +203,7 @@ export default function VisualComp({ introStatus }) {
             onLeaveBack() {
               if (index === 0) {
                 gsap.to(blobRendersRef.current, {
-                  baseRadius: 1,
+                  baseRadius: 2,
                   duration: 2,
                   ease: "gentleEase",
                 });
@@ -263,7 +264,7 @@ export default function VisualComp({ introStatus }) {
           <Line points={[[-3, -10, 0], [-3, 10, 0]]} color="#eeeeee" lineWidth={2} ref={(el) => (lineRefs.current[2] = el)} />
           <Line points={[[-1, -10, 0], [-1, 10, 0]]} color="#eeeeee" lineWidth={2} ref={(el) => (lineRefs.current[3] = el)} /> */}
           <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
-          <MeshBlob position={[-4, -1.5, 0]} ref={blobRef} blobRendersRef={blobRendersRef} />
+          <MeshBlob position={[0, -3.5, 0]} ref={blobRef} blobRendersRef={blobRendersRef} />
           <ambientLight intensity={0.5} />
           <directionalLight intensity={1.5} position={[0, 2, 2]} />
           <Environment preset="city" />
@@ -273,12 +274,12 @@ export default function VisualComp({ introStatus }) {
       <div className="txt-wrap-area">
         <div className="txt-wrap" ref={topRef}>
           {text.map((txt, index) => (
-            <h2 className={`visual-txt ${orbitron.className}`} ref={(el) => (motionRef.current[index] = el)} key={index}>{txt}</h2>
+            <h2 className={`visual-txt ${anton.className}`} ref={(el) => (motionRef.current[index] = el)} key={index}>{txt}</h2>
           ))}
         </div>
         <div className="txt-wrap second" ref={bottomRef}>
           {text2.map((txt, index) => (
-            <h2 className={`visual-txt ${orbitron.className}`} ref={(el) => (motionRef2.current[index] = el)} key={index}>{txt}</h2>
+            <h2 className={`visual-txt ${anton.className}`} ref={(el) => (motionRef2.current[index] = el)} key={index}>{txt}</h2>
           ))}
         </div>
       </div>
