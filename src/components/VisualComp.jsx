@@ -109,7 +109,7 @@ function CanvasContent() {
 // Main Visual Component
 export default function VisualComp({ introStatus }) {
   // 블롭 초기 설정값
-  const blobRendersRef = useRef({ blobFreq: 1, surfaceFreq: 1, color: "black", bumpy: false, baseRadius: 2,});
+  const blobRendersRef = useRef({ blobFreq: 1, surfaceFreq: 1, color: "black", rotate: false, baseRadius: 2, });
 
   // 비주얼 텍스트 모션
   const blobRef = useRef([]);
@@ -120,9 +120,17 @@ export default function VisualComp({ introStatus }) {
   const text = "INTERACTIVE".split("");
   const text2 = "DEVELOPER".split("");
 
+  const triggerRef = useRef([]);
+  const flowRef = useRef([]);
   const topRef = useRef([]);
   const bottomRef = useRef([]);
   const circleRef = useRef([]);
+
+  const textList = [
+    "사용자가 가장 먼저 무엇을 느끼고 어디에 몰입할지 방향을 제시할 수 있는, 움직임 하나하나에 담긴 의도와 흐름이 브랜드의 메시지를 사용자에게 어떻게 전달될지를 고민합니다.",
+    "형태가 움직이는 작은 변화 속에서, 브랜드가 가진 분위기와 감정을 어떻게 시각적으로 전달할지를 고민합니다.",
+    "고정된 틀보다는 맥락에 따라 유동적으로 반응할 수 있는 사고와 표현을 추구합니다. 화면이 상황에 따라 자연스럽게 흘러가듯, 방향성을 가지고 일합니다.",
+  ];
 
   useEffect(() => {
 
@@ -130,12 +138,6 @@ export default function VisualComp({ introStatus }) {
     CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
     if (!introStatus) {
-      gsap.to(blobWrapRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "gentleEase",
-      })
       gsap.to(motionRef.current, {
         opacity: 1,
         y: 0,
@@ -147,44 +149,33 @@ export default function VisualComp({ introStatus }) {
         opacity: 1,
         y: 0,
         duration: 1,
+        delay: .5,
+        ease: "gentleEase",
         stagger: 0.05,
       });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".txt-wrap-area",
-          start: "top top",
-          end: "+=200% bottom",
-          scrub: true,
-          pin: true,
-          pinSpacing: true,
-          // markers: true,
-        }
-      });
-
-      tl.to(topRef.current, { x: "-110%" })
-        .to(bottomRef.current, { x: "110%" }, "<")
-        .to(blobRef.current.position, { x: -6.5, y: 0, }, "<")
+      gsap.to(blobWrapRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: 1,
+        ease: "gentleEase",
+      })
 
       // flow section start
       const flowTxt = document.querySelectorAll(".flow-txt");
+      const flowTxtLeng = flowTxt.length;
+      const innerTxt = document.querySelectorAll(".flow-txt .txt");
 
       flowTxt.forEach((el, index) => {
         gsap.to(el, {
+          ease: "gentleEase",
           scrollTrigger: {
             trigger: el,
             start: "top top",
             end: "bottom bottom",
-            // markers: true,
+            duration: .5,
+            ease: "gentleEase",
             onEnter() {
-              if (index === 0) {
-                blobRendersRef.current.baseRadius = 2;
-                gsap.to(blobRendersRef.current, {
-                  baseRadius: 4,
-                  duration: 2,
-                  ease: "gentleEase",
-                });
-              }
               if (index === 1) {
                 blobRendersRef.current.blobFreq = 1;
                 blobRendersRef.current.surfaceFreq = 1;
@@ -196,14 +187,12 @@ export default function VisualComp({ introStatus }) {
                 });
               }
               if (index === 2) {
-                blobRendersRef.current.bumpy = true;
-                gsap.set(blobRef.current.position, { x: -6.5 });
+                blobRendersRef.current.rotate = true;
               }
             },
             onLeaveBack() {
               if (index === 0) {
                 gsap.to(blobRendersRef.current, {
-                  baseRadius: 2,
                   duration: 2,
                   ease: "gentleEase",
                 });
@@ -217,39 +206,55 @@ export default function VisualComp({ introStatus }) {
                 });
               }
               if (index === 2) {
-                blobRendersRef.current.bumpy = false;
+                blobRendersRef.current.rotate = false;
               }
             }
           },
         });
       });
 
-      // gsap.to(blobRef.current.position, {
-      //   x: 0,
-      //   scrollTrigger: {
-      //     trigger: ".flow-area",
-      //     start: "top top",
-      //     end: "bottom bottom",
-      //     markers: true,
-      //     scrub: 1,
-      //   }
-      // })
+      // flowtxt 모션
+      flowRef.current.forEach((el, index) => {
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "gentleEase",
+          scrollTrigger: {
+            trigger: triggerRef.current[index],
+            start: "top top+=30%",
+            end: "bottom bottom",
+            toggleActions: "play none none none",
+          },
+        });
+      });
 
-      // const tl2 = gsap.timeline({
-      //   scrollTrigger: {
-      //     trigger: ".flow-area",
-      //     start: "top bottom",
-      //     end: "bottom bottom",
-      //     markers: true,
-      //     scrub: 1,
-      //   }
-      // })
-      
-      // tl2.to(circleRef.current, {
-      //   scale: 10,
-      //   opacity: 1,
-      // })
-      // .to(blobWrapRef.current, {opacity: 0})
+      // blob 중앙배치
+      gsap.to(blobRef.current.position, {
+        x: 0,
+        y: 0,
+        scrollTrigger: {
+          trigger: flowTxt[0],
+          start: "top bottom",
+          end: "+=200% bottom",
+          scrub: true,
+        }
+      })
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: flowTxt[flowTxtLeng - 1],
+          start: "top top",
+          end: "+=150% top",
+          scrub: true,
+          pin: true,
+          pinSpacing: true,
+        }
+      });
+
+      tl.to(blobRendersRef.current, { baseRadius: 10, })
+        .to(flowTxt[flowTxtLeng - 1], { opacity: 0, }, "<")
+
     }
   }, [introStatus]);
 
@@ -257,12 +262,8 @@ export default function VisualComp({ introStatus }) {
     <section className="visual-section">
       <div className={`canvas-image-wrap ${!introStatus ? "active" : ""}`} ref={blobWrapRef}>
         <Canvas gl={{ alpha: true }} style={{ background: "transparent" }}>
-          {/* <Torus /> */}
+          <Torus />
           <CanvasContent />
-          {/* <Line points={[[-10, -1, 0], [10, -1, 0]]} color="#eeeeee" lineWidth={2} ref={(el) => (lineRefs.current[0] = el)} />
-          <Line points={[[-10, 1, 0], [10, 1, 0]]} color="#eeeeee" lineWidth={2} ref={(el) => (lineRefs.current[1] = el)} />
-          <Line points={[[-3, -10, 0], [-3, 10, 0]]} color="#eeeeee" lineWidth={2} ref={(el) => (lineRefs.current[2] = el)} />
-          <Line points={[[-1, -10, 0], [-1, 10, 0]]} color="#eeeeee" lineWidth={2} ref={(el) => (lineRefs.current[3] = el)} /> */}
           <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
           <MeshBlob position={[0, -3.5, 0]} ref={blobRef} blobRendersRef={blobRendersRef} />
           <ambientLight intensity={0.5} />
@@ -286,28 +287,34 @@ export default function VisualComp({ introStatus }) {
       <div className="coment-wrap">
         <p></p>
       </div>
+      {/* <ul className="flow-txt-wrap">
+        <li className="flow-txt">
+          <p className={`txt`}>
+            사용자가 가장 먼저 무엇을 느끼고 어디에 몰입할지 방향을 제시할 수 있는,
+            움직임 하나하나에 담긴 의도와 흐름이 브랜드의 메시지를 사용자에게 어떻게 전달될지를 고민합니다.
+          </p>
+        </li>
+        <li className="flow-txt">
+          <p className={`txt`}>
+            형태가 움직이는 작은 변화 속에서,
+            브랜드가 가진 분위기와 감정을 어떻게 시각적으로 전달할지를 고민합니다.
+          </p>
+        </li>
+        <li className="flow-txt">
+          <p className={`txt`}>
+            고정된 틀보다는 맥락에 따라 유동적으로 반응할 수 있는 사고와 표현을 추구합니다.
+            화면이 상황에 따라 자연스럽게 흘러가듯, 저 역시 그런 방향성을 가지고 일합니다.
+          </p>
+        </li>
+      </ul> */}
       <ul className="flow-txt-wrap">
-        <li className="flow-txt">
-          <p className={`txt ${anton.className}`}>
-            Optikka leverages Design-as-Code
-            transforming traditional design into
-            adaptable, intelligent systems for a global
-            audience.</p>
-        </li>
-        <li className="flow-txt">
-          <p className={`txt ${anton.className}`}>
-            Optikka leverages Design-as-Code
-            transforming traditional design into
-            adaptable, intelligent systems for a global
-            audience.</p>
-        </li>
-        <li className="flow-txt">
-          <p className={`txt ${anton.className}`}>
-            Optikka leverages Design-as-Code
-            transforming traditional design into
-            adaptable, intelligent systems for a global
-            audience.</p>
-        </li>
+        {textList.map((text, index) => (
+          <li className="flow-txt" key={index} ref={(el) => (triggerRef.current[index] = el)}>
+            <p className="txt" ref={(el) => (flowRef.current[index] = el)}>
+              {text}
+            </p>
+          </li>
+        ))}
       </ul>
       <div className="flow-area">
         <div className="circle" ref={circleRef}></div>

@@ -16,10 +16,10 @@ gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 export default function workComp({ introStatus }) {
 
-  const workSecRef = useRef([]);
-  const txtMotionWrap = useRef([]);
+  const workSecRef = useRef(null);
+  const txtMotionWrap = useRef(null);
   const txtMotion = useRef([]);
-  const imgWrapMotion = useRef([]);
+  const imgWrapMotion = useRef(null);
   const text = "[WORKS]".split("");
 
 
@@ -29,6 +29,7 @@ export default function workComp({ introStatus }) {
       CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
       const workList = document.querySelectorAll(".work-list");
       const workListLeng = workList.length;
+      txtMotion.current = []
 
       // 텍스트 페이드인
       gsap.to(txtMotion.current, {
@@ -39,7 +40,7 @@ export default function workComp({ introStatus }) {
         stagger: 0.05,
         scrollTrigger: {
           trigger: ".work-sec",
-          start: "-=30% top",
+          start: "top top",
           end: "bottom bottom",
         }
       });
@@ -53,29 +54,50 @@ export default function workComp({ introStatus }) {
         }
       })
 
-      gsap.to(workSecRef.current, {
-        backgroundColor: "#000",
-        scrollTrigger: {
-          trigger: workSecRef.current,
-          start: "top 50%",
-          end: "bottom bottom",
-          markers: true,
-          scrub: 1,
-        }
-      })
-
+      // workList.forEach((el, i) => {
+      //   console.log(i);
+      //   gsap.to(el, {
+      //     y: 0,
+      //     opacity: 1,
+      //     ease: "gentleEase",
+      //     scrollTrigger: {
+      //       trigger: el,
+      //       start: "top center",
+      //       end: "bottom bottom",
+      //       markers: true,
+      //     }
+      //   })
+      // })
       workList.forEach((el, i) => {
-        gsap.to(el, {
-          y: 0,
-          opacity: 1,
-          ease: "gentleEase",
+        const contentWrap = el.querySelector(".content-wrap");
+        gsap.set(contentWrap, { scale: 0, y: "-50%", x: "-50%" })
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top top",
+          end: "bottom+=50% bottom",
+          scrub: true,
+          pin: true,
+          pinSpacing: true,
+          markers: true,
+          anticipatePin: 1
+        });
+
+        gsap.to(contentWrap, {
+          scale: 1.6,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: el,
-            start: "top +=30%",
+            start: "top bottom",
             end: "bottom bottom",
-          }
-        })
+            scrub: true,
+          },
+        });
+
       })
+
+      return () => {
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      };
 
     }
   }, [introStatus]);
@@ -84,21 +106,20 @@ export default function workComp({ introStatus }) {
   return (
     <>
       <section className="work-sec" ref={workSecRef}>
-        <div className="work-tit-wrap" ref={txtMotionWrap}>
+        {/* <div className="work-tit-wrap" ref={txtMotionWrap}>
           {text.map((txt, index) => (
             <h2 className={`work-tit`} key={index} ref={(el) => (txtMotion.current[index] = el)}>{txt}</h2>
           ))}
-          {/* <h2 className={`work-tit ${anton.className}`} ref={titRef}>FEATURED WORKS</h2> */}
-        </div>
-        <div className="work-list-wrap" ref={imgWrapMotion}>
+        </div> */}
+        {/* <div className="work-list-wrap" ref={imgWrapMotion}>
           <div className="work-list first">
             <div className="work-num">
               <span>(1)</span>
             </div>
             <div className="work-list-tit">
-              <span>HD Hyundai</span>
+              <span>HD HYUNDAI</span>
             </div>
-            <a href="javascript:" className="content-wrap">
+            <a href="#" onClick={(e) => e.preventDefault()} className="content-wrap">
               <Image src={workImg} alt="로고" />
             </a>
           </div>
@@ -112,7 +133,7 @@ export default function workComp({ introStatus }) {
             <div className="work-list-txt">
               <p></p>
             </div>
-            <a href="javascript:" className="content-wrap">
+            <a href="#" onClick={(e) => e.preventDefault()} className="content-wrap">
               <Image src={workImg} alt="로고" />
             </a>
           </div>
@@ -123,7 +144,31 @@ export default function workComp({ introStatus }) {
             <div className="work-list-tit">
               <span>삼성화재</span>
             </div>
-            <a href="javascript:" className="content-wrap">
+            <a href="#" onClick={(e) => e.preventDefault()} className="content-wrap">
+              <Image src={workImg} alt="로고" />
+            </a>
+          </div>
+        </div> */}
+        <div className="work-list-wrap">
+          <div className="work-list">
+            {/* <div className="work-num">
+              <span>(3)</span>
+            </div>
+            <div className="work-list-tit">
+              <span>삼성화재</span>
+            </div> */}
+            <a href="#" onClick={(e) => e.preventDefault()} className="content-wrap">
+              <Image src={workImg} alt="로고" />
+            </a>
+          </div>
+          <div className="work-list">
+            {/* <div className="work-num">
+              <span>(3)</span>
+            </div>
+            <div className="work-list-tit">
+              <span>삼성화재</span>
+            </div> */}
+            <a href="#" onClick={(e) => e.preventDefault()} className="content-wrap">
               <Image src={workImg} alt="로고" />
             </a>
           </div>

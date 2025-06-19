@@ -13,8 +13,8 @@ const BlobMesh = forwardRef(({ position, blobRendersRef }, ref) => {
   
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
-    const { blobFreq, surfaceFreq, color, bumpy, baseRadius } = blobRendersRef.current;
-    if (bumpy) {
+    const { blobFreq, surfaceFreq, color, rotate, baseRadius } = blobRendersRef.current;
+    if (rotate) {
       meshRef.current.rotation.x += 0.005;
       meshRef.current.rotation.y += 0.005;
       meshRef.current.rotation.z += 0.005;
@@ -58,7 +58,7 @@ const BlobMesh = forwardRef(({ position, blobRendersRef }, ref) => {
       rotation={[-1.33, -0.13, -2.0]}
       position={position}
     >
-      <primitive object={new THREE.SphereGeometry(1, 256, 256)} attach="geometry" />
+      <primitive object={new THREE.SphereGeometry(1, 128, 128)} attach="geometry" />
       <meshPhysicalMaterial
         roughness={0.44}
         metalness={0.73}

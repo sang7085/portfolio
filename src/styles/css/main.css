@@ -290,7 +290,7 @@ header {
 }
 .visual-section .txt-wrap-area .txt-wrap {
   position: absolute;
-  top: 0;
+  top: 10vh;
   left: 30px;
   display: flex;
   opacity: 1;
@@ -310,7 +310,7 @@ header {
   transform: translate(-50%, -50%);
 }
 .visual-section .txt-wrap-area .txt-wrap.second {
-  top: 23vh;
+  top: 33vh;
   left: unset;
   right: 1vw;
 }
@@ -336,25 +336,27 @@ header {
   z-index: var(--section-z);
   position: relative;
   width: 100%;
+  mix-blend-mode: difference;
 }
 .visual-section .flow-txt-wrap .flow-txt {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100vh;
-  font-size: 50px;
-  color: #000;
+  color: #fff;
 }
 .visual-section .flow-txt-wrap .flow-txt .txt {
-  margin-right: 10vw;
-  width: 50%;
+  opacity: 0;
+  transform: translateY(100px);
+  width: 20%;
+  line-height: 26px;
+  text-align: center;
   mix-blend-mode: lighten;
 }
 .visual-section .flow-area {
   position: relative;
   width: 100%;
-  height: 100vh;
   border: 1px solid red;
 }
 .visual-section .flow-area .circle {
@@ -418,8 +420,8 @@ header {
   z-index: var(--section-z);
   position: relative;
   display: flex;
-  padding: 5vw 6vh;
   width: 100%;
+  min-height: 100vh;
   background: #fff;
 }
 .work-sec .work-tit-wrap {
@@ -433,52 +435,33 @@ header {
   position: fixed;
 }
 .work-sec .work-tit-wrap .work-tit {
-  opacity: 0;
   transform: translateY(100px);
   text-align: center;
-  color: #fff;
+  color: #000;
 }
 .work-sec .work-list-wrap {
   position: relative;
-  overflow: hidden;
-  width: 70%;
+  width: 100%;
   height: 100%;
-  border: 1px solid red;
+  border: 1px solid blue;
 }
 .work-sec .work-list-wrap .work-list {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: transparent;
-  opacity: 0;
-  transform: translateY(100px);
-}
-.work-sec .work-list-wrap .work-list + .work-list {
-  margin-top: 100px;
-}
-.work-sec .work-list-wrap .work-list .work-num {
-  margin-bottom: 30px;
-  font-size: 14px;
-  color: #fff;
-}
-.work-sec .work-list-wrap .work-list .work-list-tit {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #fff;
+  height: 100vh;
 }
 .work-sec .work-list-wrap .work-list .content-wrap {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   overflow: hidden;
+  width: 30vw;
+  height: 50vh;
 }
-.work-sec .work-list-wrap .work-list .content-wrap:hover img {
-  transition: transform 0.6s ease;
-}
-.work-sec .work-list-wrap .work-list img {
+.work-sec .work-list-wrap .work-list .content-wrap img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  transition: transform 0.6s ease;
 }/*# sourceMappingURL=main.css.map */
