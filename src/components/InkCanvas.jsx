@@ -1,9 +1,9 @@
-// 'use client';
+// "use client";
 
-// import { extend, useFrame, useThree } from '@react-three/fiber';
-// import { useRef, useEffect } from 'react';
-// import * as THREE from 'three';
-// import { InkMaterial } from '../shaders/inkShader';
+// import { extend, useFrame, useThree } from "@react-three/fiber";
+// import { useRef, useEffect } from "react";
+// import * as THREE from "three";
+// import { InkMaterial } from "../shaders/inkShader";
 
 // extend({ InkMaterial });
 
@@ -18,13 +18,13 @@
 //       // ✅ 반드시 .value로 접근
 //       matRef.current.uniforms.uMouse.value = new THREE.Vector2(mouseX, mouseY);
 //       // ✅ 콘솔 확인
-//       console.log('Mouse UV:', mouseX.toFixed(3), mouseY.toFixed(3));
+//       console.log("Mouse UV:", mouseX.toFixed(3), mouseY.toFixed(3));
 //     }
 //   };
 
 //   useEffect(() => {
-//     window.addEventListener('mousemove', handleMouseMove);
-//     return () => window.removeEventListener('mousemove', handleMouseMove);
+//     window.addEventListener("mousemove", handleMouseMove);
+//     return () => window.removeEventListener("mousemove", handleMouseMove);
 //   }, []);
 
 //   useFrame(({ clock }) => {

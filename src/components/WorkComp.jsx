@@ -1,49 +1,43 @@
+import workData from "@/data/workData";
 import { useEffect, useRef, useState } from "react";
-import Image from 'next/image';
-import workImg from "../../public/assets/images/work-01-test.webp";
+import Link from "next/link";
+import Image from "next/image";
 import { gsap } from "gsap";
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { CustomEase } from 'gsap/dist/CustomEase';
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { CustomEase } from "gsap/dist/CustomEase";
+import { useRouter } from "next/router";
 
-// font
-import { Anton } from "next/font/google";
-
-const anton = Anton({ subsets: ["latin"], weight: ["400"] });
-
-//easing
 gsap.registerPlugin(ScrollTrigger, CustomEase);
+CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
+export default function workComp({ introStatus, transitionTo }) {
 
-export default function workComp({ introStatus }) {
-
+  const router = useRouter();
   const workSecRef = useRef(null);
   const txtMotionWrap = useRef(null);
   const txtMotion = useRef([]);
-  const imgWrapMotion = useRef(null);
+  const slideTitWrap = useRef(null);
+  const slideTitLeft = useRef(null);
+  const slideTitRight = useRef(null);
   const text = "[WORKS]".split("");
 
-
   useEffect(() => {
-
     if (!introStatus) {
-      CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
       const workList = document.querySelectorAll(".work-list");
       const workListLeng = workList.length;
       txtMotion.current = []
 
-      // 텍스트 페이드인
-      gsap.to(txtMotion.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "gentleEase",
-        stagger: 0.05,
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: ".work-sec",
-          start: "top top",
-          end: "bottom bottom",
-        }
-      });
+          trigger: slideTitWrap.current,
+          start: "top center",
+          end: "bottom top",
+          scrub: true,
+        },
+      })
+
+      tl.to(slideTitLeft.current, { x: 0, backgroundPositionX: "0%", ease: "gentleEase" })
+        .to(slideTitRight.current, { x: 0, backgroundPositionX: "0%", ease: "gentleEase" }, "<")
 
       gsap.to(txtMotionWrap.current, {
         scrollTrigger: {
@@ -54,123 +48,58 @@ export default function workComp({ introStatus }) {
         }
       })
 
-      // workList.forEach((el, i) => {
-      //   console.log(i);
-      //   gsap.to(el, {
-      //     y: 0,
-      //     opacity: 1,
-      //     ease: "gentleEase",
-      //     scrollTrigger: {
-      //       trigger: el,
-      //       start: "top center",
-      //       end: "bottom bottom",
-      //       markers: true,
-      //     }
-      //   })
-      // })
-      workList.forEach((el, i) => {
-        const contentWrap = el.querySelector(".content-wrap");
-        gsap.set(contentWrap, { scale: 0, y: "-50%", x: "-50%" })
-        ScrollTrigger.create({
-          trigger: el,
-          start: "top top",
-          end: "bottom+=50% bottom",
-          scrub: true,
-          pin: true,
-          pinSpacing: true,
-          markers: true,
-          anticipatePin: 1
+      document.querySelectorAll(".content-wrap").forEach((wrap) => {
+        const workList = wrap.closest(".work-list");
+        const detail = workList.querySelector(".detail");
+
+        wrap.addEventListener("mouseenter", () => {
+          detail.classList.add("active");
+          console.log("Fsdfss")
         });
 
-        gsap.to(contentWrap, {
-          scale: 1.6,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top bottom",
-            end: "bottom bottom",
-            scrub: true,
-          },
+        wrap.addEventListener("mouseleave", () => {
+          detail.classList.remove("active");
         });
-
-      })
-
-      return () => {
-        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-      };
-
+      });
     }
-  }, [introStatus]);
+  }, [introStatus, router]);
 
 
   return (
     <>
-      <section className="work-sec" ref={workSecRef}>
-        {/* <div className="work-tit-wrap" ref={txtMotionWrap}>
-          {text.map((txt, index) => (
-            <h2 className={`work-tit`} key={index} ref={(el) => (txtMotion.current[index] = el)}>{txt}</h2>
-          ))}
-        </div> */}
-        {/* <div className="work-list-wrap" ref={imgWrapMotion}>
-          <div className="work-list first">
-            <div className="work-num">
-              <span>(1)</span>
-            </div>
-            <div className="work-list-tit">
-              <span>HD HYUNDAI</span>
-            </div>
-            <a href="#" onClick={(e) => e.preventDefault()} className="content-wrap">
-              <Image src={workImg} alt="로고" />
-            </a>
+      <section id="work" className="work-sec" ref={workSecRef}>
+        <div className="inner">
+          <div className="slide-tit-wrap" ref={slideTitWrap}>
+            <h3 className="slide-tit left" ref={slideTitLeft}>FEATURED</h3>
+            <h3 className="slide-tit right" ref={slideTitRight}>WORKS</h3>
           </div>
-          <div className="work-list">
-            <div className="work-num">
-              <span>(2)</span>
-            </div>
-            <div className="work-list-tit">
-              <span>삼성화재</span>
-            </div>
-            <div className="work-list-txt">
-              <p></p>
-            </div>
-            <a href="#" onClick={(e) => e.preventDefault()} className="content-wrap">
-              <Image src={workImg} alt="로고" />
-            </a>
-          </div>
-          <div className="work-list">
-            <div className="work-num">
-              <span>(3)</span>
-            </div>
-            <div className="work-list-tit">
-              <span>삼성화재</span>
-            </div>
-            <a href="#" onClick={(e) => e.preventDefault()} className="content-wrap">
-              <Image src={workImg} alt="로고" />
-            </a>
-          </div>
-        </div> */}
-        <div className="work-list-wrap">
-          <div className="work-list">
-            {/* <div className="work-num">
-              <span>(3)</span>
-            </div>
-            <div className="work-list-tit">
-              <span>삼성화재</span>
-            </div> */}
-            <a href="#" onClick={(e) => e.preventDefault()} className="content-wrap">
-              <Image src={workImg} alt="로고" />
-            </a>
-          </div>
-          <div className="work-list">
-            {/* <div className="work-num">
-              <span>(3)</span>
-            </div>
-            <div className="work-list-tit">
-              <span>삼성화재</span>
-            </div> */}
-            <a href="#" onClick={(e) => e.preventDefault()} className="content-wrap">
-              <Image src={workImg} alt="로고" />
-            </a>
+          <div className="work-list-wrap">
+            {workData.map((work, index) => (
+              <div className="work-list" key={work.id}>
+                <Link href={`/work/${work.slug}`} className="content-wrap" onClick={(e) => {
+                  e.preventDefault();
+                  transitionTo(`/work/${work.slug}`)
+                }}>
+                  <Image src={work.thumbnail} className="thumbnail" alt="썸네일" fill style={{ objectFit: "cover" }} />
+                  {work.awards && (
+                    <div className="awards">
+                      <Image src={work.awards} alt="수상" fill style={{ objectFit: "cover" }} />
+                    </div>
+                  )}
+                </Link>
+
+                <div className="detail">
+                  <h3 className="title">{work.titleKr}</h3>
+                  <div className="tag-wrap">
+                    <span className="tag">{work.tags[0]}</span>
+                    <span className="tag">{work.tags[1]}</span>
+                    {work.tags[2] && (
+                      <span className="tag">{work.tags[2]}</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

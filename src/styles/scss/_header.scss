@@ -1,9 +1,49 @@
 header {
-  z-index: 999;
+  z-index: var(--front-z);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100px;
-  // background: rgba(0, 0, 0, .1);
+  mix-blend-mode: difference;
+  
+  .utils {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+
+    .light-mode {
+      width: 100%;
+      height: 100%;
+      border: none;
+      
+      &.tr-light {
+        background: url("/assets/images/icon-light-mode.svg") no-repeat center / cover;
+      }
+      
+      &.tr-dark {
+        background: url("/assets/images/icon-dark-mode.svg") no-repeat center / cover;
+      }
+    }
+
+  }
+  
+  .nav {
+    position: absolute;
+    right: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4vh;
+    height: 100%;
+    li {
+      font-size: 16px;
+      a {
+        color: var(--lightColor);
+      }
+    }
+  }
 }

@@ -1,32 +1,23 @@
 
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+import { usePathname } from 'next/navigation';
 import { gsap } from "gsap";
-import { Canvas, useThree, useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Canvas, useThree, useFrame } from "@react-three/fiber";
+import { useMemo } from "react";
 import { EffectComposer } from "@react-three/postprocessing";
 import { Fluid, useConfig } from "@whatisjery/react-fluid-distortion";
-import { Environment, OrthographicCamera } from '@react-three/drei';
-import { useControls, Leva } from 'leva';
-import { CustomEase } from 'gsap/dist/CustomEase';
+import { Environment, OrthographicCamera, OrbitControls } from "@react-three/drei";
+import { useControls, Leva } from "leva";
+import { CustomEase } from "gsap/dist/CustomEase";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import MeshBlob from "./MeshBlob";
 
-// font
-import { Anton } from "next/font/google";
-import { Orbitron } from "next/font/google";
-const anton = Anton({ subsets: ["latin"], weight: ["400"] });
-const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
-
 // easing
-gsap.registerPlugin(CustomEase);
-
-
-
+gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 // Torus Component
 function Torus() {
-
-  // const { nodes } = useGLTF("/assets/images/torrus.glb");
 
   const { viewport } = useThree()
 
@@ -70,11 +61,9 @@ function Torus() {
       <mesh scale={[1, 1.4, 1]} ref={torus1} geometry={new THREE.TorusGeometry(0.5, 0.03, 32, 100)}>
         <MeshTransmissionMaterial {...materialProps} />
       </mesh>
-
       <mesh scale={[1.4, 1, 1]} ref={torus2} geometry={new THREE.TorusGeometry(0.5, 0.03, 32, 100)}>
         <MeshTransmissionMaterial {...materialProps} />
       </mesh> */}
-
     </group>
   );
 }
@@ -106,15 +95,31 @@ function CanvasContent() {
   );
 }
 
+function ClearColorUpdater({ isLight, blobRendersRef }) {
+  const { gl } = useThree();
+
+  useEffect(() => {
+    gl.setClearColor(isLight ? "#ffffff" : "#121315", 1);
+    blobRendersRef.current.color = isLight ? "#121315" : "gray";
+  }, [isLight]);
+
+  return null;
+}
+
+
 // Main Visual Component
-export default function VisualComp({ introStatus }) {
+export default function VisualComp({ introStatus, isLight }) {
+
   // 블롭 초기 설정값
-  const blobRendersRef = useRef({ blobFreq: 1, surfaceFreq: 1, color: "black", rotate: false, baseRadius: 2, });
+  const blobRendersRef = useRef({ blobFreq: 1, surfaceFreq: 1, color: "black", rotate: false, baseRadius: 1.5, });
+
+  const pathname = usePathname();
 
   // 비주얼 텍스트 모션
-  const blobRef = useRef([]);
+  const scrollDownRef = useRef([]);
+  const visualSec = useRef([]);
+  const blobRef = useRef(null);
   const blobWrapRef = useRef([]);
-  // const lineRefs = useRef([]);
   const motionRef = useRef([]);
   const motionRef2 = useRef([]);
   const text = "INTERACTIVE".split("");
@@ -122,51 +127,39 @@ export default function VisualComp({ introStatus }) {
 
   const triggerRef = useRef([]);
   const flowRef = useRef([]);
+  const bgLeftRef = useRef([]);
+  const bgRightRef = useRef([]);
   const topRef = useRef([]);
   const bottomRef = useRef([]);
-  const circleRef = useRef([]);
+  const initPos = useMemo(() => [0, -3.5, 0], []);
 
-  const textList = [
-    "사용자가 가장 먼저 무엇을 느끼고 어디에 몰입할지 방향을 제시할 수 있는, 움직임 하나하나에 담긴 의도와 흐름이 브랜드의 메시지를 사용자에게 어떻게 전달될지를 고민합니다.",
-    "형태가 움직이는 작은 변화 속에서, 브랜드가 가진 분위기와 감정을 어떻게 시각적으로 전달할지를 고민합니다.",
-    "고정된 틀보다는 맥락에 따라 유동적으로 반응할 수 있는 사고와 표현을 추구합니다. 화면이 상황에 따라 자연스럽게 흘러가듯, 방향성을 가지고 일합니다.",
-  ];
 
-  useEffect(() => {
+  // easing
+  CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
-    // easing
-    CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
+  const setBlobRef = useCallback((mesh) => {
+    if (!mesh) return;
+    gsap.set(mesh.position, { x: 0, y: -3.5, z: 0 });
 
-    if (!introStatus) {
-      gsap.to(motionRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "gentleEase",
-        stagger: 0.05,
-      });
-      gsap.to(motionRef2.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        delay: .5,
-        ease: "gentleEase",
-        stagger: 0.05,
-      });
-      gsap.to(blobWrapRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        delay: 1,
-        ease: "gentleEase",
-      })
+    gsap.to(mesh.position, {
+      x: 0,
+      y: 0,
+      scrollTrigger: {
+        trigger: document.querySelector(".flow-txt"),
+        start: "top bottom",
+        end: "bottom bottom",
+        scrub: true,
+      },
+    });
+  }, []);
 
-      // flow section start
-      const flowTxt = document.querySelectorAll(".flow-txt");
-      const flowTxtLeng = flowTxt.length;
-      const innerTxt = document.querySelectorAll(".flow-txt .txt");
-
-      flowTxt.forEach((el, index) => {
+  useLayoutEffect(() => {
+    // flow section start
+    if (!visualSec.current) return;
+    const flowTxtEls = visualSec.current.querySelectorAll(".flow-txt");
+    const flowTxtLeng = flowTxtEls.length;
+    const ctx = gsap.context(() => {
+      flowTxtEls.forEach((el, index) => {
         gsap.to(el, {
           ease: "gentleEase",
           scrollTrigger: {
@@ -180,8 +173,8 @@ export default function VisualComp({ introStatus }) {
                 blobRendersRef.current.blobFreq = 1;
                 blobRendersRef.current.surfaceFreq = 1;
                 gsap.to(blobRendersRef.current, {
-                  blobFreq: 3,
-                  surfaceFreq: 9,
+                  blobFreq: 2,
+                  surfaceFreq: 6,
                   duration: 2,
                   ease: "gentleEase",
                 });
@@ -213,112 +206,166 @@ export default function VisualComp({ introStatus }) {
         });
       });
 
-      // flowtxt 모션
-      flowRef.current.forEach((el, index) => {
-        gsap.to(el, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "gentleEase",
-          scrollTrigger: {
-            trigger: triggerRef.current[index],
-            start: "top top+=30%",
-            end: "bottom bottom",
-            toggleActions: "play none none none",
-          },
-        });
+    });
+    return () => ctx.revert();
+  }, [introStatus]);
+
+  useEffect(() => {
+    if (!introStatus) {
+
+      const flowTxtEls = visualSec.current.querySelectorAll(".flow-txt");
+      const flowTxtLeng = flowTxtEls.length;
+
+      // intro 이후 motion
+      gsap.to(motionRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "gentleEase",
+        stagger: 0.05,
       });
 
-      // blob 중앙배치
-      gsap.to(blobRef.current.position, {
-        x: 0,
+      gsap.to(motionRef2.current, {
+        opacity: 1,
         y: 0,
-        scrollTrigger: {
-          trigger: flowTxt[0],
-          start: "top bottom",
-          end: "+=200% bottom",
-          scrub: true,
-        }
+        duration: 1,
+        delay: .5,
+        ease: "gentleEase",
+        stagger: 0.05,
+      });
+
+      gsap.to(blobWrapRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: 1,
+        ease: "gentleEase",
+      })
+
+      gsap.to(scrollDownRef.current, {
+        opacity: 1,
+        y: 0,
+        delay: 1,
+        ease: "gentleEase",
       })
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: flowTxt[flowTxtLeng - 1],
+          trigger: visualSec.current,
           start: "top top",
-          end: "+=150% top",
+          end: "bottom bottom",
           scrub: true,
-          pin: true,
-          pinSpacing: true,
         }
       });
 
-      tl.to(blobRendersRef.current, { baseRadius: 10, })
-        .to(flowTxt[flowTxtLeng - 1], { opacity: 0, }, "<")
+      tl.to(topRef.current, { x: "100%" })
+        .to(bottomRef.current, { x: "-100%" }, "<")
 
+
+      // flowtxt 모션
+      flowRef.current.forEach((el, index) => {
+        if (index === flowTxtLeng - 1) return;
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: triggerRef.current[index],
+            start: "top top",
+            end: "bottom+=150% bottom",
+            scrub: true,
+            pin: true,
+          },
+        });
+
+        tl.to(el, { opacity: 1, y: 0, duration: 0.6, ease: "gentleEase" })
+          .to(bgLeftRef.current[index], { top: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<")
+          .to(bgRightRef.current[index], { bottom: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<");
+      });
+
+      // // blob 중앙배치
+      // gsap.to(blobRef.current.position, {
+      //   x: 0,
+      //   y: 0,
+      //   immediateRender: false,
+      //   scrollTrigger: {
+      //     trigger: flowTxtEls[0],
+      //     start: "top bottom",
+      //     end: "bottom bottom",
+      //     scrub: true,
+      //   }
+      // })
+
+      const tl2 = gsap.timeline({
+        scrollTrigger: {
+          trigger: flowTxtEls[flowTxtLeng - 1],
+          start: "top top",
+          end: "bottom+=150% center",
+          scrub: true,
+          pin: true,
+          pinSpacing: true,
+          invalidateOnRefresh: true,
+          // markers: true,
+        },
+      });
+
+      tl2.to(blobRendersRef.current, { baseRadius: 10, })
+        .to(flowTxtEls[flowTxtLeng - 1], { opacity: 0, }, "<")
     }
+
+    ScrollTrigger.refresh();
+
   }, [introStatus]);
 
   return (
-    <section className="visual-section">
+    <section id="visual" className="visual-sec" ref={visualSec}>
       <div className={`canvas-image-wrap ${!introStatus ? "active" : ""}`} ref={blobWrapRef}>
-        <Canvas gl={{ alpha: true }} style={{ background: "transparent" }}>
-          <Torus />
+        <Canvas gl={{ alpha: true }} key={pathname}>
+          <ClearColorUpdater isLight={isLight} blobRendersRef={blobRendersRef} /> {/* useEffect 리렌더용 */}
           <CanvasContent />
           <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
-          <MeshBlob position={[0, -3.5, 0]} ref={blobRef} blobRendersRef={blobRendersRef} />
+          <MeshBlob position={initPos} ref={setBlobRef} blobRendersRef={blobRendersRef} />
           <ambientLight intensity={0.5} />
           <directionalLight intensity={1.5} position={[0, 2, 2]} />
-          <Environment preset="city" />
+          <Environment preset="city" background={false} />
           <Leva hidden />
+          <OrbitControls />
         </Canvas>
       </div>
       <div className="txt-wrap-area">
         <div className="txt-wrap" ref={topRef}>
           {text.map((txt, index) => (
-            <h2 className={`visual-txt ${anton.className}`} ref={(el) => (motionRef.current[index] = el)} key={index}>{txt}</h2>
+            <h2 className={`visual-txt`} ref={(el) => (motionRef.current[index] = el)} key={index}>{txt}</h2>
           ))}
         </div>
         <div className="txt-wrap second" ref={bottomRef}>
           {text2.map((txt, index) => (
-            <h2 className={`visual-txt ${anton.className}`} ref={(el) => (motionRef2.current[index] = el)} key={index}>{txt}</h2>
+            <h2 className={`visual-txt`} ref={(el) => (motionRef2.current[index] = el)} key={index}>{txt}</h2>
           ))}
         </div>
+        <div className="scroll-down" ref={scrollDownRef}>[ SCROLL DOWN ]</div>
       </div>
-      <div className="coment-wrap">
-        <p></p>
-      </div>
-      {/* <ul className="flow-txt-wrap">
-        <li className="flow-txt">
-          <p className={`txt`}>
-            사용자가 가장 먼저 무엇을 느끼고 어디에 몰입할지 방향을 제시할 수 있는,
-            움직임 하나하나에 담긴 의도와 흐름이 브랜드의 메시지를 사용자에게 어떻게 전달될지를 고민합니다.
-          </p>
-        </li>
-        <li className="flow-txt">
-          <p className={`txt`}>
-            형태가 움직이는 작은 변화 속에서,
-            브랜드가 가진 분위기와 감정을 어떻게 시각적으로 전달할지를 고민합니다.
-          </p>
-        </li>
-        <li className="flow-txt">
-          <p className={`txt`}>
-            고정된 틀보다는 맥락에 따라 유동적으로 반응할 수 있는 사고와 표현을 추구합니다.
-            화면이 상황에 따라 자연스럽게 흘러가듯, 저 역시 그런 방향성을 가지고 일합니다.
-          </p>
-        </li>
-      </ul> */}
       <ul className="flow-txt-wrap">
-        {textList.map((text, index) => (
-          <li className="flow-txt" key={index} ref={(el) => (triggerRef.current[index] = el)}>
-            <p className="txt" ref={(el) => (flowRef.current[index] = el)}>
-              {text}
-            </p>
-          </li>
-        ))}
+        <li className="flow-txt" ref={(el) => (triggerRef.current[0] = el)}>
+          <p className="txt" ref={(el) => (flowRef.current[0] = el)}>
+            사용자가 가장 먼저 무엇을 느끼고 어디에 몰입할지 방향을 제시할 수 있는, 움직임 하나하나에 담긴 의도와 흐름이 브랜드의 메시지를 사용자에게 어떻게 전달될지를 고민합니다.
+          </p>
+          <p className="left-bg bg-txt" ref={(el) => (bgLeftRef.current[0] = el)}>ACCESSIBILITY</p>
+          <p className="right-bg bg-txt" ref={(el) => (bgRightRef.current[0] = el)}>PUBLISHING</p>
+        </li>
+
+        <li className="flow-txt" ref={(el) => (triggerRef.current[1] = el)}>
+          <p className="txt" ref={(el) => (flowRef.current[1] = el)}>
+            형태가 움직이는 작은 변화 속에서, 브랜드가 가진 분위기와 감정을 어떻게 시각적으로 전달할지를 고민합니다.
+          </p>
+          <p className="left-bg bg-txt" ref={(el) => (bgLeftRef.current[1] = el)}>Accessibility</p>
+          <p className="right-bg bg-txt" ref={(el) => (bgRightRef.current[1] = el)}>Publising</p>
+        </li>
+
+        <li className="flow-txt show" ref={(el) => (triggerRef.current[2] = el)}>
+          <p className="txt" ref={(el) => (flowRef.current[2] = el)}>
+            고정된 틀보다는 맥락에 따라 유동적으로 반응할 수 있는 사고와 표현을 추구합니다. 화면이 상황에 따라 자연스럽게 흘러가듯, 방향성을 가지고 일합니다.
+          </p>
+        </li>
       </ul>
-      <div className="flow-area">
-        <div className="circle" ref={circleRef}></div>
-      </div>
     </section>
   );
 }

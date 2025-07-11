@@ -1,11 +1,21 @@
-.visual-section {
+.visual-sec {
   position: relative;
-  overflow: hidden;
-  // background-color: #fff;
   padding-top: 0;
   margin-top: 0;
+  overflow: hidden;
   border: none;
-  
+
+  .scroll-down {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, 100px);
+    font-family: "Unbounded", sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    opacity: 0;
+  }
+
   // canvas
   .canvas-image-wrap {
     z-index: var(--canvas-z);
@@ -26,9 +36,10 @@
       object-fit: cover;
     }
   }
+
   .txt-wrap-area {
     z-index: var(--section-z);
-    position: relative; 
+    position: relative;
     width: 100%;
     height: 100vh;
     overflow: hidden;
@@ -36,18 +47,18 @@
     .txt-wrap {
       position: absolute;
       top: 10vh;
-      left: 30px;
+      left: 8vh;
       display: flex;
       opacity: 1;
       mix-blend-mode: difference;
-  
+
       &.under {
         top: unset;
         left: unset;
-        right: 30px;
+        right: 8vh;
         bottom: 0;
       }
-  
+
       &.center {
         top: 50%;
         left: 50%;
@@ -57,26 +68,25 @@
       }
 
       &.second {
-        top: 33vh;
+        top: 30vh;
         left: unset;
         right: 1vw;
       }
-  
+
       .visual-txt {
-        font-size: 12.5vw;
+        font-size: 10vw;
+        font-family: "Unbounded", sans-serif;
         font-weight: 400;
         transform: translateY(100px);
         opacity: 0;
-        color: #000;
-  
+        color: var(--darkColor);
+
         &.motion-txt-wrap {
           overflow: hidden;
           display: flex;
-  
+
           .motion-txt {
             font-size: 15vw;
-            font-family: "Anton", sans-serif;
-            font-weight: 400;
             font-style: normal;
             color: #eee;
           }
@@ -90,29 +100,58 @@
     position: relative;
     width: 100%;
     mix-blend-mode: difference;
+
     .flow-txt {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
       height: 100vh;
-      color: #fff;
+      color: var(--lightColor);
+
       .txt {
         opacity: 0;
         transform: translateY(100px);
-        width: 20%;
+        width: 16%;
         line-height: 26px;
         text-align: center;
         mix-blend-mode: lighten;
       }
+
+      &.show {
+        .txt {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .bg-txt {
+        position: absolute;
+        transform: translateY(-50%);
+        font-size: 32px;
+        font-family: "Unbounded", sans-serif;
+        font-weight: 400;
+        opacity: 0;
+
+        &.left-bg {
+          left: 8vh;
+          top: 30%;
+        }
+        
+        &.right-bg {
+          right: 8vh;
+          bottom: 30%;
+        }
+      }
+
     }
   }
 
   .flow-area {
     position: relative;
     width: 100%;
-    border: 1px solid red;
-    
+
     .circle {
       z-index: var(--section-z);
       position: absolute;
@@ -125,13 +164,6 @@
       background: #130F12;
       opacity: 0;
     }
-  }
-
-  .scroll-down {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    font-size: 20px;
   }
 
 }

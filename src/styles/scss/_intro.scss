@@ -1,5 +1,5 @@
   .intro-sec {
-    z-index: 999;
+    z-index: var(--front-z);
     position: fixed;
     right: 0;
     width: 100%;
@@ -22,7 +22,7 @@
 
         .intro-txt {
           font-size: 50px;
-          color: #fff;
+          color: var(--lightColor);
         }
 
       }
@@ -37,7 +37,7 @@
     .intro-piano {
       width: 20%;
       height: 100%;
-      background: #000;
+      background: var(--darkColor);
     }
   }
 
@@ -58,7 +58,7 @@
       font-family: "Anton", sans-serif;
       font-weight: 400;
       color: transparent;
-      -webkit-text-stroke: 1px #000;
+      -webkit-text-stroke: 1px var(--darkColor);
       overflow: hidden;
 
       &::after {
@@ -68,7 +68,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(to top, #000 50%, transparent 50%);
+        background: linear-gradient(to top, var(--darkColor) 50%, transparent 50%);
         background-size: 100% 200%;
         background-position: 0 100%; // 아래에서 시작
         -webkit-background-clip: text;
@@ -145,7 +145,7 @@
           left: 0;
           width: 100%;
           height: 0%;
-          background: #000;
+          background: var(--darkColor);
           transition: .6s ease;
         }
 
@@ -194,6 +194,6 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: #000;
+    background: var(--darkColor);
 
   }

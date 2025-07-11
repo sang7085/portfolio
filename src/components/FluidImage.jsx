@@ -1,9 +1,9 @@
-'use client'; // Next.js 환경에서 필수
+"use client";
 
-import { useFrame, extend, useThree } from '@react-three/fiber';
-import { useRef } from 'react';
-import { useTexture } from '@react-three/drei';
-import { FluidMaterial } from '../shaders/fluidShader';
+import { useFrame, extend, useThree } from "@react-three/fiber";
+import { useRef } from "react";
+import { useTexture } from "@react-three/drei";
+import { FluidMaterial } from "../shaders/fluidShader";
 
 extend({ FluidMaterial });
 

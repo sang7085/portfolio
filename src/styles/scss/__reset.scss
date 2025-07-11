@@ -27,10 +27,21 @@ footer, header, hgroup, menu, nav, section, a {
 body {
 	line-height: 1;
 	font-family: "Pretendard";
+	// font-family: "Michroma";
   font-weight: 500;
 }
 ol, ul {
 	list-style: none;
+}
+p {
+	line-height: 24px;
+}
+button {
+	cursor: pointer;
+}
+a {
+	text-decoration: none;
+	color: var(--darkColor);
 }
 blockquote, q {
 	quotes: none;
