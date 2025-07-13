@@ -38,8 +38,8 @@ const workData = [
     url: "https://drivingexperience.hyundai.co.kr/kr/main",
     visual: "/assets/images/img-visual2.jpg",
     visualAlt: "HMG 드라이빙 익스피리언스 비주얼이미지",
-    videoUrl: "/assets/videos/visual-video1.mov",
     thumbnail: "/assets/images/img-visual2.jpg",
+    imgList: "/assets/images/img-visual2-2.jpg",
     description: {
       head: "드라이빙의 매력을 온전히 경험할 수 있도록, 직관적이고 편리한 플랫폼으로 탈바꿈했습니다.",
       body: [

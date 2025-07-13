@@ -35,10 +35,12 @@ export default function WorkList({ transitionTo }) {
   const nextIndex = (currentIndex + 1) % workData.length;
   const nextWork = workData[nextIndex];
 
-  if (!router.isReady || !work) return null; // slug 준비
 
 
   useEffect(() => {
+
+    if (!router.isReady || !work) return;
+
     // 뒤로가기 시 스크롤 bottom 억제
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
@@ -81,7 +83,7 @@ export default function WorkList({ transitionTo }) {
         start: "top center",
         end: "bottom center",
         scrub: true,
-        markers: true,
+        // markers: true,
       },
     })
 
@@ -108,6 +110,9 @@ export default function WorkList({ transitionTo }) {
 
 
   }, [router.isReady])
+
+  if (!router.isReady || !work) return null; // slug 준비
+
 
   return (
     <>
@@ -194,7 +199,7 @@ export default function WorkList({ transitionTo }) {
                   <>
                     <div className="scroll">[ SCROLL ]</div>
                     <div className="img-con">
-                      <div className="scroll-wrap">
+                      <div className="scroll-wrap" data-lenis-prevent>
                         <Image src={work.imgList} className="img-list" alt="상세페이지" fill style={{ objectFit: "cover" }} />
                       </div>
                     </div>

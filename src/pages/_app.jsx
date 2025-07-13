@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import Lenis from "@studio-freight/lenis"
 
 export default function MyApp({ Component, pageProps }) {
   const cursorRef = useRef(null);
@@ -31,6 +32,30 @@ export default function MyApp({ Component, pageProps }) {
         ease: "power2.out",
       });
   };
+
+  useEffect(() => {
+    // scrollTrigger와 lenis 연동
+    const { ScrollTrigger } = require("gsap/ScrollTrigger");
+    const { gsap } = require("gsap");
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({
+      smooth: true,
+      lerp: 0.1,
+    })
+
+    function raf(time) {
+      lenis.raf(time);
+      ScrollTrigger.update();
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    }
+  }, [])
 
   useEffect(() => {
     router.beforePopState(({ as }) => {
@@ -69,7 +94,7 @@ export default function MyApp({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
-    if(!introStatus) {
+    if (!introStatus) {
       console.log("fsdfsdf")
       document.querySelectorAll("a, button").forEach((el) => {
         el.addEventListener("mouseenter", () => {
