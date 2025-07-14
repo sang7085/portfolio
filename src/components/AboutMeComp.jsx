@@ -101,17 +101,14 @@ export default function AboutMeComp({ introStatus, isLight }) {
             <h3 className="slide-tit center left" ref={slideTitLeft}>MY</h3>
             <h3 className="slide-tit center right" ref={slideTitRight}>PROFILE</h3>
           </div>
-          <div className="profile-wrap">
+          <div className="about-con">
             <div className="detail-wrap">
               <div className="fluid-wrap">
                 <Canvas
                   gl={{ alpha: true, preserveDrawingBuffer: true }}
                   style={{ background: "transparent" }}
                 >
-                  {
-                    isMounted &&
-                    <MyProfile />
-                  }
+                  <MyProfile />
                   <CanvasContent isLight={isLight} />
                   <directionalLight intensity={2} position={[0, 0, 0]} />
                 </Canvas>
