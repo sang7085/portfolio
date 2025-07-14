@@ -109,6 +109,8 @@ export default function WorkList({ transitionTo }) {
 
   }, [router.isReady])
 
+  if (!router.isReady || !work) return null; // slug 준비
+
   return (
     <>
       <div className="work-container">

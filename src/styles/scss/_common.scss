@@ -21,8 +21,13 @@ button {
   cursor: none;
 }
 
-// dark mode start
+.scroll-motion {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity .6s ease, transform .6s ease;
+}
 
+// dark mode start
 
 body.tr-dark {
   background-color: var(--darkColor) !important;
