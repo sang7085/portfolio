@@ -18,8 +18,8 @@ function MyProfile() {
 
   return (
     <mesh position={[0, 0, 0]}>
-      {/* <planeGeometry args={[viewport.width, viewport.height]} /> */}
-      <planeGeometry args={[1.5, 1]} />
+      <planeGeometry args={[viewport.width, viewport.height]} />
+      {/* <planeGeometry args={[1.5, 1]} /> */}
       <meshBasicMaterial map={texture} />
     </mesh>
   )
@@ -77,7 +77,7 @@ export default function AboutMeComp({ introStatus, isLight }) {
           start: "top center",
           end: "bottom top",
           scrub: true,
-          markers: true,
+          // markers: true,
         },
       })
       tl.to(slideTitLeft.current, { x: 0, backgroundPositionX: "0%", ease: "gentleEase" })
@@ -106,7 +106,7 @@ export default function AboutMeComp({ introStatus, isLight }) {
               <div className="fluid-wrap">
                 <Canvas
                   gl={{ alpha: true, preserveDrawingBuffer: true }}
-                  style={{ background: "transparent" }}
+                  style={{ width: "100%", height: "100vh", background: "transparent" }}
                 >
                   <MyProfile />
                   <CanvasContent isLight={isLight} />

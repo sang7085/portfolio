@@ -1,0 +1,38 @@
+footer {
+  z-index: var(--section-z);
+  position: relative;
+  min-height: 100vh;
+  mix-blend-mode: difference;
+
+  .torus-wrap {
+    z-index: var(--canvas-z);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .contact-wrap {
+    position: relative;
+    z-index: var(--section-z);
+    padding: 8vh;
+    height: 100%;
+
+    .contact-txt {
+      font-size: 250px;
+    }
+
+    .contact-info {
+      margin-top: 32px;
+      justify-self: flex-end;
+      .phone-num {
+        font-size: 24px;
+      }
+      .email {
+        margin-top: 16px;
+        font-size: 24px;
+      }
+    }
+  }
+}

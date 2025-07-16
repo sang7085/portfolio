@@ -29,9 +29,15 @@ button {
 
 // dark mode start
 
+
 body.tr-dark {
   background-color: var(--darkColor) !important;
   transition: background-color .6s ease;
+}
+
+body.tr-dark .logo {
+  color: var(--lightColor);
+  transition: color .6s ease;
 }
 
 body.tr-dark .visual-sec {
@@ -116,13 +122,44 @@ body.tr-dark .work-container .content-wrap .visual-wrap .video-con {
   border: 3px solid var(--lightColor);
 }
 
-// dark mode end
+body.tr-dark .about-sec .about-con .txt-wrap .txt-list {
+  color: var(--lightColor);
+  transition: color .6s ease;
+}
 
-// light mode start
+body.tr-dark .work-container .next-work .inner button .arrow {
+  border: 1px solid var(--lightColor);
+  transition: all .6s ease;
+}
+
+body.tr-dark .footer {
+  border-top: 2px solid var(--lightColor);
+  transition: border .6s ease;
+}
+
+body.tr-dark footer .contact-wrap .contact-txt {
+  color: var(--lightColor);
+  transition: color .6s ease;
+}
+
+body.tr-dark footer .contact-wrap .contact-info a {
+  color: var(--darkColor);
+  transition: color .6s ease;
+}
+
+// dark mode end ----------------------------
+
+// light mode start -------------------------
 body.tr-light {
   background-color: var(--lightColor) !important;
   transition: background-color .6s ease;
 }
+
+body.tr-light .logo {
+  color: var(--lightColor);
+  transition: color .6s ease;
+}
+
 
 body.tr-light .visual-sec {
   background-color: var(--lightColor) !important;
@@ -206,6 +243,30 @@ body.tr-light .work-container .content-wrap .visual-wrap .video-con {
   border: 3px solid var(--darkColor);
 }
 
+body.tr-light .about-sec .about-con .txt-wrap .txt-list {
+  color: var(--darkColor);
+  transition: color .6s ease;
+}
+
+body.tr-light .work-container .next-work .inner button .arrow {
+  border: 1px solid var(--darkColor);
+  transition: all .6s ease;
+}
+
+body.tr-light .footer {
+  border-top: 2px solid var(--lightColor);
+  transition: border .6s ease;
+}
+
+body.tr-light footer .contact-wrap .contact-txt {
+  color: var(--lightColor);
+  transition: color .6s ease;
+}
+
+body.tr-light footer .contact-wrap .contact-info a {
+  color: var(--lightColor);
+  transition: color .6s ease;
+}
 
 
 
@@ -259,7 +320,7 @@ section {
 
 .slide-tit-wrap {
   z-index: var(--section-z);
-  margin: 10vh 0;
+  margin: 8vh 0;
 
   .slide-tit {
     font-size: 200px;

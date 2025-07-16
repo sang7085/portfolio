@@ -1,11 +1,15 @@
 .about-sec {
   z-index: var(--section-z);
   position: relative;
-  padding-top: 50vh;
+  margin-bottom: 8vh;
   width: 100%;
   height: 100%;
   background-color: var(--lightColor);
   overflow: hidden;
+
+  .slide-tit-wrap {
+    margin: 24vh 0 8vh;
+  }
 
   .txt-sec {
     position: relative;
@@ -25,10 +29,10 @@
 
   .about-con  {
     display: flex;
+    justify-content: space-between;
     .detail-wrap {
       z-index: var(--canvas-z);
-      margin: 0 auto;
-      width: 40%;
+      width: 50%;
       height: 100%;
       filter: grayscale(1);
       .fluid-wrap {
@@ -45,14 +49,15 @@
     .txt-wrap {
       z-index: var(--canvas-z);
       position: relative;
-      padding: 0 5vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-left: 8vh;
       width: 50%;
       height: 100vh;
+
       .txt-list {
-        color: var(--darkColor);
+        line-height: 32px;
       }
     }
   }

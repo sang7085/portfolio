@@ -1,5 +1,6 @@
 import "@/styles/scss/main.scss";
 import HeaderComp from "../components/HeaderComp";
+import FooterComp from "../components/FooterComp";
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { gsap } from "gsap";
@@ -31,6 +32,18 @@ export default function MyApp({ Component, pageProps }) {
         delay: 0.5,
         ease: "power2.out",
       });
+  };
+
+  // 라우터 이동시 버튼, a 태그 hover 이벤트
+  const bindCursorHover = () => {
+    document.querySelectorAll("a, button").forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        cursorRef.current?.classList.add("hover");
+      });
+      el.addEventListener("mouseleave", () => {
+        cursorRef.current?.classList.remove("hover");
+      });
+    });
   };
 
   useEffect(() => {
@@ -95,17 +108,28 @@ export default function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (!introStatus) {
-      console.log("fsdfsdf")
-      document.querySelectorAll("a, button").forEach((el) => {
-        el.addEventListener("mouseenter", () => {
-          cursorRef.current.classList.add("hover");
-        });
-        el.addEventListener("mouseleave", () => {
-          cursorRef.current.classList.remove("hover")
-        });
-      });
+      bindCursorHover();
+    }
+
+    const navType = performance.getEntriesByType("navigation")[0]?.type;
+
+    if (navType === "reload") {
+      setIntroStatus(false);
     }
   }, [introStatus])
+
+   useEffect(() => {
+    const handleRouteChangeComplete = (url) => {
+      bindCursorHover();
+    };
+
+    bindCursorHover();
+
+    router.events.on("routeChangeComplete", handleRouteChangeComplete);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChangeComplete);
+    };
+  }, [router]);
 
   return (
     <>
@@ -126,6 +150,7 @@ export default function MyApp({ Component, pageProps }) {
         isLight={isLight}
         transitionTo={transitionTo}
       />
+      <FooterComp />
       <div className="cursor" ref={cursorRef}>
         <div className="click">click</div>
       </div>

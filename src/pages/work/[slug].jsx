@@ -11,6 +11,7 @@ import { CustomEase } from "gsap/dist/CustomEase";
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 export default function WorkList({ transitionTo }) {
+  
   const slideTitWrap = useRef(null);
   const slideTitLeft = useRef(null);
   const slideTitRight = useRef(null);
@@ -99,7 +100,7 @@ export default function WorkList({ transitionTo }) {
         scrub: true,
       }
     })
-    
+
     ScrollTrigger.refresh();
 
     return () => {
@@ -111,7 +112,7 @@ export default function WorkList({ transitionTo }) {
 
   }, [router.isReady])
 
-  if (!router.isReady || !work) return null; // slug 준비
+  if (!router.isReady || !work) return null; // 새로고침 오류 방지
 
   return (
     <>
@@ -214,6 +215,13 @@ export default function WorkList({ transitionTo }) {
               <div className="slide-tit-wrap" ref={slideTitWrap3}>
                 <h3 className="slide-tit center left" ref={slideTitLeft3}>GO TO THE</h3>
                 <h3 className="slide-tit center right" ref={slideTitRight3}>NEXT WORK</h3>
+              </div>
+              <div className="arrow">
+                <svg width="55" height="81" viewBox="0 0 55 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="27.5" y1="1" x2="27.5" y2="81" stroke="var(--darkColor)"></line>
+                  <line x1="27.3536" y1="0.646447" x2="54.3536" y2="27.6464" stroke="var(--darkColor)"></line>
+                  <line y1="-0.5" x2="38.1838" y2="-0.5" transform="matrix(-0.707107 0.707107 0.707107 0.707107 28 1)" stroke="var(--darkColor)"></line>
+                </svg>
               </div>
             </button>
           </div>

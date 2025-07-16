@@ -16,57 +16,7 @@ import MeshBlob from "./MeshBlob";
 // easing
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
-// Torus Component
-function Torus() {
 
-  const { viewport } = useThree()
-
-  // const sphereRef = useRef(null);
-  // const torus1 = useRef(null);
-  // const torus2 = useRef(null);
-  // const torus3 = useRef(null);
-
-  useFrame(() => {
-    // sphereRef.current.rotation.x += 0.002
-    // sphereRef.current.rotation.y += 0.002
-    // torus1.current.rotation.x += 0.005;
-    // torus1.current.rotation.y += 0.005;
-    // torus2.current.rotation.x += -0.005;
-    // torus2.current.rotation.y += -0.005;
-
-  })
-
-  const materialProps = useControls({
-    thickness: { value: 0.2, min: 0, max: 3, step: 0.05 },
-    roughness: { value: 0, min: 0, max: 1, step: 0.1 },
-    transmission: { value: 1, min: 0, max: 1, step: 0.1 },
-    ior: { value: 1.2, min: 0, max: 3, step: 0.1 },
-    chromaticAberration: { value: 0.02, min: 0, max: 1 },
-    backside: { value: true },
-  })
-  return (
-    <group scale={2}>
-      {/* <Text font="/font/BebasNeue-Regular.ttf" position={[-.9, .7, 0]} fontSize={.8} color="white" anchorX="center" anchorY="middle">
-        PUBLISHING
-      </Text> */}
-      {/* <Text font="/font/BebasNeue-Regular.ttf" position={[0, 0, 0]} fontSize={.8} color="black" anchorX="center" anchorY="middle">
-        INTERACTIVE
-      </Text> */}
-      {/* <Text font="/font/BebasNeue-Regular.ttf" position={[.9, -.8, 0]} fontSize={.8} color="white" anchorX="center" anchorY="middle">
-        DEVELOPER
-      </Text> */}
-      {/* <mesh ref={sphereRef} geometry={new THREE.SphereGeometry(0.3, 64, 64)}>
-        <MeshTransmissionMaterial {...materialProps} />
-      </mesh>
-      <mesh scale={[1, 1.4, 1]} ref={torus1} geometry={new THREE.TorusGeometry(0.5, 0.03, 32, 100)}>
-        <MeshTransmissionMaterial {...materialProps} />
-      </mesh>
-      <mesh scale={[1.4, 1, 1]} ref={torus2} geometry={new THREE.TorusGeometry(0.5, 0.03, 32, 100)}>
-        <MeshTransmissionMaterial {...materialProps} />
-      </mesh> */}
-    </group>
-  );
-}
 
 function CanvasContent() {
   const config = useConfig();
@@ -303,7 +253,6 @@ export default function VisualComp({ introStatus, isLight }) {
           pin: true,
           pinSpacing: true,
           invalidateOnRefresh: true,
-          // markers: true,
         },
       });
 

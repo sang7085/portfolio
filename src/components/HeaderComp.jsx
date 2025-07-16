@@ -38,7 +38,7 @@ export default function HeaderComp({ introStatus, setIsLight, isLight, transitio
   return (
     <header className="header">
       <div className="logo-icon">
-        <button className="logo" onClick={() => transitionTo("/")}>home</button>
+        <button className="logo" onClick={() => transitionTo("/")}>BLO.P</button>
       </div>
       <div className="utils">
         <button
