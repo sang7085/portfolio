@@ -75,7 +75,7 @@ export default function AboutMeComp({ introStatus, isLight }) {
         scrollTrigger: {
           trigger: slideTitWrap.current,
           start: "top center",
-          end: "bottom top",
+          end: "bottom center",
           scrub: true,
           // markers: true,
         },

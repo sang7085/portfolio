@@ -304,7 +304,8 @@ export default function VisualComp({ introStatus, isLight }) {
 
         <li className="flow-txt" ref={(el) => (triggerRef.current[1] = el)}>
           <p className="txt" ref={(el) => (flowRef.current[1] = el)}>
-            사용자가 가장 먼저 무엇을 느끼고, 어디에 집중하게 될지를 고려하며 움직임 하나하나에 명확한 의도를 담습니다. 단순한 시각적 연출을 넘어, 시맨틱 구조와 웹 접근성을 바탕으로 누구에게나 이해되고, 도달할 수 있는 흐름을 설계합니다. 이는 메시지가 사용자에게 일관되고 명확하게 전달되도록 돕습니다.
+            단순한 시각적 연출을 넘어, 시맨틱 구조와 웹 접근성을 바탕으로 누구에게나 이해되고, 도달할 수 있는 흐름을 설계합니다. <br />
+            이는 메시지가 사용자에게 일관되고 명확하게 전달되도록 돕습니다.
           </p>
           <p className="left-bg bg-txt" ref={(el) => (bgLeftRef.current[1] = el)}>ACCESSIBILITY</p>
           <p className="right-bg bg-txt" ref={(el) => (bgRightRef.current[1] = el)}>SEMANTICS</p>

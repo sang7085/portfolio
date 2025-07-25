@@ -11,10 +11,10 @@ export default forwardRef(function BlobMesh({ position, blobRendersRef }, ref) {
   /* 외부에서 blobRef.current 로 mesh 접근 가능 */
   useImperativeHandle(ref, () => meshRef.current);
 
-  let frameCount = 0;
+  // let frameCount = 0;
   useFrame(({ clock }) => {
-    frameCount++;
-    if (frameCount % 2 !== 0) return;
+    // frameCount++;
+    // if (frameCount % 2 !== 0) return;
     const time = clock.getElapsedTime();
     const { blobFreq, surfaceFreq, color, rotate, baseRadius } =
       blobRendersRef.current;
@@ -61,7 +61,7 @@ export default forwardRef(function BlobMesh({ position, blobRendersRef }, ref) {
     if (meshRef.current.material && color) {
       meshRef.current.material.color = new THREE.Color(color);
     }
-    
+
   });
 
   return (

@@ -113,14 +113,16 @@
       .txt {
         opacity: 0;
         transform: translateY(10rem);
-        width: 16%;
+        width: 24%;
         line-height: 3.2rem;
         text-align: center;
+
         .sub-tit {
           display: block;
           font-size: 2.4rem;
           margin-bottom: 1.6rem;
         }
+
         .strong {
           font-size: 2rem;
         }
@@ -145,7 +147,7 @@
           left: 8vh;
           top: 30%;
         }
-        
+
         &.right-bg {
           right: 8vh;
           bottom: 30%;

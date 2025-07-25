@@ -15,11 +15,8 @@ gsap.registerPlugin(ScrollTrigger, CustomEase, ScrollToPlugin);
 CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
 export default function FooterComp({ introStatus, isLight }) {
-
   // Torus Component
   function Torus() {
-
-    const { viewport } = useThree()
     const torus1 = useRef(null);
 
     useFrame(() => {
@@ -51,7 +48,6 @@ export default function FooterComp({ introStatus, isLight }) {
             temporalDistortion={0.1}
             samples={10}
             resolution={1024}
-            // depthWrite={false}
           />
         </mesh>
       </group>
@@ -59,7 +55,7 @@ export default function FooterComp({ introStatus, isLight }) {
   }
 
   // Fluid Effect Component
-  function CanvasContent({ isLight }) {
+  function FluidContent({ isLight }) {
     const config = useConfig();
     console.log("isLight:", isLight);
     return (
@@ -87,29 +83,38 @@ export default function FooterComp({ introStatus, isLight }) {
     );
   }
 
+  function CanvasContent({ isLight }) {
+    const { viewport } = useThree();
+
+    return (
+      <>
+        <ambientLight intensity={0.5} />
+        <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
+        <Torus />
+        <Text
+          position={[0, 0, -2]}
+          fontSize={viewport.width * 0.35}
+          color={isLight ? "#121315" : "#fff"}
+          anchorX="center"
+          anchorY="middle"
+          font="/font/BebasNeue-Regular.ttf"
+          material-toneMapped={false}
+        >
+          CONTACT
+        </Text>
+        <directionalLight intensity={1.5} position={[0, 2, 2]} />
+        <Environment preset="city" background={false} />
+      </>
+    );
+  }
+
   return (
     <>
       <footer id="footer" className="footer">
         <div className="torus-wrap">
-          {/* <Canvas>
-            <ambientLight intensity={0.5} />
-            <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
-            <Torus />
-            <Text
-              position={[0, 0, -2]}
-              fontSize={4}
-              color={isLight ? "#121315" : "#fff"}
-              anchorX="center"
-              anchorY="middle"
-              font="/font/BebasNeue-Regular.ttf"
-              // renderOrder={1}
-              material-toneMapped={false}
-            >
-              CONTACT
-            </Text>
-            <directionalLight intensity={1.5} position={[0, 2, 2]} />
-            <Environment preset="city" background={false} />
-          </Canvas> */}
+          <Canvas>
+            <CanvasContent isLight={isLight} />
+          </Canvas>
         </div>
         <div className="contact-wrap">
           <div className="contact-info">

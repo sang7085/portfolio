@@ -86,7 +86,7 @@ const workData = [
     tags: ["RENEWAL", "BRANDING"],
     awards: "/assets/images/img-prize-winner.png",
     slideTitle: { left: "HYUNDAI", right: "ROTEM" },
-    client: "(주)롯데백화점",
+    client: "HyundaiRotem",
     year: "2023",
     roles: ["Sub Pages"],
     url: "www.hyundai-rotem.co.kr",
@@ -99,11 +99,11 @@ const workData = [
       body: [
         "하나의 흐름을 가지고 접근하여 정보를 습득할 수 있는 구조에 집중",
         "다양한 디바이스 환경과 사용성에 대응하기 위해 상대단위를 적용하여, 사용자의 화면에 따라 에셋이 구성되는 상대단위를 반영",
-        "관리자가 다양한 콘텐츠를 쉽게 업데이트하고 수정할 수 있는 구조가 실현 간으하게 하기 위해 심플한 디자인으로 설계"
+        "관리자가 다양한 콘텐츠를 쉽게 업데이트하고 수정할 수 있는 구조가 실현 가능하게 하기 위해 심플한 디자인으로 설계"
       ]
     },
   },
-    {
+  {
     id: 5,
     num: "05",
     slug: "samsungfire-direct",
@@ -128,7 +128,7 @@ const workData = [
       ]
     },
   },
-    {
+  {
     id: 6,
     num: "06",
     slug: "speakup-seah",

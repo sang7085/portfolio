@@ -31,8 +31,9 @@ export default function workComp({ introStatus, transitionTo }) {
         scrollTrigger: {
           trigger: slideTitWrap.current,
           start: "top center",
-          end: "bottom top",
+          end: "bottom center",
           scrub: true,
+          // markers: true,
         },
       })
 
