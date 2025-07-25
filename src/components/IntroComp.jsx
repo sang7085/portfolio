@@ -28,18 +28,18 @@ export default function IntroComp({setIntroStatus}) {
       ease: "gentleEase",
     })
       .to(introTxtWrap, {
-      y: "-50px",
+      y: "-5rem",
       duration: 1,
       delay: 2,
       ease: "gentleEase",
     })
       .to(introTxtWrap, {
-      y: "-100px",
+      y: "-10rem",
       duration: 1,
       ease: "gentleEase",
     })
       .to(introTxtWrap, {
-      y: "-150px",
+      y: "-15rem",
       duration: 1,
       ease: "gentleEase",
     })
@@ -63,10 +63,15 @@ export default function IntroComp({setIntroStatus}) {
           <div className="intro-piano"></div>
           <div className="intro-piano"></div>
           <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
+          <div className="intro-piano"></div>
         </div>
         <div className="intro-txt-con">
           <div className="intro-txt-wrap">
-            <div className={`intro-txt ${anton.className}`}>INTERACTIVE</div>
+            <div className={`intro-txt ${anton.className}`}>BLO + P</div>
             <div className={`intro-txt ${anton.className}`}>PUBLISHING</div>
             <div className={`intro-txt ${anton.className}`}>DEVELOP</div>
           </div>

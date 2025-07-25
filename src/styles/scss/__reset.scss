@@ -27,14 +27,16 @@ footer, header, hgroup, menu, nav, section, a {
 body {
 	line-height: 1;
 	font-family: "Pretendard";
-	// font-family: "Michroma";
   font-weight: 500;
+}
+html {
+	font-size: 62.5%;
 }
 ol, ul {
 	list-style: none;
 }
 p {
-	line-height: 24px;
+	line-height: 2.4rem;
 }
 button {
 	cursor: pointer;

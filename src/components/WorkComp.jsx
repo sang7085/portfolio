@@ -7,10 +7,10 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { CustomEase } from "gsap/dist/CustomEase";
 import { useRouter } from "next/router";
 
-gsap.registerPlugin(ScrollTrigger, CustomEase);
-CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
 export default function workComp({ introStatus, transitionTo }) {
+  gsap.registerPlugin(ScrollTrigger, CustomEase);
+  CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
   const router = useRouter();
   const workSecRef = useRef(null);
@@ -51,17 +51,59 @@ export default function workComp({ introStatus, transitionTo }) {
       document.querySelectorAll(".content-wrap").forEach((wrap) => {
         const workList = wrap.closest(".work-list");
         const detail = workList.querySelector(".detail");
+        const title = workList.querySelector(".title");
 
         wrap.addEventListener("mouseenter", () => {
           detail.classList.add("active");
-          console.log("Fsdfss")
+          title.classList.add("active");
         });
 
         wrap.addEventListener("mouseleave", () => {
           detail.classList.remove("active");
+          title.classList.remove("active");
         });
       });
+
+      document.querySelectorAll(".work-list").forEach((el) => {
+        const titleEl = el.querySelector(".title");
+        const titleW = el.querySelector(".title-wrap");
+        const imgW = el.querySelector(".img-wrap");
+
+        gsap.to(titleW, {
+          y: "-5%",
+          ease: "gentleEase",
+          scrollTrigger: {
+            trigger: el,
+            start: "top center",
+            end: "bottom top",
+            scrub: 1,
+          }
+        })
+
+        gsap.to(titleEl, {
+          y: 0,
+          opacity: 1,
+          ease: "gentleEase",
+          duration: 2,
+          scrollTrigger: {
+            trigger: el,
+            start: "top center",
+            end: "bottom bottom",
+            scrub: 1,
+          }
+        })
+
+        gsap.to(imgW, {
+          scale: 1,
+          scrollTrigger: {
+            trigger: el,
+            start: "top center",
+            end: "bottom bottom",
+          }
+        })
+      })
     }
+
   }, [introStatus, router]);
 
 
@@ -75,29 +117,34 @@ export default function workComp({ introStatus, transitionTo }) {
           </div>
           <div className="work-list-wrap">
             {workData.map((work, index) => (
-              <div className="work-list" key={work.id}>
+              <div className={`work-list ${index % 2 === 0 ? "right" : "left"}`} key={work.id}>
                 <Link href={`/work/${work.slug}`} className="content-wrap" onClick={(e) => {
                   e.preventDefault();
                   transitionTo(`/work/${work.slug}`)
                 }}>
-                  <Image src={work.thumbnail} className="thumbnail" alt="썸네일" fill style={{ objectFit: "cover" }} />
+                  <div className="img-wrap">
+                    <Image src={work.thumbnail} className="thumbnail" alt="썸네일" fill style={{ objectFit: "cover" }} />
+                  </div>
                   {work.awards && (
                     <div className="awards">
                       <Image src={work.awards} alt="수상" fill style={{ objectFit: "cover" }} />
                     </div>
                   )}
-                </Link>
-
-                <div className="detail">
-                  <h3 className="title">{work.titleKr}</h3>
-                  <div className="tag-wrap">
+                  <div className="detail">
+                    <p className="title-num">({work.num})</p>
+                    <div className="title-wrap">
+                      <h3 className="title">{work.titleKr}</h3>
+                    </div>
+                    {/* <div className="tag-wrap">
                     <span className="tag">{work.tags[0]}</span>
                     <span className="tag">{work.tags[1]}</span>
                     {work.tags[2] && (
                       <span className="tag">{work.tags[2]}</span>
                     )}
+                  </div> */}
                   </div>
-                </div>
+                </Link>
+
               </div>
             ))}
           </div>

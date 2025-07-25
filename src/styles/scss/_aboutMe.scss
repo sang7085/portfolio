@@ -23,7 +23,7 @@
     .txt {
       opacity: 1;
       color: var(--darkColor);
-      font-size: 50px;
+      font-size: 5.6rem;
     }
   }
 
@@ -32,7 +32,7 @@
     justify-content: space-between;
     .detail-wrap {
       z-index: var(--canvas-z);
-      width: 50%;
+      width: 40%;
       height: 100%;
       filter: grayscale(1);
       .fluid-wrap {
@@ -53,11 +53,11 @@
       justify-content: center;
       align-items: center;
       margin-left: 8vh;
-      width: 50%;
+      width: 60%;
       height: 100vh;
 
       .txt-list {
-        line-height: 32px;
+        line-height: 3.2rem;
       }
     }
   }

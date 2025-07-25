@@ -13,6 +13,77 @@ export default function MyApp({ Component, pageProps }) {
   const [isLight, setIsLight] = useState(true);
   const router = useRouter();
 
+  // lenis, scrollTrigger, scrollRestoration
+  useEffect(() => {
+    const lenis = new Lenis({ smooth: true, lerp: 0.1 });
+    const { ScrollTrigger } = require("gsap/ScrollTrigger");
+    const { gsap } = require("gsap");
+    gsap.registerPlugin(ScrollTrigger);
+
+    const raf = (time) => {
+      lenis.raf(time);
+      ScrollTrigger.update();
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    // work나 본 페이지 진입 시 스크롤 위치 복원
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    return () => {
+      lenis.destroy();
+      history.scrollRestoration = "auto";
+    };
+  }, [])
+
+  // cursor
+  useEffect(() => {
+    const moveCursor = (e) => {
+      if (cursorRef.current) {
+        cursorRef.current.style.left = `${e.clientX}px`;
+        cursorRef.current.style.top = `${e.clientY}px`;
+      }
+    };
+
+    window.addEventListener("mousemove", moveCursor);
+    bindCursorHover();
+
+    // 라우터 이동시 커서함수 실행
+    const handleRouteChangeComplete = () => bindCursorHover();
+    router.events.on("routeChangeComplete", handleRouteChangeComplete);
+
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
+      router.events.off("routeChangeComplete", handleRouteChangeComplete);
+    };
+  }, []);
+
+  useEffect(() => {
+    // 새로고침 시 커서함수 다시 실행
+    if (!introStatus) {
+      bindCursorHover();
+    }
+
+    // 새로고침 시 인트로 스킵
+    const navType = performance.getEntriesByType("navigation")[0]?.type;
+    if (navType === "reload") {
+      setIntroStatus(false);
+    }
+
+    // 뒤로가기 시 화면전환 animation 진행
+    router.beforePopState(({ as }) => {
+      transitionTo(as);
+      return false;
+    });
+
+    return () => {
+      router.beforePopState(() => true);
+    };
+  }, [introStatus]);
+
+  // work 화면전환 animation
   const transitionTo = (href) => {
     const cover = document.querySelector(".transition-cover");
     const tl = gsap.timeline({});
@@ -46,93 +117,11 @@ export default function MyApp({ Component, pageProps }) {
     });
   };
 
-  useEffect(() => {
-    // scrollTrigger와 lenis 연동
-    const { ScrollTrigger } = require("gsap/ScrollTrigger");
-    const { gsap } = require("gsap");
-    gsap.registerPlugin(ScrollTrigger);
-
-    const lenis = new Lenis({
-      smooth: true,
-      lerp: 0.1,
-    })
-
-    function raf(time) {
-      lenis.raf(time);
-      ScrollTrigger.update();
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    }
-  }, [])
-
-  useEffect(() => {
-    router.beforePopState(({ as }) => {
-      transitionTo(as);
-      return false;
-    });
-
-    return () => {
-      router.beforePopState(() => true);
-    };
-
-  }, [router]);
-
-  useEffect(() => {
-    const moveCursor = (e) => {
-      if (cursorRef.current) {
-        cursorRef.current.style.left = `${e.clientX}px`;
-        cursorRef.current.style.top = `${e.clientY}px`;
-      }
-    };
-
-    window.addEventListener("mousemove", moveCursor);
-
-    return () => {
-      window.removeEventListener("mousemove", moveCursor);
-    };
-  }, []);
-
-  useEffect(() => {
-    if ("scrollRestoration" in history) {
-      history.scrollRestoration = "manual";
-    }
-    return () => {
-      history.scrollRestoration = "auto";
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!introStatus) {
-      bindCursorHover();
-    }
-
-    const navType = performance.getEntriesByType("navigation")[0]?.type;
-
-    if (navType === "reload") {
-      setIntroStatus(false);
-    }
-  }, [introStatus])
-
-   useEffect(() => {
-    const handleRouteChangeComplete = (url) => {
-      bindCursorHover();
-    };
-
-    bindCursorHover();
-
-    router.events.on("routeChangeComplete", handleRouteChangeComplete);
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChangeComplete);
-    };
-  }, [router]);
-
   return (
     <>
+      <div className="cursor" ref={cursorRef}>
+        <div className="click">CLICK</div>
+      </div>
       {!introStatus && (
         <>
           <HeaderComp
@@ -150,10 +139,8 @@ export default function MyApp({ Component, pageProps }) {
         isLight={isLight}
         transitionTo={transitionTo}
       />
-      <FooterComp />
-      <div className="cursor" ref={cursorRef}>
-        <div className="click">click</div>
-      </div>
+      <FooterComp isLight={isLight} introStatus={introStatus} />
+
       <div className="transition-cover"></div>
     </>
   );

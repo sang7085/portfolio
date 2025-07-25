@@ -6,48 +6,108 @@
   background: var(--lightColor);
   overflow: hidden;
 
+  .slide-tit-wrap {
+    margin-bottom: 16vh;
+  }
+
   .work-list-wrap {
     width: 100%;
-    display: grid;
-    grid-template: repeat(2, 1fr) / repeat(2, 1fr);
-    gap: 64px;
 
     .work-list {
-      .content-wrap {
-        position: relative;
-        aspect-ratio: 4 / 3;
-        overflow: hidden;
+      position: relative;
+      width: 100%;
+      height: 80vh;
 
-        &::after {
-          content: "";
+      &:hover {
+        .detail {
+          .title {
+            background-position-y: 0 !important;
+            transition: background-position .6s ease;
+          }
+        }
+        .content-wrap {
+          .img-wrap {
+            .thumbnail {
+              transform: scale(1.05); 
+              transition: transform .6s ease;
+            }
+          }
+        }
+      }
+
+      &+.work-list {
+        margin-top: 24vh;
+      }
+
+      &.right {
+        .img-wrap {
+          left: 0 !important;
+          right: unset !important;
+        }
+
+        .detail {
+          .title-num {
+            text-align: right;
+          }
+
+          .title {
+            text-align: right;
+          }
+        }
+
+        .awards {
+          left: 0 !important;
+          right: unset !important;
+        }
+      }
+
+      &.left {
+        .img-wrap {
+          right: 0 !important;
+          left: unset !important;
+        }
+
+        .detail {
+          .title-num {
+            text-align: left;
+          }
+
+          .title {
+            text-align: left;
+          }
+        }
+
+        .awards {
+          right: 0 !important;
+          left: unset !important;
+        }
+      }
+
+      .content-wrap {
+        z-index: var(--section-z);
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // overflow: hidden;
+
+        .img-wrap {
+          z-index: var(--section-z);
           position: absolute;
           top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0);
-          transition: background-color .3s ease;
-        }
-
-        &:hover {
-
-          &::after {
-            background: rgba(0, 0, 0, .6);
-            transition: background-color .3s ease;
-          }
+          transform: scale(1.2);
+          width: 90rem !important;
+          height: 70rem !important;
+          overflow: hidden;
 
           .thumbnail {
-            transform: scale(1.1);
+            transform: scale(1);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transition: transform .6s ease;
           }
-        }
-
-        .thumbnail {
-          transform: scale(1);
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform .6s ease;
         }
       }
 
@@ -56,17 +116,37 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 67px;
-        height: 103px;
+        width: 6.7rem;
+        height: 10.3rem;
         border: 1px solid var(--lightColor);
       }
 
       .detail {
-        .title {
-          margin-top: 32px;
-          font-size: 32px;
-          font-weight: 500;
-          color: var(--darkColor);
+        z-index: var(--section-z);
+        position: relative;
+        width: 100%;
+        height: 100%;
+        mix-blend-mode: difference;
+        
+        .title-num {
+          font-size: 2.4rem;
+        }
+
+        .title-wrap {
+          transform: translateY(20%);
+          .title {
+            padding-top: 30vh;
+            transform: translateY(10rem);
+            font-family: "Unbounded", sans-serif;
+            font-size: 31rem;
+            font-weight: 700;
+            opacity: 0;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-position-y: -100%;
+            background-size: 100% 200%;
+            transition: background-position .6s ease;
+          }
         }
 
         &.active {
@@ -82,8 +162,8 @@
             }
           }
         }
-
       }
+      
     }
   }
 }

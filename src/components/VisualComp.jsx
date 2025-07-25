@@ -269,14 +269,13 @@ export default function VisualComp({ introStatus, isLight }) {
       <div className={`canvas-image-wrap ${!introStatus ? "active" : ""}`} ref={blobWrapRef}>
         <Canvas gl={{ alpha: true }} key={pathname}>
           <ClearColorUpdater isLight={isLight} blobRendersRef={blobRendersRef} /> {/* useEffect 리렌더용 */}
-          <CanvasContent />
           <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
           <MeshBlob position={initPos} ref={setBlobRef} blobRendersRef={blobRendersRef} />
           <ambientLight intensity={0.5} />
           <directionalLight intensity={1.5} position={[0, 2, 2]} />
           <Environment preset="city" background={false} />
           <Leva hidden />
-          <OrbitControls />
+          <OrbitControls enableZoom={false} />
         </Canvas>
       </div>
       <div className="txt-wrap-area">
@@ -295,18 +294,20 @@ export default function VisualComp({ introStatus, isLight }) {
       <ul className="flow-txt-wrap">
         <li className="flow-txt" ref={(el) => (triggerRef.current[0] = el)}>
           <p className="txt" ref={(el) => (flowRef.current[0] = el)}>
-            사용자가 가장 먼저 무엇을 느끼고 어디에 몰입할지 방향을 제시할 수 있는, 움직임 하나하나에 담긴 의도와 흐름이 브랜드의 메시지를 사용자에게 어떻게 전달될지를 고민합니다.
+            <span className="sub-tit">BLOP</span>
+            <span className="strong">'Blob'</span> 은 물방울 같은 덩어리를 의미하지만, 인터랙션, 변형, 감성을 담아내는 시각적 표현으로 사용됩니다.<br />
+            저의 성 'Park' 더해 끊임없이 스스로를 변형하고, 기술과 감각 사이를 넘나드는 존재로서의 방향성을 담았습니다.
           </p>
-          <p className="left-bg bg-txt" ref={(el) => (bgLeftRef.current[0] = el)}>ACCESSIBILITY</p>
-          <p className="right-bg bg-txt" ref={(el) => (bgRightRef.current[0] = el)}>PUBLISHING</p>
+          <p className="left-bg bg-txt" ref={(el) => (bgLeftRef.current[0] = el)}>BLOB</p>
+          <p className="right-bg bg-txt" ref={(el) => (bgRightRef.current[0] = el)}>PARK</p>
         </li>
 
         <li className="flow-txt" ref={(el) => (triggerRef.current[1] = el)}>
           <p className="txt" ref={(el) => (flowRef.current[1] = el)}>
-            형태가 움직이는 작은 변화 속에서, 브랜드가 가진 분위기와 감정을 어떻게 시각적으로 전달할지를 고민합니다.
+            사용자가 가장 먼저 무엇을 느끼고, 어디에 집중하게 될지를 고려하며 움직임 하나하나에 명확한 의도를 담습니다. 단순한 시각적 연출을 넘어, 시맨틱 구조와 웹 접근성을 바탕으로 누구에게나 이해되고, 도달할 수 있는 흐름을 설계합니다. 이는 메시지가 사용자에게 일관되고 명확하게 전달되도록 돕습니다.
           </p>
-          <p className="left-bg bg-txt" ref={(el) => (bgLeftRef.current[1] = el)}>Accessibility</p>
-          <p className="right-bg bg-txt" ref={(el) => (bgRightRef.current[1] = el)}>Publising</p>
+          <p className="left-bg bg-txt" ref={(el) => (bgLeftRef.current[1] = el)}>ACCESSIBILITY</p>
+          <p className="right-bg bg-txt" ref={(el) => (bgRightRef.current[1] = el)}>SEMANTICS</p>
         </li>
 
         <li className="flow-txt show" ref={(el) => (triggerRef.current[2] = el)}>
