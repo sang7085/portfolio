@@ -11,7 +11,10 @@ export default forwardRef(function BlobMesh({ position, blobRendersRef }, ref) {
   /* 외부에서 blobRef.current 로 mesh 접근 가능 */
   useImperativeHandle(ref, () => meshRef.current);
 
+  let frameCount = 0;
   useFrame(({ clock }) => {
+    frameCount++;
+    if (frameCount % 2 !== 0) return;
     const time = clock.getElapsedTime();
     const { blobFreq, surfaceFreq, color, rotate, baseRadius } =
       blobRendersRef.current;

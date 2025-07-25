@@ -91,7 +91,7 @@ export default function FooterComp({ introStatus, isLight }) {
     <>
       <footer id="footer" className="footer">
         <div className="torus-wrap">
-          <Canvas>
+          {/* <Canvas>
             <ambientLight intensity={0.5} />
             <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
             <Torus />
@@ -109,8 +109,7 @@ export default function FooterComp({ introStatus, isLight }) {
             </Text>
             <directionalLight intensity={1.5} position={[0, 2, 2]} />
             <Environment preset="city" background={false} />
-            {/* <OrbitControls enableZoom={false} /> */}
-          </Canvas>
+          </Canvas> */}
         </div>
         <div className="contact-wrap">
           <div className="contact-info">

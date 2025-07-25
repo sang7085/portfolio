@@ -268,7 +268,7 @@ export default function VisualComp({ introStatus, isLight }) {
     <section id="visual" className="visual-sec" ref={visualSec}>
       <div className={`canvas-image-wrap ${!introStatus ? "active" : ""}`} ref={blobWrapRef}>
         <Canvas gl={{ alpha: true }} key={pathname}>
-          <ClearColorUpdater isLight={isLight} blobRendersRef={blobRendersRef} /> {/* useEffect 리렌더용 */}
+          <ClearColorUpdater isLight={isLight} blobRendersRef={blobRendersRef} /> useEffect 리렌더용
           <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
           <MeshBlob position={initPos} ref={setBlobRef} blobRendersRef={blobRendersRef} />
           <ambientLight intensity={0.5} />
