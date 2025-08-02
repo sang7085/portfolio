@@ -1,7 +1,6 @@
 .work-sec {
   z-index: var(--section-z);
   position: relative;
-  margin-bottom: 32vh;
   width: 100%;
   min-height: 100vh;
   background: var(--lightColor);
@@ -141,7 +140,7 @@
             padding-top: 30vh;
             transform: translateY(10rem);
             font-family: "Unbounded", sans-serif;
-            font-size: 22rem;
+            font-size: clamp(16rem, 10vw, 24rem);
             font-weight: 700;
             opacity: 0;
             -webkit-background-clip: text;

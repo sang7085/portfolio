@@ -11,8 +11,10 @@ CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
 export default function HeaderComp({ introStatus, setIsLight, isLight, transitionTo }) {
 
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const isWorkDetail = router.pathname === '/work/[slug]';
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleScroll = (e) => {
     e.preventDefault();
@@ -36,7 +38,7 @@ export default function HeaderComp({ introStatus, setIsLight, isLight, transitio
   }, [isLight]);
 
   return (
-    <header className="header">
+    <header className={`header ${isOpen ? "open" : ""}`}>
       <div className="logo-icon">
         <button className="logo" onClick={() => transitionTo("/")}>BLOP</button>
       </div>
@@ -56,6 +58,9 @@ export default function HeaderComp({ introStatus, setIsLight, isLight, transitio
           <li><a href="#footer" onClick={handleScroll}>Contact</a></li>
         </ul>
       }
+      <button className={`hamburger ${isOpen ? "open" : ""}`} onClick={toggleMenu}>
+        열림
+      </button>
     </header>
   );
 }

@@ -57,8 +57,8 @@ export default function IntroComp({setIntroStatus}) {
   return (
     <>
       <section className="intro-sec">
-        <div className="intro-piano-wrap">
-          <div className="intro-piano"></div>
+      <div className="intro-piano-wrap">
+        <div className="intro-piano"></div>
           <div className="intro-piano"></div>
           <div className="intro-piano"></div>
           <div className="intro-piano"></div>

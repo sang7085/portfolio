@@ -6,12 +6,13 @@ header {
   width: 100%;
   height: 10rem;
   mix-blend-mode: difference;
-  
+
   .logo-icon {
     position: absolute;
     top: 50%;
     left: 8vh;
     transform: translateY(-50%);
+
     .logo {
       font-size: 1.8rem;
       background: none;
@@ -31,18 +32,19 @@ header {
       width: 100%;
       height: 100%;
       border: none;
-      
+      mix-blend-mode: difference;
+
       &.tr-light {
         background: url("/assets/images/icon-light-mode.svg") no-repeat center / cover;
       }
-      
+
       &.tr-dark {
         background: url("/assets/images/icon-dark-mode.svg") no-repeat center / cover;
       }
     }
 
   }
-  
+
   .nav {
     position: absolute;
     right: 8vh;
@@ -52,11 +54,71 @@ header {
     justify-content: flex-end;
     gap: 4vh;
     height: 100%;
+
     li {
       font-size: 1.6rem;
+
       a {
         color: var(--lightColor);
       }
     }
+  }
+
+}
+
+@media (max-width: 1024px) {
+  header {
+    mix-blend-mode: normal;
+
+    .logo-icon {
+      left: 4vh;
+    }
+
+    .hamburger {
+      z-index: var(--front-z);
+      position: fixed;
+      top: 4vh;
+      right: 4vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: transparent;
+      border: none;
+      color: #000;
+    }
+
+    .nav {
+      position: fixed;
+      z-index: var(--front-z);
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      height: 100vh;
+      background: #fff;
+      text-transform: uppercase;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .6s ease, visibility .6s ease;
+
+      li {
+        a {
+          padding: 1rem 0;
+          text-align: center;
+          font-size: 4rem;
+          color: #000;
+        }
+      }
+    }
+
+    &.open {
+     .nav {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity .6s ease, visibility .6s ease;
+     }   
+    }
+
   }
 }

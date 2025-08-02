@@ -11,10 +11,10 @@ export default forwardRef(function BlobMesh({ position, blobRendersRef }, ref) {
   /* 외부에서 blobRef.current 로 mesh 접근 가능 */
   useImperativeHandle(ref, () => meshRef.current);
 
-  // let frameCount = 0;
+  let frameCount = 0;
   useFrame(({ clock }) => {
-    // frameCount++;
-    // if (frameCount % 2 !== 0) return;
+    frameCount++;
+    if (frameCount % 2 !== 0) return;
     const time = clock.getElapsedTime();
     const { blobFreq, surfaceFreq, color, rotate, baseRadius } =
       blobRendersRef.current;
@@ -66,16 +66,9 @@ export default forwardRef(function BlobMesh({ position, blobRendersRef }, ref) {
 
   return (
     <mesh ref={meshRef} rotation={[-1.33, -0.13, -2.0]} position={position}>
-      <sphereGeometry args={[1, 128, 128]} />
-      <meshPhysicalMaterial
-        roughness={0.44}
-        metalness={0.73}
-        transmission={1}
-        thickness={0.5}
-        clearcoat={0.13}
-        clearcoatRoughness={1}
-        envMapIntensity={0.95}
-        iridescence={0.4}
+      <sphereGeometry args={[1, 64, 64]} />
+      <meshStandardMaterial
+        roughness={0.1}
       />
     </mesh>
   );

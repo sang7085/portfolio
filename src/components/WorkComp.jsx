@@ -8,7 +8,7 @@ import { CustomEase } from "gsap/dist/CustomEase";
 import { useRouter } from "next/router";
 
 
-export default function workComp({ introStatus, transitionTo }) {
+export default function workComp({ introStatus, transitionTo, blobRendersRef }) {
   gsap.registerPlugin(ScrollTrigger, CustomEase);
   CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
@@ -78,7 +78,13 @@ export default function workComp({ introStatus, transitionTo }) {
             start: "top center",
             end: "bottom top",
             scrub: 1,
-          }
+            onLeave: () => {
+              gsap.to(blobRendersRef.current, { baseRadius: 1.5 });
+            },
+            onEnterBack: () => {
+              gsap.to(blobRendersRef.current, { baseRadius: 10 });
+            },
+          },
         })
 
         gsap.to(titleEl, {
@@ -124,11 +130,11 @@ export default function workComp({ introStatus, transitionTo }) {
                   transitionTo(`/work/${work.slug}`)
                 }}>
                   <div className="img-wrap">
-                    <Image src={work.thumbnail} className="thumbnail" alt="썸네일" fill style={{ objectFit: "cover" }} />
+                    <Image src={work.thumbnail} className="thumbnail" alt="썸네일" fill style={{ objectFit: "cover" }} loading="lazy" />
                   </div>
                   {work.awards && (
                     <div className="awards">
-                      <Image src={work.awards} alt="수상" fill style={{ objectFit: "cover" }} />
+                      <Image src={work.awards} alt="수상" fill style={{ objectFit: "cover" }} loading="lazy" />
                     </div>
                   )}
                   <div className="detail">
@@ -136,16 +142,8 @@ export default function workComp({ introStatus, transitionTo }) {
                     <div className="title-wrap">
                       <h3 className="title">{work.titleKr}</h3>
                     </div>
-                    {/* <div className="tag-wrap">
-                    <span className="tag">{work.tags[0]}</span>
-                    <span className="tag">{work.tags[1]}</span>
-                    {work.tags[2] && (
-                      <span className="tag">{work.tags[2]}</span>
-                    )}
-                  </div> */}
                   </div>
                 </Link>
-
               </div>
             ))}
           </div>

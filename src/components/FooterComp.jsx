@@ -3,7 +3,6 @@ import { gsap } from "gsap";
 import { CustomEase } from "gsap/dist/CustomEase";
 import { EffectComposer } from "@react-three/postprocessing";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { Fluid, useConfig } from "@whatisjery/react-fluid-distortion";
 import { Environment, OrthographicCamera, OrbitControls, MeshTransmissionMaterial, Text } from "@react-three/drei";
 import * as THREE from "three";
 import { useControls } from "leva";
@@ -54,67 +53,11 @@ export default function FooterComp({ introStatus, isLight }) {
     );
   }
 
-  // Fluid Effect Component
-  function FluidContent({ isLight }) {
-    const config = useConfig();
-    console.log("isLight:", isLight);
-    return (
-      <>
-        <EffectComposer>
-          <Fluid
-            {...config}
-            radius={0.05}
-            curl={1}
-            swirl={1}
-            distortion={0.2}
-            force={2}
-            pressure={0.94}
-            densityDissipation={0.98}
-            velocityDissipation={0.99}
-            intensity={1}
-            rainbow={false}
-            blend={0}
-            showBackground={true}
-            backgroundColor={"#000"}
-            fluidColor={"#000"}
-          />
-        </EffectComposer>
-      </>
-    );
-  }
-
-  function CanvasContent({ isLight }) {
-    const { viewport } = useThree();
-
-    return (
-      <>
-        <ambientLight intensity={0.5} />
-        <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
-        <Torus />
-        <Text
-          position={[0, 0, -2]}
-          fontSize={viewport.width * 0.35}
-          color={isLight ? "#121315" : "#fff"}
-          anchorX="center"
-          anchorY="middle"
-          font="/font/BebasNeue-Regular.ttf"
-          material-toneMapped={false}
-        >
-          CONTACT
-        </Text>
-        <directionalLight intensity={1.5} position={[0, 2, 2]} />
-        <Environment preset="city" background={false} />
-      </>
-    );
-  }
-
   return (
     <>
       <footer id="footer" className="footer">
-        <div className="torus-wrap">
-          <Canvas>
-            <CanvasContent isLight={isLight} />
-          </Canvas>
+        <div className="contact-txt">
+          <h2>CONTACT</h2>
         </div>
         <div className="contact-wrap">
           <div className="contact-info">

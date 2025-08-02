@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@react-three/drei": "^10.0.7",
+    "@react-three/drei": "^10.6.1",
     "@react-three/fiber": "^9.1.2",
     "@react-three/postprocessing": "^3.0.4",
     "@studio-freight/lenis": "^1.0.42",
@@ -19,6 +19,7 @@
     "lodash.throttle": "^4.1.1",
     "next": "15.3.0",
     "postprocessing": "^6.37.3",
+    "raw-loader": "^4.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sass": "^1.86.3",
@@ -26,7 +27,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "babel-plugin-glsl": "^1.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.0"
   }

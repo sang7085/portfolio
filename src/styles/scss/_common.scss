@@ -21,7 +21,10 @@ button {
   cursor: none;
 }
 
-p {font-size: clamp(0.8rem, 1.6rem, 2.4rem);}
+p {
+  font-size: 16px;
+  word-break: keep-all;
+}
 
 .scroll-motion {
   opacity: 0;
@@ -144,15 +147,14 @@ body.tr-dark footer .contact-wrap .contact-txt {
 }
 
 body.tr-dark footer .contact-wrap .contact-info a {
-  color: var(--lightColor);
+  color: var(--darkColor);
   transition: color .6s ease;
 }
-
-
 
 // dark mode end ----------------------------
 
 // light mode start -------------------------
+
 body.tr-light {
   background-color: var(--lightColor) !important;
   transition: background-color .6s ease;
@@ -266,7 +268,7 @@ body.tr-light footer .contact-wrap .contact-txt {
 }
 
 body.tr-light footer .contact-wrap .contact-info a {
-  color: var(--darkColor);
+  color: var(--lightColor);
   transition: color .6s ease;
 }
 
@@ -324,7 +326,7 @@ section {
   margin: 8vh 0;
 
   .slide-tit {
-    font-size: 20rem;
+    font-size: clamp(16rem, 10vw, 24rem);
     font-family: "Unbounded", sans-serif;
     background: linear-gradient(90deg, var(--darkColor) 50%, #eee 0);
     -webkit-background-clip: text;
@@ -385,8 +387,33 @@ section {
 .cursor.hover {
   transform: translate(-50%, -50%) scale(2.5);
   transition: transform 0.3s ease;
+
   .click {
     opacity: 1;
     transition: opacity .3s ease;
+  }
+}
+
+@media (max-width: 1024px) {
+
+  .inner {
+    padding: 0 4vh;
+  }
+
+
+  .slide-tit-wrap {
+    margin: 4vh 0;
+
+    .slide-tit {
+      font-size: clamp(4rem, 10vw, 8rem);
+    }
+  }
+
+  .cursor {
+    display: none;
+  }
+
+  body.tr-light .logo {
+    color: var(--darkColor);
   }
 }

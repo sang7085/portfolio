@@ -1,14 +1,12 @@
 
 
-import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useCallback, Suspense } from "react";
 import { usePathname } from 'next/navigation';
 import { gsap } from "gsap";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
+import { OrthographicCamera, Environment, OrbitControls } from "@react-three/drei"
+import { Leva } from 'leva';
 import { useMemo } from "react";
-import { EffectComposer } from "@react-three/postprocessing";
-import { Fluid, useConfig } from "@whatisjery/react-fluid-distortion";
-import { Environment, OrthographicCamera, OrbitControls } from "@react-three/drei";
-import { useControls, Leva } from "leva";
 import { CustomEase } from "gsap/dist/CustomEase";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import MeshBlob from "./MeshBlob";
@@ -16,34 +14,6 @@ import MeshBlob from "./MeshBlob";
 // easing
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
-
-
-function CanvasContent() {
-  const config = useConfig();
-  return (
-    <>
-      <EffectComposer>
-        <Fluid
-          {...config}
-          radius={0.02}
-          curl={10}
-          swirl={5}
-          distortion={0.2}
-          force={2}
-          pressure={0.94}
-          densityDissipation={0.98}
-          velocityDissipation={0.99}
-          intensity={0.3}
-          rainbow={false}
-          blend={0}
-          showBackground={false}
-          backgroundColor="#fff"
-          fluidColor="#fff"
-        />
-      </EffectComposer>
-    </>
-  );
-}
 
 function ClearColorUpdater({ isLight, blobRendersRef }) {
   const { gl } = useThree();
@@ -58,12 +28,13 @@ function ClearColorUpdater({ isLight, blobRendersRef }) {
 
 
 // Main Visual Component
-export default function VisualComp({ introStatus, isLight }) {
+export default function VisualComp({ introStatus, isLight, blobRendersRef }) {
 
   // 블롭 초기 설정값
-  const blobRendersRef = useRef({ blobFreq: 1, surfaceFreq: 1, color: "black", rotate: false, baseRadius: 1.5, });
+  // const blobRendersRef = useRef({ blobFreq: 1, surfaceFreq: 1, color: "black", rotate: false, baseRadius: 1.5, });
 
   const pathname = usePathname();
+  const mm = gsap.matchMedia();
 
   // 비주얼 텍스트 모션
   const scrollDownRef = useRef([]);
@@ -83,6 +54,8 @@ export default function VisualComp({ introStatus, isLight }) {
   const bottomRef = useRef([]);
   const initPos = useMemo(() => [0, -3.5, 0], []);
 
+  // 반응형
+
 
   // easing
   CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
@@ -95,10 +68,11 @@ export default function VisualComp({ introStatus, isLight }) {
       x: 0,
       y: 0,
       scrollTrigger: {
-        trigger: document.querySelector(".flow-txt"),
+        trigger: triggerRef.current[0],
         start: "top bottom",
         end: "bottom bottom",
         scrub: true,
+        // markers: true,
       },
     });
   }, []);
@@ -211,53 +185,94 @@ export default function VisualComp({ introStatus, isLight }) {
       tl.to(topRef.current, { x: "100%" })
         .to(bottomRef.current, { x: "-100%" }, "<")
 
+      // 반응형
+      mm.add("(max-width: 479px)", () => {
+        // 모바일 코드
+        console.log("MOBILE")
+        if (!introStatus) {
 
-      // flowtxt 모션
-      flowRef.current.forEach((el, index) => {
-        if (index === flowTxtLeng - 1) return;
+        }
+      });
 
-        const tl = gsap.timeline({
+      mm.add("(min-width: 480px) and (max-width: 1023px)", () => {
+        // 태블릿 코드
+        console.log("TABLET")
+        if (!introStatus) {
+
+        }
+      });
+
+      mm.add("(max-width: 1440px)", () => {
+        // PC 코드(작은화면)
+        console.log("PC")
+        const flowTxtEls = visualSec.current.querySelectorAll(".flow-txt");
+        const flowTxtLeng = flowTxtEls.length;
+        flowRef.current.forEach((el, index) => {
+          if (index === flowTxtLeng - 1) return;
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: triggerRef.current[index],
+              start: "top top",
+              end: "bottom+=150% bottom",
+              scrub: true,
+              pin: true,
+            },
+          });
+
+          tl.to(el, { opacity: 1, y: 0, duration: 0.6, ease: "gentleEase" })
+            .to(bgLeftRef.current[index], { left: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<")
+            .to(bgRightRef.current[index], { right: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<");
+        });
+
+        const tl2 = gsap.timeline({
           scrollTrigger: {
-            trigger: triggerRef.current[index],
+            trigger: flowTxtEls[flowTxtLeng - 1],
             start: "top top",
-            end: "bottom+=150% bottom",
+            end: "bottom+=150% center",
             scrub: true,
             pin: true,
           },
         });
 
-        tl.to(el, { opacity: 1, y: 0, duration: 0.6, ease: "gentleEase" })
-          .to(bgLeftRef.current[index], { top: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<")
-          .to(bgRightRef.current[index], { bottom: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<");
+        tl2.to(blobRendersRef.current, { baseRadius: 10, })
+          .to(flowTxtEls[flowTxtLeng - 1], { opacity: 0, }, "<")
       });
 
-      // // blob 중앙배치
-      // gsap.to(blobRef.current.position, {
-      //   x: 0,
-      //   y: 0,
-      //   immediateRender: false,
-      //   scrollTrigger: {
-      //     trigger: flowTxtEls[0],
-      //     start: "top bottom",
-      //     end: "bottom bottom",
-      //     scrub: true,
-      //   }
-      // })
+      mm.add("(min-width: 1441px)", () => {
+        // PC 코드(큰화면)
+        console.log("PC2")
+        // flowtxt 모션
+        flowRef.current.forEach((el, index) => {
+          if (index === flowTxtLeng - 1) return;
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: triggerRef.current[index],
+              start: "top top",
+              end: "bottom+=150% bottom",
+              scrub: true,
+              pin: true,
+            },
+          });
 
-      const tl2 = gsap.timeline({
-        scrollTrigger: {
-          trigger: flowTxtEls[flowTxtLeng - 1],
-          start: "top top",
-          end: "bottom+=150% center",
-          scrub: true,
-          pin: true,
-          pinSpacing: true,
-          invalidateOnRefresh: true,
-        },
+          tl.to(el, { opacity: 1, y: 0, duration: 0.6, ease: "gentleEase" })
+            .to(bgLeftRef.current[index], { top: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<")
+            .to(bgRightRef.current[index], { bottom: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<");
+        });
+
+        const tl2 = gsap.timeline({
+          scrollTrigger: {
+            trigger: flowTxtEls[flowTxtLeng - 1],
+            start: "top top",
+            end: "bottom+=150% center",
+            scrub: true,
+            pin: true,
+          },
+        });
+
+        tl2.to(blobRendersRef.current, { baseRadius: 10, })
+          .to(flowTxtEls[flowTxtLeng - 1], {opacity: 0}, "<")
       });
 
-      tl2.to(blobRendersRef.current, { baseRadius: 10, })
-        .to(flowTxtEls[flowTxtLeng - 1], { opacity: 0, }, "<")
     }
 
     ScrollTrigger.refresh();
@@ -267,8 +282,8 @@ export default function VisualComp({ introStatus, isLight }) {
   return (
     <section id="visual" className="visual-sec" ref={visualSec}>
       <div className={`canvas-image-wrap ${!introStatus ? "active" : ""}`} ref={blobWrapRef}>
-        <Canvas gl={{ alpha: true }} key={pathname}>
-          <ClearColorUpdater isLight={isLight} blobRendersRef={blobRendersRef} /> useEffect 리렌더용
+        <Canvas gl={{ alpha: true, version: 1 }} key={pathname}>
+          <ClearColorUpdater isLight={isLight} blobRendersRef={blobRendersRef} />
           <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
           <MeshBlob position={initPos} ref={setBlobRef} blobRendersRef={blobRendersRef} />
           <ambientLight intensity={0.5} />
@@ -277,6 +292,7 @@ export default function VisualComp({ introStatus, isLight }) {
           <Leva hidden />
           <OrbitControls enableZoom={false} />
         </Canvas>
+
       </div>
       <div className="txt-wrap-area">
         <div className="txt-wrap" ref={topRef}>

@@ -2,32 +2,59 @@ footer {
   z-index: var(--section-z);
   position: relative;
   height: 100vh;
-  // mix-blend-mode: difference;
+  mix-blend-mode: difference;
 
-  .torus-wrap {
-    z-index: var(--canvas-z);
+  .contact-txt {
+    z-index: var(--section-z);
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(16rem, 10vw, 32rem);
+    font-family: "Unbounded", sans-serif;
+    color: var(--lightColor);
   }
 
   .contact-wrap {
     z-index: var(--section-z);
     position: absolute;
+    bottom: 8dvh;
     bottom: 8vh;
+    right: 8dvh;
     right: 8vh;
+    overflow: hidden;
 
     .contact-info {
       margin-top: 3.2rem;
       justify-self: flex-end;
+
       .phone-num {
         font-size: 2.4rem;
       }
+
       .email {
         margin-top: 1.6rem;
         font-size: 2.4rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  footer {
+    .contact-txt {
+      font-size: clamp(4rem, 10vw, 8rem);
+    }
+
+    .contact-wrap {
+      .contact-info {
+        .phone-num {
+          font-size: 1.6rem;
+        }
+
+        .email {
+          font-size: 1.6rem;
+        }
       }
     }
   }

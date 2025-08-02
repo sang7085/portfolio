@@ -200,7 +200,7 @@ export default function WorkList({ transitionTo }) {
                     <div className="scroll">[ SCROLL ]</div>
                     <div className="img-con">
                       <div className="scroll-wrap" data-lenis-prevent>
-                        <Image src={work.imgList} className="img-list" alt="상세페이지" fill style={{ objectFit: "cover" }} />
+                        <Image src={work.imgList} className="img-list" alt="상세페이지" fill style={{ objectFit: "cover" }} loading="lazy" />
                       </div>
                     </div>
                   </>

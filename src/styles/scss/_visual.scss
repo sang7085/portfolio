@@ -70,7 +70,7 @@
       &.second {
         top: 30vh;
         left: unset;
-        right: 1vw;
+        right: 8vh;
       }
 
       .visual-txt {
@@ -113,7 +113,7 @@
       .txt {
         opacity: 0;
         transform: translateY(10rem);
-        width: 24%;
+        width: 16%;
         line-height: 3.2rem;
         text-align: center;
 
@@ -137,7 +137,6 @@
 
       .bg-txt {
         position: absolute;
-        transform: translateY(-50%);
         font-size: 3.2rem;
         font-family: "Unbounded", sans-serif;
         font-weight: 400;
@@ -146,11 +145,13 @@
         &.left-bg {
           left: 8vh;
           top: 30%;
+          transform: translateY(-50%);
         }
 
         &.right-bg {
           right: 8vh;
           bottom: 30%;
+          transform: translateY(50%);
         }
       }
 
@@ -175,4 +176,68 @@
     }
   }
 
+}
+
+@media (max-width: 1920px) {
+  .visual-sec {
+    .flow-txt-wrap {
+      .flow-txt {
+        .txt {
+          width: 24%;
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 1440px) {
+  .visual-sec {
+    .flow-txt-wrap {
+      .flow-txt {
+        .txt {
+          width: 24%;
+        }
+
+        .bg-txt {
+          &.left-bg {
+            left: 30%;
+            top: 10dvh;
+            top: 10vh;
+            transform: translate(-50%, 0);
+          }
+
+          &.right-bg {
+            right: 30%;
+            bottom: 10dvh;
+            bottom: 10vh;
+            transform: translate(50%, 0);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .visual-sec {
+    .scroll-down {
+      top: 50%;
+    }
+    .flow-txt-wrap {
+      .flow-txt {
+        .txt {
+          width: 40%;
+        }
+      }
+    }
+
+    .txt-wrap-area {
+      .txt-wrap {
+        &.second {
+          top: 16vh;
+        }
+      }
+    }
+  }
 }
