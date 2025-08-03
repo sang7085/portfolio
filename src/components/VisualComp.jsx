@@ -198,7 +198,7 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef }) {
         // 태블릿 코드
         console.log("TABLET")
         if (!introStatus) {
-
+          gsap.set(mesh.position, { x: 0, y: -1.5, z: 0 });
         }
       });
 

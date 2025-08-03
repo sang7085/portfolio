@@ -235,6 +235,18 @@
     .txt-wrap-area {
       .txt-wrap {
         &.second {
+          top: 24vh;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .visual-sec {
+    .txt-wrap-area {
+      .txt-wrap {
+        &.second {
           top: 16vh;
         }
       }

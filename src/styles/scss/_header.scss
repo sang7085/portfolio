@@ -64,6 +64,10 @@ header {
     }
   }
 
+  .hamburger {
+    display: none;
+  }
+
 }
 
 @media (max-width: 1024px) {
@@ -72,19 +76,6 @@ header {
 
     .logo-icon {
       left: 4vh;
-    }
-
-    .hamburger {
-      z-index: var(--front-z);
-      position: fixed;
-      top: 4vh;
-      right: 4vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: transparent;
-      border: none;
-      color: #000;
     }
 
     .nav {
@@ -118,6 +109,19 @@ header {
       visibility: visible;
       transition: opacity .6s ease, visibility .6s ease;
      }   
+    }
+
+    .hamburger {
+      z-index: var(--front-z);
+      position: fixed;
+      top: 4vh;
+      right: 4vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: transparent;
+      border: none;
+      color: #000;
     }
 
   }
