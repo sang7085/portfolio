@@ -62,6 +62,8 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef }) {
 
   const setBlobRef = useCallback((mesh) => {
     if (!mesh) return;
+    
+    blobRef.current = mesh;
     gsap.set(mesh.position, { x: 0, y: -3.5, z: 0 });
 
     gsap.to(mesh.position, {
@@ -72,7 +74,6 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef }) {
         start: "top bottom",
         end: "bottom bottom",
         scrub: true,
-        // markers: true,
       },
     });
   }, []);
@@ -198,7 +199,9 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef }) {
         // 태블릿 코드
         console.log("TABLET")
         if (!introStatus) {
-          gsap.set(mesh.position, { x: 0, y: -1.5, z: 0 });
+          if (blobRef.current) {
+            gsap.set(blobRef.current.position, { x: 0, y: -1.5, z: 0 });
+          }
         }
       });
 
@@ -270,7 +273,7 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef }) {
         });
 
         tl2.to(blobRendersRef.current, { baseRadius: 10, })
-          .to(flowTxtEls[flowTxtLeng - 1], {opacity: 0}, "<")
+          .to(flowTxtEls[flowTxtLeng - 1], { opacity: 0 }, "<")
       });
 
     }

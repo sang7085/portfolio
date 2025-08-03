@@ -169,3 +169,18 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .work-sec {
+    .work-list-wrap {
+      .work-list {
+        .content-wrap {
+          .img-wrap {
+            width: 100% !important;
+            height: 100% !important;
+          }
+        }
+      }
+    }
+  }
+}
