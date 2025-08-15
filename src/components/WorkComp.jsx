@@ -24,6 +24,7 @@ export default function workComp({ introStatus, transitionTo, blobRendersRef }) 
   useEffect(() => {
     if (!introStatus) {
       const workList = document.querySelectorAll(".work-list");
+      const imgWrap = document.querySelectorAll(".img-wrap");
       const workListLeng = workList.length;
       txtMotion.current = []
 
@@ -33,7 +34,6 @@ export default function workComp({ introStatus, transitionTo, blobRendersRef }) 
           start: "top center",
           end: "bottom center",
           scrub: true,
-          // markers: true,
         },
       })
 
@@ -46,6 +46,41 @@ export default function workComp({ introStatus, transitionTo, blobRendersRef }) 
           start: "top +=9%",
           end: "bottom top+=9%",
           pin: true,
+        }
+      })
+
+      // matchmedia 간소화
+      const getRadius = () => {
+        const w = window.innerWidth;
+        if (w < 480) return { leave: 0.8, back: 7 };
+        if (w < 768) return { leave: 1, back: 7 };
+        if (w < 1024) return { leave: 1.2, back: 10 };
+        if (w <= 1440) return { leave: 1.2, back: 10 };
+        return { leave: 1.5, back: 10 };
+      };
+      // 객체 구조분해 할당
+      const { leave } = getRadius();
+      const { back } = getRadius();
+
+      workList.forEach((el, index) => {
+        if (index !== workListLeng - 1) {
+          gsap.to(el, {
+            scrollTrigger: {
+              trigger: el,
+              start: "top top",
+              end: "bottom top",
+              pin: true,
+              pinSpacing: false,
+              scrub: 1,
+              onLeave() {
+                gsap.to(blobRendersRef.current, { baseRadius: leave });
+              },
+              onEnterBack() {
+                gsap.to(blobRendersRef.current, { baseRadius: back });
+              },
+            },
+          });
+
         }
       })
 
@@ -64,59 +99,15 @@ export default function workComp({ introStatus, transitionTo, blobRendersRef }) 
           title.classList.remove("active");
         });
       });
-
-      document.querySelectorAll(".work-list").forEach((el) => {
-        const titleEl = el.querySelector(".title");
-        const titleW = el.querySelector(".title-wrap");
-        const imgW = el.querySelector(".img-wrap");
-
-        gsap.to(titleW, {
-          y: "-5%",
-          ease: "gentleEase",
-          scrollTrigger: {
-            trigger: el,
-            start: "top center",
-            end: "bottom top",
-            scrub: 1,
-            onLeave: () => {
-              gsap.to(blobRendersRef.current, { baseRadius: 1.5 });
-            },
-            onEnterBack: () => {
-              gsap.to(blobRendersRef.current, { baseRadius: 10 });
-            },
-          },
-        })
-
-        gsap.to(titleEl, {
-          y: 0,
-          opacity: 1,
-          ease: "gentleEase",
-          duration: 2,
-          scrollTrigger: {
-            trigger: el,
-            start: "top center",
-            end: "bottom bottom",
-            scrub: 1,
-          }
-        })
-
-        gsap.to(imgW, {
-          scale: 1,
-          scrollTrigger: {
-            trigger: el,
-            start: "top center",
-            end: "bottom bottom",
-          }
-        })
-      })
     }
-
+    requestAnimationFrame(() => ScrollTrigger.refresh());
   }, [introStatus, router]);
 
 
   return (
     <>
-      <section id="work" className="work-sec" ref={workSecRef}>
+      <section id="work" className="work-sec" ref={workSecRef} aria-labelledby="work-heading">
+        <h2 id="work-heading" className="sr-only">works</h2>
         <div className="inner">
           <div className="slide-tit-wrap" ref={slideTitWrap}>
             <h3 className="slide-tit left" ref={slideTitLeft}>FEATURED</h3>
@@ -124,23 +115,27 @@ export default function workComp({ introStatus, transitionTo, blobRendersRef }) 
           </div>
           <div className="work-list-wrap">
             {workData.map((work, index) => (
-              <div className={`work-list ${index % 2 === 0 ? "right" : "left"}`} key={work.id}>
-                <Link href={`/work/${work.slug}`} className="content-wrap" onClick={(e) => {
+              <div className={`work-list`} key={work.id}>
+                <Link href={`/work/${work.slug}`} className="content-wrap" aria-labelledby={`${work.title}-자세히보기`} onClick={(e) => {
                   e.preventDefault();
                   transitionTo(`/work/${work.slug}`)
                 }}>
-                  <div className="img-wrap">
-                    <Image src={work.thumbnail} className="thumbnail" alt="썸네일" fill style={{ objectFit: "cover" }} loading="lazy" />
-                  </div>
-                  {work.awards && (
+                  <div className="info">
+                    <div className="img-wrap">
+                      <Image src={work.thumbnail} className="thumbnail" alt="" fill style={{ objectFit: "cover" }} loading="lazy" />
+                    </div>
+                    {/* {work.awards && (
                     <div className="awards">
                       <Image src={work.awards} alt="수상" fill style={{ objectFit: "cover" }} loading="lazy" />
                     </div>
-                  )}
-                  <div className="detail">
-                    <p className="title-num">({work.num})</p>
-                    <div className="title-wrap">
-                      <h3 className="title">{work.titleKr}</h3>
+                  )} */}
+                    <div className="detail">
+                      <div className="title-wrap">
+                        <p className="title-num">({work.num})</p>
+                        <h3 className="title">{work.titleKr}</h3>
+                        {/* <p className="role-txt">{work.roles}</p> */}
+                        <p className="description">{work.description.head}</p>
+                      </div>
                     </div>
                   </div>
                 </Link>

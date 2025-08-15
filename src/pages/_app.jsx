@@ -119,6 +119,7 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <a href="#main-content" className="skip-link">SKIP</a>
       <div className="cursor" ref={cursorRef}>
         <div className="click">CLICK</div>
       </div>
@@ -132,13 +133,15 @@ export default function MyApp({ Component, pageProps }) {
           />
         </>
       )}
-      <Component
-        {...pageProps}
-        introStatus={introStatus}
-        setIntroStatus={setIntroStatus}
-        isLight={isLight}
-        transitionTo={transitionTo}
-      />
+      <main id="main-content" tabIndex="-1">
+        <Component
+          {...pageProps}
+          introStatus={introStatus}
+          setIntroStatus={setIntroStatus}
+          isLight={isLight}
+          transitionTo={transitionTo}
+        />
+      </main>
       <FooterComp isLight={isLight} introStatus={introStatus} />
 
       <div className="transition-cover"></div>

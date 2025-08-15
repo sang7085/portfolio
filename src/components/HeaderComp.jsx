@@ -29,6 +29,8 @@ export default function HeaderComp({ introStatus, setIsLight, isLight, transitio
       },
       ease: "gentleEase",
     });
+
+    setIsOpen(false);
   }
 
   useEffect(() => {
@@ -51,16 +53,20 @@ export default function HeaderComp({ introStatus, setIsLight, isLight, transitio
       </div>
       {
         !isWorkDetail &&
-        <ul className="nav">
-          <li><a href="#visual" onClick={handleScroll}>Visual</a></li>
-          <li><a href="#work" onClick={handleScroll}>Work</a></li>
-          <li><a href="#about" onClick={handleScroll}>About Me</a></li>
-          <li><a href="#footer" onClick={handleScroll}>Contact</a></li>
-        </ul>
+        <>
+          <ul className="nav">
+            <li><a href="#visual" onClick={handleScroll}>Visual</a></li>
+            <li><a href="#work" onClick={handleScroll}>Work</a></li>
+            <li><a href="#about" onClick={handleScroll}>About Me</a></li>
+            <li><a href="#footer" onClick={handleScroll}>Contact</a></li>
+          </ul>
+          <button className={`hamburger ${isOpen ? "open" : ""}`} onClick={toggleMenu}>
+            <div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
+          </button>
+        </>
       }
-      <button className={`hamburger ${isOpen ? "open" : ""}`} onClick={toggleMenu}>
-        열림
-      </button>
     </header>
   );
 }

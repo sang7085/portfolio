@@ -10,7 +10,7 @@ import { CustomEase } from "gsap/dist/CustomEase";
 //resisterPlugin
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
-export default function WorkList({ transitionTo }) {
+export default function WorkList({ transitionTo, isLight }) {
   
   const slideTitWrap = useRef(null);
   const slideTitLeft = useRef(null);
@@ -218,9 +218,9 @@ export default function WorkList({ transitionTo }) {
               </div>
               <div className="arrow">
                 <svg width="55" height="81" viewBox="0 0 55 81" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <line x1="27.5" y1="1" x2="27.5" y2="81" stroke="var(--darkColor)"></line>
-                  <line x1="27.3536" y1="0.646447" x2="54.3536" y2="27.6464" stroke="var(--darkColor)"></line>
-                  <line y1="-0.5" x2="38.1838" y2="-0.5" transform="matrix(-0.707107 0.707107 0.707107 0.707107 28 1)" stroke="var(--darkColor)"></line>
+                  <line x1="27.5" y1="1" x2="27.5" y2="81" stroke={`${isLight ? "var(--darkColor)" : "var(--brightLight)"}`}></line>
+                  <line x1="27.3536" y1="0.646447" x2="54.3536" y2="27.6464" stroke={`${isLight ? "var(--darkColor)" : "var(--brightLight)"}`}></line>
+                  <line y1="-0.5" x2="38.1838" y2="-0.5" transform="matrix(-0.707107 0.707107 0.707107 0.707107 28 1)" stroke={`${isLight ? "var(--darkColor)" : "var(--brightLight)"}`}></line>
                 </svg>
               </div>
             </button>

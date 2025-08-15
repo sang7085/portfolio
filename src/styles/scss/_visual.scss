@@ -219,11 +219,14 @@
   }
 }
 
-@media (max-width: 1024px) {
+// 반응형
+
+@media (max-width: 1023px) {
   .visual-sec {
     .scroll-down {
       top: 50%;
     }
+
     .flow-txt-wrap {
       .flow-txt {
         .txt {
@@ -242,12 +245,43 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 767px) {
   .visual-sec {
+
+    .scroll-down {
+      top: 50%;
+    }
+    .flow-txt-wrap {
+      .flow-txt {
+        .txt {
+          width: 50%;
+        }
+      }
+    }
+
     .txt-wrap-area {
       .txt-wrap {
+        left: 4vh;
+
         &.second {
-          top: 16vh;
+          top: 20vh;
+          right: 4vh;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 479px) {
+  .visual-sec {
+    .scroll-down {
+      top: 40%;
+    }
+  
+    .flow-txt-wrap {
+      .flow-txt {
+        .txt {
+          width: 50%;
         }
       }
     }

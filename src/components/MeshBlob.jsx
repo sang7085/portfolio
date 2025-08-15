@@ -66,7 +66,7 @@ export default forwardRef(function BlobMesh({ position, blobRendersRef }, ref) {
 
   return (
     <mesh ref={meshRef} rotation={[-1.33, -0.13, -2.0]} position={position}>
-      <sphereGeometry args={[1, 64, 64]} />
+      <sphereGeometry args={[1, 32, 32]} />3
       <meshStandardMaterial
         roughness={0.1}
       />

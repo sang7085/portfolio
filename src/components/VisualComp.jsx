@@ -28,13 +28,9 @@ function ClearColorUpdater({ isLight, blobRendersRef }) {
 
 
 // Main Visual Component
-export default function VisualComp({ introStatus, isLight, blobRendersRef }) {
-
-  // 블롭 초기 설정값
-  // const blobRendersRef = useRef({ blobFreq: 1, surfaceFreq: 1, color: "black", rotate: false, baseRadius: 1.5, });
+export default function VisualComp({ introStatus, isLight, blobRendersRef, setVisualReady }) {
 
   const pathname = usePathname();
-  const mm = gsap.matchMedia();
 
   // 비주얼 텍스트 모션
   const scrollDownRef = useRef([]);
@@ -52,19 +48,40 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef }) {
   const bgRightRef = useRef([]);
   const topRef = useRef([]);
   const bottomRef = useRef([]);
-  const initPos = useMemo(() => [0, -3.5, 0], []);
-
-  // 반응형
-
 
   // easing
   CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
+  const blobPos = () => {
+    const w = window.innerWidth;
+    if (w <= 767) return -1.5;
+    if (w <= 1023) return -2;
+    if (w <= 1440) return -2.5;
+    return -3.5;
+  };
+
+  const blobSettings = () => {
+    const w = window.innerWidth;
+    if (w <= 479) {
+      return { baseRadius: 1, flow: false };
+    }
+    if (w <= 767) {
+      return { baseRadius: 1.2, flow: false };
+    }
+    if (w <= 1023) {
+      return { baseRadius: 1.2, flow: false };
+    }
+    if (w <= 1440) {
+      return { baseRadius: 1.2, flow: false };
+    }
+    return { baseRadius: 1.5, flow: true };
+  };
+
   const setBlobRef = useCallback((mesh) => {
     if (!mesh) return;
-    
     blobRef.current = mesh;
-    gsap.set(mesh.position, { x: 0, y: -3.5, z: 0 });
+
+    gsap.set(mesh.position, { x: 0, y: blobPos(), z: 0 });
 
     gsap.to(mesh.position, {
       x: 0,
@@ -78,11 +95,58 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef }) {
     });
   }, []);
 
+  const makeFlow = (isWide) => {
+    const flowTxtEls = visualSec.current.querySelectorAll(".flow-txt");
+    const lastIndex = flowTxtEls.length - 1;
+
+    flowRef.current.forEach((el, index) => {
+      if (index === lastIndex) return;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: triggerRef.current[index],
+          start: "top top",
+          end: "bottom+=150% bottom",
+          scrub: true,
+          pin: true,
+        },
+      });
+
+      if (!isWide) {
+        tl.to(el, { opacity: 1, y: 0, ease: "gentleEase" })
+          .to(bgLeftRef.current[index], { left: "50%", opacity: 1, ease: "gentleEase" }, "<")
+          .to(bgRightRef.current[index], { right: "50%", opacity: 1, ease: "gentleEase" }, "<");
+      } else {
+        tl.to(el, { opacity: 1, y: 0, ease: "gentleEase" })
+          .to(bgLeftRef.current[index], { top: "50%", opacity: 1, ease: "gentleEase" }, "<")
+          .to(bgRightRef.current[index], { bottom: "50%", opacity: 1, ease: "gentleEase" }, "<");
+      }
+    });
+  };
+
+  const makeLastFlow = () => {
+    const flowTxtEls = visualSec.current.querySelectorAll(".flow-txt");
+    const lastIdx = flowTxtEls[flowTxtEls.length - 1];
+
+    const tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: lastIdx,
+        start: "top top",
+        end: "bottom+=150% center",
+        scrub: true,
+        pin: true,
+      },
+    });
+
+    tl2
+      .to(blobRendersRef.current, { baseRadius: 10 })
+      .to(lastIdx, { opacity: 0 }, "<");
+  };
+
   useLayoutEffect(() => {
     // flow section start
     if (!visualSec.current) return;
     const flowTxtEls = visualSec.current.querySelectorAll(".flow-txt");
-    const flowTxtLeng = flowTxtEls.length;
     const ctx = gsap.context(() => {
       flowTxtEls.forEach((el, index) => {
         gsap.to(el, {
@@ -138,6 +202,9 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef }) {
   useEffect(() => {
     if (!introStatus) {
 
+      // visual준비 후 work 생성 _app.js 상태값 변경과 연관
+      setVisualReady(true);
+
       const flowTxtEls = visualSec.current.querySelectorAll(".flow-txt");
       const flowTxtLeng = flowTxtEls.length;
 
@@ -187,108 +254,22 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef }) {
         .to(bottomRef.current, { x: "-100%" }, "<")
 
       // 반응형
-      mm.add("(max-width: 479px)", () => {
-        // 모바일 코드
-        console.log("MOBILE")
-        if (!introStatus) {
-
-        }
-      });
-
-      mm.add("(min-width: 480px) and (max-width: 1023px)", () => {
-        // 태블릿 코드
-        console.log("TABLET")
-        if (!introStatus) {
-          if (blobRef.current) {
-            gsap.set(blobRef.current.position, { x: 0, y: -1.5, z: 0 });
-          }
-        }
-      });
-
-      mm.add("(max-width: 1440px)", () => {
-        // PC 코드(작은화면)
-        console.log("PC")
-        const flowTxtEls = visualSec.current.querySelectorAll(".flow-txt");
-        const flowTxtLeng = flowTxtEls.length;
-        flowRef.current.forEach((el, index) => {
-          if (index === flowTxtLeng - 1) return;
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: triggerRef.current[index],
-              start: "top top",
-              end: "bottom+=150% bottom",
-              scrub: true,
-              pin: true,
-            },
-          });
-
-          tl.to(el, { opacity: 1, y: 0, duration: 0.6, ease: "gentleEase" })
-            .to(bgLeftRef.current[index], { left: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<")
-            .to(bgRightRef.current[index], { right: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<");
-        });
-
-        const tl2 = gsap.timeline({
-          scrollTrigger: {
-            trigger: flowTxtEls[flowTxtLeng - 1],
-            start: "top top",
-            end: "bottom+=150% center",
-            scrub: true,
-            pin: true,
-          },
-        });
-
-        tl2.to(blobRendersRef.current, { baseRadius: 10, })
-          .to(flowTxtEls[flowTxtLeng - 1], { opacity: 0, }, "<")
-      });
-
-      mm.add("(min-width: 1441px)", () => {
-        // PC 코드(큰화면)
-        console.log("PC2")
-        // flowtxt 모션
-        flowRef.current.forEach((el, index) => {
-          if (index === flowTxtLeng - 1) return;
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: triggerRef.current[index],
-              start: "top top",
-              end: "bottom+=150% bottom",
-              scrub: true,
-              pin: true,
-            },
-          });
-
-          tl.to(el, { opacity: 1, y: 0, duration: 0.6, ease: "gentleEase" })
-            .to(bgLeftRef.current[index], { top: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<")
-            .to(bgRightRef.current[index], { bottom: "50%", opacity: 1, duration: 0.6, ease: "gentleEase" }, "<");
-        });
-
-        const tl2 = gsap.timeline({
-          scrollTrigger: {
-            trigger: flowTxtEls[flowTxtLeng - 1],
-            start: "top top",
-            end: "bottom+=150% center",
-            scrub: true,
-            pin: true,
-          },
-        });
-
-        tl2.to(blobRendersRef.current, { baseRadius: 10, })
-          .to(flowTxtEls[flowTxtLeng - 1], { opacity: 0 }, "<")
-      });
-
+      const { baseRadius, flow } = blobSettings();
+      blobRendersRef.current.baseRadius = baseRadius;
+      makeFlow(flow);
+      makeLastFlow(flow);
     }
-
-    ScrollTrigger.refresh();
-
+    requestAnimationFrame(() => ScrollTrigger.refresh());
   }, [introStatus]);
 
   return (
-    <section id="visual" className="visual-sec" ref={visualSec}>
+    <section id="visual" className="visual-sec" ref={visualSec} aria-labelledby="visual-heading">
+      <h2 id="visual-heading" className="sr-only">Visual</h2>
       <div className={`canvas-image-wrap ${!introStatus ? "active" : ""}`} ref={blobWrapRef}>
         <Canvas gl={{ alpha: true, version: 1 }} key={pathname}>
           <ClearColorUpdater isLight={isLight} blobRendersRef={blobRendersRef} />
           <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={200} />
-          <MeshBlob position={initPos} ref={setBlobRef} blobRendersRef={blobRendersRef} />
+          <MeshBlob ref={setBlobRef} blobRendersRef={blobRendersRef} />
           <ambientLight intensity={0.5} />
           <directionalLight intensity={1.5} position={[0, 2, 2]} />
           <Environment preset="city" background={false} />

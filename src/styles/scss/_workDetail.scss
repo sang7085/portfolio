@@ -3,6 +3,12 @@
   width: 100%;
   overflow: hidden;
 
+  .inner {
+    .slide-tit-wrap {
+      margin: 12vh 0 8vh;
+    }
+  }
+
   .work-head {
     margin: 12.8rem 0;
     display: grid;
@@ -16,8 +22,11 @@
 
     .head-txt {
       margin-top: 1.6rem;
-      font-size: 2.4rem;
       color: var(--darkColor);
+
+      a {
+        font-size: 2.4rem;
+      }
     }
   }
 
@@ -135,9 +144,9 @@
       .sub-tit {
         position: absolute;
         top: 50%;
-        right: 8vh;
+        right: 0;
         transform: translateY(-50%);
-        font-size: 2.4rem;
+        font-size: 1.6rem;
         color: var(--darkColor);
       }
     }
@@ -173,6 +182,113 @@
           }
         }
       }
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .work-container {
+    .work-head {
+      margin: 0 0 8vh;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .work-container {
+    .content-wrap {
+      .about-project {
+        .title-wrap {
+          margin: 8vh 0;
+        }
+      }
+
+      .visual-wrap {
+        .fake-bg {
+          height: 60vh;
+        }
+      }
+    }
+
+    .work-head {
+      grid-template-columns: repeat(1, 1fr);
+
+      .head-tit {
+        font-size: 2.4rem;
+        font-weight: 500;
+      }
+
+      .head-txt {
+        margin-top: 1.6rem;
+
+        a {
+          font-size: 1.6rem;
+        }
+      }
+
+      li {
+        &+li {
+          margin-top: 1.6rem;
+        }
+      }
+    }
+
+    .uiux-wrap {
+      .slide-tit-wrap {
+        .sub-tit {
+          position: unset;
+          margin-top: 4vh;
+        }
+      }
+    }
+
+    .next-work {
+      .inner {
+        .next-work-btn {
+          .arrow {
+            transform: translateY(0) rotate(90deg);
+            width: 8rem;
+            height: 8rem;
+
+            svg {
+              width: 40%;
+            }
+          }
+
+          &:hover {
+            .arrow {
+              transform: translateY(0) rotate(90deg);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 479px) {
+  .work-container {
+    .content-wrap {
+      .about-project {
+        .tit-wrap {
+          margin: 8vh 0;
+          flex-direction: column;
+
+          .info {
+            margin: 4vh 0 0;
+
+            .info-head {
+              p {
+                font-size: 2rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .next-work {
+      height: 50vh;
     }
   }
 }

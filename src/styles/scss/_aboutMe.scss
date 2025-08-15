@@ -48,7 +48,7 @@
       z-index: var(--canvas-z);
       position: relative;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       margin-right: 8vh;
       width: 60%;
@@ -61,18 +61,37 @@
   }
 }
 
+// 반응형
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .about-sec {
+    .slide-tit-wrap {
+      margin: 16vh 0 8vh;
+    }
     .about-con {
       flex-wrap: wrap;
+      flex-direction: column-reverse;
+
       .detail-wrap {
         width: 100%;
       }
 
       .txt-wrap {
+        margin: 8vh 0 0;
         width: 100%;
+        height: auto;
       }
     }
   }
+}
+
+@media (max-width: 767px) {
+  .about-sec {
+    .about-con {
+
+      .detail-wrap {
+        height: 60vh;
+      }
+    }
+  } 
 }

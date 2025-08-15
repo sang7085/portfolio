@@ -13,46 +13,7 @@ import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 gsap.registerPlugin(ScrollTrigger, CustomEase, ScrollToPlugin);
 CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
-export default function FooterComp({ introStatus, isLight }) {
-  // Torus Component
-  function Torus() {
-    const torus1 = useRef(null);
-
-    useFrame(() => {
-      torus1.current.rotation.x += 0.005;
-      torus1.current.rotation.y += 0.005;
-    })
-
-    const materialProps = useControls({
-      // thickness: { value: 0.2, min: 0, max: 3, step: 0.05 },
-      // roughness: { value: 0, min: 0, max: 1, step: 0.1 },
-      // transmission: { value: 1, min: 0, max: 1, step: 0.1 },
-      // ior: { value: 1.2, min: 0, max: 3, step: 0.1 },
-      // chromaticAberration: { value: 0.02, min: 0, max: 1 },
-      // backside: { value: true },
-    })
-    return (
-      <group scale={2}>
-        <mesh scale={[1.5, 1.5, 1.5]} ref={torus1} geometry={new THREE.TorusGeometry(0.5, 0.15, 32, 100)}>
-          {/* <MeshTransmissionMaterial {...materialProps} /> */}
-          <MeshTransmissionMaterial backside
-            thickness={0.5}
-            transmission={1}
-            roughness={0}
-            ior={1.5}
-            chromaticAberration={0.06}
-            anisotropy={0.1}
-            distortion={0.2}
-            distortionScale={0.5}
-            temporalDistortion={0.1}
-            samples={10}
-            resolution={1024}
-          />
-        </mesh>
-      </group>
-    );
-  }
-
+export default function FooterComp() {
   return (
     <>
       <footer id="footer" className="footer">
