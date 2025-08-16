@@ -1,27 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useLayoutEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { Canvas, useThree, useFrame, useLoader } from "@react-three/fiber";
 import Image from "next/image";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { CustomEase } from "gsap/dist/CustomEase";
-import * as THREE from "three";
 
 //resisterPlugin
 gsap.registerPlugin(ScrollTrigger, CustomEase);
-
-function MyProfile() {
-  const texture = useLoader(THREE.TextureLoader, "/assets/images/my-face.jpg");
-  const { viewport } = useThree();
-
-  return (
-    <mesh position={[0, 0, 0]}>
-      <planeGeometry args={[viewport.width, viewport.height]} />
-      <meshBasicMaterial map={texture} />
-    </mesh>
-  )
-}
 
 export default function AboutMeComp({ introStatus, isLight }) {
 

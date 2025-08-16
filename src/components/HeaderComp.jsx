@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { useRouter } from 'next/router';
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";

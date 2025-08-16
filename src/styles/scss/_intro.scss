@@ -1,5 +1,7 @@
+  @use "./abstracts/index" as *;
+  
   .intro-sec {
-    z-index: var(--front-z);
+    z-index: $z-front;
     position: fixed;
     right: 0;
     width: 100%;

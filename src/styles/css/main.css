@@ -1,3 +1,21 @@
+:root {
+  --darkColor: #121315 !important;
+  --lightColor: #fff !important;
+  --brightDark: #252525 !important;
+  --brightLight: #eee !important;
+}
+
+:root {
+  --bg: #ffffff;
+  --fontColor: #121315;
+}
+
+html[data-theme=light] {
+  --bg: #ffffff;
+  --reverseBg: #121315;
+  --fontColor: #121315;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -68,18 +86,6 @@ table {
   border-spacing: 0;
 }
 
-:root {
-  --under-z: 9;
-  --canvas-z: 10;
-  --section-z: 11;
-  --front-z: 999;
-  --skip-z: 9999;
-  --darkColor: #121315 !important;
-  --lightColor: #fff !important;
-  --brightDark: #252525 !important;
-  --brightLight: #eee !important;
-}
-
 body {
   scroll-behavior: auto;
   cursor: none;
@@ -107,7 +113,7 @@ p {
   font-size: 2.4rem;
   background: #000;
   color: #fff;
-  z-index: var(--skip-z);
+  z-index: 9999;
 }
 .skip-link:focus, .skip-link:focus-visible {
   top: 0;
@@ -462,7 +468,7 @@ section {
 }
 
 .slide-tit-wrap {
-  z-index: var(--section-z);
+  z-index: 11;
   margin: 8vh 0;
 }
 .slide-tit-wrap .slide-tit {
@@ -493,14 +499,13 @@ section {
   transform: translateX(0);
   width: 100%;
   height: 100%;
-  background: #000;
   border-radius: 50%;
   transform: scale(1);
 }
 
 .cursor {
   position: fixed;
-  z-index: 9999999;
+  z-index: 9999;
   transform: translate(-50%, -50%);
   transition: transform 0.3s ease;
   mix-blend-mode: difference;
@@ -700,7 +705,7 @@ section {
   src: url("/font/BebasNeue-Regular.ttf") format("truetype");
 }
 header {
-  z-index: var(--front-z);
+  z-index: 999;
   position: fixed;
   top: 0;
   left: 0;
@@ -717,7 +722,7 @@ header .logo-icon {
 header .logo-icon .logo {
   font-size: 1.8rem;
   background: none;
-  border: none;
+  border: 0;
 }
 header .utils {
   position: absolute;
@@ -730,7 +735,7 @@ header .utils {
 header .utils .light-mode {
   width: 100%;
   height: 100%;
-  border: none;
+  border: 0;
   mix-blend-mode: difference;
 }
 header .utils .light-mode.tr-light {
@@ -769,7 +774,7 @@ header .hamburger {
   }
   header .nav {
     position: fixed;
-    z-index: var(--front-z);
+    z-index: 999;
     right: 0;
     display: flex;
     flex-direction: column;
@@ -794,7 +799,7 @@ header .hamburger {
     transition: opacity 0.6s ease, visibility 0.6s ease;
   }
   header .hamburger {
-    z-index: var(--front-z);
+    z-index: 999;
     position: fixed;
     top: 4vh;
     right: 4vh;
@@ -803,7 +808,7 @@ header .hamburger {
     justify-content: space-between;
     width: 3.6rem;
     background: transparent;
-    border: none;
+    border: 0;
     color: #000;
   }
   header .hamburger .bar {
@@ -829,13 +834,13 @@ header .hamburger {
   }
 }
 footer {
-  z-index: var(--section-z);
+  z-index: 11;
   position: relative;
   height: 100vh;
   mix-blend-mode: difference;
 }
 footer .contact-txt {
-  z-index: var(--section-z);
+  z-index: 11;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -845,7 +850,7 @@ footer .contact-txt {
   color: var(--lightColor);
 }
 footer .contact-wrap {
-  z-index: var(--section-z);
+  z-index: 11;
   position: absolute;
   bottom: 8dvh;
   bottom: 8vh;
@@ -877,7 +882,7 @@ footer .contact-wrap .contact-info .email {
   }
 }
 .intro-sec {
-  z-index: var(--front-z);
+  z-index: 999;
   position: fixed;
   right: 0;
   width: 100%;
@@ -930,7 +935,7 @@ footer .contact-wrap .contact-info .email {
   padding-top: 0;
   margin-top: 0;
   overflow: hidden;
-  border: none;
+  border: 0;
 }
 .visual-sec .scroll-down {
   position: absolute;
@@ -943,7 +948,7 @@ footer .contact-wrap .contact-info .email {
   opacity: 0;
 }
 .visual-sec .canvas-image-wrap {
-  z-index: var(--canvas-z);
+  z-index: 10;
   position: fixed;
   top: 0;
   opacity: 0;
@@ -962,7 +967,7 @@ footer .contact-wrap .contact-info .email {
      object-fit: cover;
 }
 .visual-sec .txt-wrap-area {
-  z-index: var(--section-z);
+  z-index: 11;
   position: relative;
   width: 100%;
   height: 100vh;
@@ -1012,7 +1017,7 @@ footer .contact-wrap .contact-info .email {
   color: #eee;
 }
 .visual-sec .flow-txt-wrap {
-  z-index: var(--section-z);
+  z-index: 11;
   position: relative;
   width: 100%;
   mix-blend-mode: difference;
@@ -1067,7 +1072,7 @@ footer .contact-wrap .contact-info .email {
   width: 100%;
 }
 .visual-sec .flow-area .circle {
-  z-index: var(--section-z);
+  z-index: 11;
   position: absolute;
   top: 50%;
   left: 0;
@@ -1136,7 +1141,7 @@ footer .contact-wrap .contact-info .email {
   }
 }
 .about-sec {
-  z-index: var(--section-z);
+  z-index: 11;
   position: relative;
   padding-bottom: 8vh;
   width: 100%;
@@ -1148,13 +1153,13 @@ footer .contact-wrap .contact-info .email {
   margin: 24vh 0 8vh;
 }
 .about-sec .txt-sec {
+  z-index: 1;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100vh;
-  z-index: 1;
 }
 .about-sec .txt-sec .txt {
   opacity: 1;
@@ -1166,7 +1171,7 @@ footer .contact-wrap .contact-info .email {
   justify-content: space-between;
 }
 .about-sec .about-con .detail-wrap {
-  z-index: var(--canvas-z);
+  z-index: 10;
   position: relative;
   width: 40%;
   height: 100vh;
@@ -1178,7 +1183,7 @@ footer .contact-wrap .contact-info .email {
      object-fit: cover;
 }
 .about-sec .about-con .txt-wrap {
-  z-index: var(--canvas-z);
+  z-index: 10;
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -1214,7 +1219,7 @@ footer .contact-wrap .contact-info .email {
   }
 }
 .work-sec {
-  z-index: var(--section-z);
+  z-index: 11;
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -1249,7 +1254,7 @@ footer .contact-wrap .contact-info .email {
   transition: transform 0.6s ease;
 }
 .work-sec .work-list-wrap .work-list .content-wrap {
-  z-index: var(--section-z);
+  z-index: 11;
   position: relative;
   top: 0;
   left: 0;
@@ -1262,7 +1267,7 @@ footer .contact-wrap .contact-info .email {
   height: 100%;
 }
 .work-sec .work-list-wrap .work-list .content-wrap .info .img-wrap {
-  z-index: var(--section-z);
+  z-index: 11;
   width: 60% !important;
   height: 100% !important;
   overflow: hidden;
@@ -1278,7 +1283,7 @@ footer .contact-wrap .contact-info .email {
   transition: transform 0.6s ease;
 }
 .work-sec .work-list-wrap .work-list .content-wrap .info .detail {
-  z-index: var(--section-z);
+  z-index: 11;
   position: relative;
   margin-left: 8vh;
   padding-right: 8vh;
@@ -1317,7 +1322,7 @@ footer .contact-wrap .contact-info .email {
   transition: top 0.6s ease;
 }
 .work-sec .work-list-wrap .work-list .awards {
-  z-index: var(--front-z);
+  z-index: 999;
   position: absolute;
   top: 0;
   left: 0;
@@ -1517,7 +1522,7 @@ footer .contact-wrap .contact-info .email {
   justify-content: center;
 }
 .work-container .next-work .inner .next-work-btn {
-  border: none;
+  border: 0;
   background: none;
 }
 .work-container .next-work .inner .next-work-btn .arrow {

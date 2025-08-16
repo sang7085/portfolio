@@ -1,11 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/dist/CustomEase";
-import { EffectComposer } from "@react-three/postprocessing";
-import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { Environment, OrthographicCamera, OrbitControls, MeshTransmissionMaterial, Text } from "@react-three/drei";
-import * as THREE from "three";
-import { useControls } from "leva";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 

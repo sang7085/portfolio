@@ -1,0 +1,16 @@
+// z-index
+$z-plus: 1;
+$z-minus: -1;
+$z-under : 9;
+$z-section: 11;
+$z-canvas-z: 10;
+$z-front: 999;
+$z-skip: 9999;
+
+:root {
+  // color
+  --darkColor: #121315 !important;
+  --lightColor: #fff !important;
+  --brightDark: #252525 !important;
+  --brightLight: #eee !important;
+}

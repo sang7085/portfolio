@@ -1,0 +1,11 @@
+:root {
+  --bg: #ffffff;
+  --fontColor: #121315;
+}
+
+html[data-theme="light"] {
+  --bg: #ffffff;
+  --reverseBg: #121315;
+
+  --fontColor: #121315;
+}

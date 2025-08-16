@@ -2,7 +2,7 @@
 
 // font
 import { Anton } from "next/font/google";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect } from "react";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/dist/CustomEase";
 

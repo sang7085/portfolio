@@ -1,9 +1,11 @@
+@use "./abstracts/index" as *;
+
 .visual-sec {
   position: relative;
   padding-top: 0;
   margin-top: 0;
   overflow: hidden;
-  border: none;
+  border: 0;
 
   .scroll-down {
     position: absolute;
@@ -18,7 +20,7 @@
 
   // canvas
   .canvas-image-wrap {
-    z-index: var(--canvas-z);
+    z-index: $z-canvas-z;
     position: fixed;
     top: 0;
     opacity: 0;
@@ -38,7 +40,7 @@
   }
 
   .txt-wrap-area {
-    z-index: var(--section-z);
+    z-index: $z-section;
     position: relative;
     width: 100%;
     height: 100vh;
@@ -96,7 +98,7 @@
   }
 
   .flow-txt-wrap {
-    z-index: var(--section-z);
+    z-index: $z-section;
     position: relative;
     width: 100%;
     mix-blend-mode: difference;
@@ -163,7 +165,7 @@
     width: 100%;
 
     .circle {
-      z-index: var(--section-z);
+      z-index: $z-section;
       position: absolute;
       top: 50%;
       left: 0;

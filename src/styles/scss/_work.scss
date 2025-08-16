@@ -1,5 +1,7 @@
+@use "./abstracts/index" as *;
+
 .work-sec {
-  z-index: var(--section-z);
+  z-index: $z-section;
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -59,7 +61,7 @@
       }
 
       .content-wrap {
-        z-index: var(--section-z);
+        z-index: $z-section;
         position: relative;
         top: 0;
         left: 0;
@@ -72,7 +74,7 @@
           height: 100%;
 
           .img-wrap {
-            z-index: var(--section-z);
+            z-index: $z-section;
             width: 60% !important;
             height: 100% !important;
             overflow: hidden;
@@ -90,7 +92,7 @@
           }
 
           .detail {
-            z-index: var(--section-z);
+            z-index: $z-section;
             position: relative;
             margin-left: 8vh;
             padding-right: 8vh;
@@ -143,7 +145,7 @@
       }
 
       .awards {
-        z-index: var(--front-z);
+        z-index: $z-front;
         position: absolute;
         top: 0;
         left: 0;

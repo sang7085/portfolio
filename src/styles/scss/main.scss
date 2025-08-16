@@ -1,3 +1,5 @@
+@use "./abstracts/index" as abstracts;
+@use "./themes/index" as themes;
 @use "./_reset";
 @use "./common";
 @use "./font";

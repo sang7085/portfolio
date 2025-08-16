@@ -1,5 +1,7 @@
+@use "./abstracts/index" as *;
+
 header {
-  z-index: var(--front-z);
+  z-index: $z-front;
   position: fixed;
   top: 0;
   left: 0;
@@ -16,7 +18,7 @@ header {
     .logo {
       font-size: 1.8rem;
       background: none;
-      border: none;
+      border: 0;
     }
   }
 
@@ -31,7 +33,7 @@ header {
     .light-mode {
       width: 100%;
       height: 100%;
-      border: none;
+      border: 0;
       mix-blend-mode: difference;
 
       &.tr-light {
@@ -81,7 +83,7 @@ header {
 
     .nav {
       position: fixed;
-      z-index: var(--front-z);
+      z-index: $z-front;
       right: 0;
       display: flex;
       flex-direction: column;
@@ -113,7 +115,7 @@ header {
     }
 
     .hamburger {
-      z-index: var(--front-z);
+      z-index: $z-front;
       position: fixed;
       top: 4vh;
       right: 4vh;
@@ -122,7 +124,7 @@ header {
       justify-content: space-between;
       width: 3.6rem;
       background: transparent;
-      border: none;
+      border: 0;
       color: #000;
 
       .bar {

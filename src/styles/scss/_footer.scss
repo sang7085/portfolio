@@ -1,11 +1,13 @@
+@use "./abstracts/index" as *;
+
 footer {
-  z-index: var(--section-z);
+  z-index: $z-section;
   position: relative;
   height: 100vh;
   mix-blend-mode: difference;
 
   .contact-txt {
-    z-index: var(--section-z);
+    z-index: $z-section;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -16,7 +18,7 @@ footer {
   }
 
   .contact-wrap {
-    z-index: var(--section-z);
+    z-index: $z-section;
     position: absolute;
     bottom: 8dvh;
     bottom: 8vh;

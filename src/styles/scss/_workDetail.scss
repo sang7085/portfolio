@@ -1,3 +1,5 @@
+@use "./abstracts/index" as *;
+
 .work-container {
   position: relative;
   width: 100%;
@@ -161,7 +163,7 @@
 
     .inner {
       .next-work-btn {
-        border: none;
+        border: 0;
         background: none;
 
         .arrow {

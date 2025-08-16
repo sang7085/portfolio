@@ -1,9 +1,9 @@
 
 
-import { useEffect, useLayoutEffect, useRef, useState, useCallback, Suspense } from "react";
+import { useEffect, useLayoutEffect, useRef, useCallback} from "react";
 import { usePathname } from 'next/navigation';
 import { gsap } from "gsap";
-import { Canvas, useThree, useFrame } from "@react-three/fiber";
+import { Canvas, useThree} from "@react-three/fiber";
 import { OrthographicCamera, Environment, OrbitControls } from "@react-three/drei"
 import { Leva } from 'leva';
 import { useMemo } from "react";
