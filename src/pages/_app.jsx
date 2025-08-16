@@ -121,7 +121,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <link rel="icon" href="/assets/images/favicon.png" />
+        <link rel="icon" href="/assets/images/favicon.ico" />
       </Head>
       <a href="#main-content" className="skip-link">SKIP</a>
       <div className="cursor" ref={cursorRef}>
