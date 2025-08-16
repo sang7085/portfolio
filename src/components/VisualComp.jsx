@@ -63,10 +63,10 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef, setVi
   const blobSettings = () => {
     const w = window.innerWidth;
     if (w <= 479) {
-      return { baseRadius: 1, flow: false };
+      return { baseRadius: 0.8, flow: false };
     }
     if (w <= 767) {
-      return { baseRadius: 1.2, flow: false };
+      return { baseRadius: 1, flow: false };
     }
     if (w <= 1023) {
       return { baseRadius: 1.2, flow: false };
