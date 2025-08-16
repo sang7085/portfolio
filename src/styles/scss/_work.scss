@@ -170,14 +170,17 @@
           .info {
             display: block;
             min-height: 28rem;
+
             .detail {
               .title-wrap {
                 margin-top: 4vh;
+
                 .title {
                   margin-top: 2vh;
                 }
               }
             }
+
             .img-wrap {
               position: relative;
               transform: scale(1);
@@ -230,8 +233,15 @@
         .content-wrap {
           .info {
             .img-wrap {
-              .thumbnail {}
+              height: 50% !important;
+              .thumbnail {
+                position: absolute !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
+              }
             }
+
             .detail {
               padding: 0;
               margin: 4vh 0 0;
@@ -240,6 +250,7 @@
               height: unset;
 
               .title-wrap {
+                margin-top: 0;
                 .description {
                   margin-top: 3.2rem;
                 }
