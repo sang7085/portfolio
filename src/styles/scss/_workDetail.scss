@@ -51,41 +51,6 @@
         background-position: center;
       }
 
-      .scroll {
-        margin: 2vh 0;
-        text-align: center;
-      }
-
-      .img-con {
-        position: relative;
-        width: 100%;
-        height: 80vh;
-        border: 3px solid var(--darkColor);
-        border-radius: 3rem;
-        overflow: hidden;
-
-        .scroll-wrap {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          overflow-y: auto;
-          overflow-x: hidden;
-          // mix-blend-mode: difference;
-
-          &::-webkit-scrollbar {
-            display: none;
-          }
-
-
-          img {
-            display: block;
-            margin-top: -1px;
-            width: calc(100% + 2px);
-            height: auto !important;
-            object-fit: cover;
-          }
-        }
-      }
     }
 
     .about-project {
@@ -140,6 +105,42 @@
         width: calc(100% + 2px);
         height: 100%;
         object-fit: cover;
+      }
+    }
+
+    .scroll {
+      margin: 2vh 0;
+      text-align: center;
+    }
+
+    .img-con {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      border: 3px solid var(--darkColor);
+      border-radius: 3rem;
+      overflow: hidden;
+
+      .scroll-wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        // mix-blend-mode: difference;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+
+        img {
+          display: block;
+          margin-top: -1px;
+          width: calc(100% + 2px);
+          height: auto !important;
+          object-fit: cover;
+        }
       }
     }
 
@@ -202,11 +203,12 @@
 @media (max-width: 767px) {
   .work-container {
     .content-wrap {
-       .visual-wrap {
-         .fake-bg {
-           height: 100%;
-         }
-       }
+      .visual-wrap {
+        .fake-bg {
+          height: 100%;
+        }
+      }
+
       .about-project {
         .title-wrap {
           margin: 8vh 0;
@@ -247,6 +249,9 @@
           position: unset;
           margin-top: 4vh;
         }
+      }
+      .img-con {
+        height: 50vh;
       }
     }
 
