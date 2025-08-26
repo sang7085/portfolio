@@ -166,6 +166,7 @@
 
         .content-wrap {
           overflow: hidden;
+          padding: 8vh 0 0;
 
           .info {
             display: block;
@@ -182,7 +183,7 @@
               position: relative;
               transform: scale(1);
               width: 100% !important;
-              height: 70% !important;
+              height: 50% !important;
 
               .thumbnail {
                 position: relative !important;
@@ -225,6 +226,9 @@
 
 @media (max-width: 767px) {
   .work-sec {
+    .slide-tit-wrap {
+      margin-bottom: 8vh;
+    }
     .work-list-wrap {
       .work-list {
         .content-wrap {
@@ -234,7 +238,7 @@
             }
             .detail {
               padding: 0;
-              margin: 4vh 0 0;
+              margin: 0 0 0;
               justify-content: start;
               width: 100%;
               height: unset;

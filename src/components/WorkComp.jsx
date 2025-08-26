@@ -72,6 +72,7 @@ export default function workComp({ introStatus, transitionTo, blobRendersRef }) 
               pin: true,
               pinSpacing: false,
               scrub: 1,
+              invalidateOnRefresh,
               onLeave() {
                 gsap.to(blobRendersRef.current, { baseRadius: leave });
               },
@@ -80,7 +81,6 @@ export default function workComp({ introStatus, transitionTo, blobRendersRef }) 
               },
             },
           });
-
         }
       })
 

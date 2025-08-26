@@ -64,6 +64,10 @@ p {
 
 // dark mode start
 
+body.tr-dark .inner {
+  background: var(--darkColor);
+}
+
 body.tr-dark .transition-cover {
   background: var(--brightLight);
 }
@@ -207,6 +211,9 @@ body.tr-dark footer .contact-wrap .contact-info a {
 // dark mode end ----------------------------
 
 // light mode start -------------------------
+body.tr-light .inner {
+  background: var(--lightColor);
+}
 
 body.tr-light .transition-cover {
   background: var(--darkColor);
@@ -417,7 +424,7 @@ section {
     }
 
     &.right {
-      transform: translateX(10rem)
+      transform: translateX(10rem);
     }
 
     &.center {

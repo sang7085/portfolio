@@ -24,6 +24,7 @@
 
     .head-txt {
       margin-top: 1.6rem;
+      word-break: break-all;
       color: var(--darkColor);
 
       a {
@@ -73,7 +74,6 @@
           height: 100%;
           overflow-y: auto;
           overflow-x: hidden;
-          // mix-blend-mode: difference;
 
           &::-webkit-scrollbar {
             display: none;
@@ -206,6 +206,9 @@
       }
 
       .visual-wrap {
+        .img-con {
+          height: 50vh;
+        }
         .fake-bg {
           height: 60vh;
         }
