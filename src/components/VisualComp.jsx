@@ -63,10 +63,10 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef, setVi
   const blobSettings = () => {
     const w = window.innerWidth;
     if (w <= 479) {
-      return { baseRadius: 1, flow: false };
+      return { baseRadius: 0.8, flow: false };
     }
     if (w <= 767) {
-      return { baseRadius: 1.2, flow: false };
+      return { baseRadius: 1, flow: false };
     }
     if (w <= 1023) {
       return { baseRadius: 1.2, flow: false };
@@ -118,8 +118,8 @@ export default function VisualComp({ introStatus, isLight, blobRendersRef, setVi
           .to(bgRightRef.current[index], { right: "50%", opacity: 1, ease: "gentleEase" }, "<");
       } else {
         tl.to(el, { opacity: 1, y: 0, ease: "gentleEase" })
-          .to(bgLeftRef.current[index], { top: "50%", opacity: 1, ease: "gentleEase" }, "<")
-          .to(bgRightRef.current[index], { bottom: "50%", opacity: 1, ease: "gentleEase" }, "<");
+          .to(bgLeftRef.current[index], { top: "calc(50% - var(--safe-bottom))", opacity: 1, ease: "gentleEase" }, "<")
+          .to(bgRightRef.current[index], { bottom: "calc(50% + var(--safe-bottom))", opacity: 1, ease: "gentleEase" }, "<");
       }
     });
   };

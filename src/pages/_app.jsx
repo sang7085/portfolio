@@ -4,8 +4,8 @@ import FooterComp from "../components/FooterComp";
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Lenis from "@studio-freight/lenis"
+import Head from "next/head";
 
 export default function MyApp({ Component, pageProps }) {
   const cursorRef = useRef(null);
@@ -119,6 +119,9 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <Head>
+        <link rel="icon" href="/assets/images/favicon.ico" />
+      </Head>
       <a href="#main-content" className="skip-link">SKIP</a>
       <div className="cursor" ref={cursorRef}>
         <div className="click">CLICK</div>

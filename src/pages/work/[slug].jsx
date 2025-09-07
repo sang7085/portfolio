@@ -1,6 +1,6 @@
 import workData from "@/data/workData";
 import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,7 +11,8 @@ import { CustomEase } from "gsap/dist/CustomEase";
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 export default function WorkList({ transitionTo, isLight }) {
-  
+
+  const mm = gsap.matchMedia();
   const slideTitWrap = useRef(null);
   const slideTitLeft = useRef(null);
   const slideTitRight = useRef(null);
@@ -27,9 +28,11 @@ export default function WorkList({ transitionTo, isLight }) {
 
   const visualWrap = useRef(null);
   const visualImg = useRef(null);
+  const fakeBg = useRef(null);
   const router = useRouter();
   const { slug } = router.query;
   const work = workData.find(w => w.slug === slug);
+  const [isMobile, setIsMobile] = useState(false);
 
   // 다음 버튼
   const currentIndex = workData.findIndex(w => w.slug === slug);
@@ -51,6 +54,10 @@ export default function WorkList({ transitionTo, isLight }) {
       window.scrollTo(0, 0);
     }, 0);
 
+    // 비디오 모바일 자동재생 상태관리
+    if (window.innerWidth < 1024) {
+      setIsMobile(true);
+    }
 
     CustomEase.create("gentleEase", "M0,0 C0.25,0.1,0.25,1,1,1");
 
@@ -100,6 +107,18 @@ export default function WorkList({ transitionTo, isLight }) {
         scrub: true,
       }
     })
+
+    mm.add("(min-width: 1024px)", () => {
+      gsap.to(fakeBg.current, {
+        top: "60%",
+        scrollTrigger: {
+          trigger: visualWrap.current,
+          start: "top +=50%",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
 
     ScrollTrigger.refresh();
 
@@ -159,7 +178,7 @@ export default function WorkList({ transitionTo, isLight }) {
         </div>
         <div className="content-wrap">
           <div className="visual-wrap" ref={visualWrap}>
-            <div className="fake-bg" style={{ backgroundImage: `url(${work.visual})` }} role="img" aria-label={work.visualAlt}></div>
+            <div className="fake-bg" style={{ backgroundImage: `url(${work.visual})` }} role="img" aria-label={work.visualAlt} ref={fakeBg}></div>
           </div>
           <div className="about-project">
             <div className="inner">
@@ -187,12 +206,19 @@ export default function WorkList({ transitionTo, isLight }) {
               <h3 className="sub-tit">Crafting Experiences, Visual Showcase</h3>
             </div>
           </div>
-          <div className="content-wrap">
-            <div className="visual-wrap" ref={visualWrap}>
+          <div className="video-area">
+            <div className="video-wrap">
               <div className="inner">
                 {work.videoUrl && (
                   <div className="video-con">
-                    <video src={work.videoUrl} autoPlay muted loop playsinline></video>
+                    <video
+                      src={work.videoUrl}
+                      autoPlay={!isMobile}
+                      muted={!isMobile}
+                      loop={!isMobile}
+                      playsInline
+                      controls={isMobile}
+                    ></video>
                   </div>
                 )}
                 {work.imgList && (

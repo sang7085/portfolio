@@ -56,7 +56,7 @@ export default function workComp({ introStatus, transitionTo, blobRendersRef }) 
         if (w < 768) return { leave: 1, back: 7 };
         if (w < 1024) return { leave: 1.2, back: 10 };
         if (w <= 1440) return { leave: 1.2, back: 10 };
-        return { leave: 1.5, back: 10 };
+        return { leave: 1.5, back: 10};
       };
       // 객체 구조분해 할당
       const { leave } = getRadius();
@@ -68,11 +68,11 @@ export default function workComp({ introStatus, transitionTo, blobRendersRef }) 
             scrollTrigger: {
               trigger: el,
               start: "top top",
-              end: "bottom top",
+              end: "+=200%",
               pin: true,
               pinSpacing: false,
               scrub: 1,
-              invalidateOnRefresh,
+              invalidateOnRefresh: true,
               onLeave() {
                 gsap.to(blobRendersRef.current, { baseRadius: leave });
               },
