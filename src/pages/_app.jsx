@@ -120,7 +120,38 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        
+        {/* 기본 메타데이터 */}
+        <title>blop</title>
+        <meta name="description" content="창의적인 웹퍼블리싱 통해 사용자 경험을 향상시키는 포트폴리오입니다. HD현대, HMG, 롯데문화센터 등 다양한 프로젝트를 경험했습니다." />
+        <meta name="keywords" content="포트폴리오, 웹 개발, UI/UX 디자인, React, Next.js" />
+        <meta name="author" content="Portfolio" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://your-portfolio-domain.com" />
+        
+        {/* Open Graph 메타데이터 */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Portfolio - 웹퍼블리셔 포트폴리오" />
+        <meta property="og:description" content="웹퍼블리셔 개발을 통해 사용자 경험을 향상시키는 포트폴리오입니다." />
+        <meta property="og:url" content="https://your-portfolio-domain.com" />
+        <meta property="og:site_name" content="Portfolio" />
+        <meta property="og:image" content="https://your-portfolio-domain.com/assets/images/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="ko_KR" />
+        
+        {/* Twitter Card 메타데이터 */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Portfolio - 웹퍼블리셔 포트폴리오" />
+        <meta name="twitter:description" content="창의적인 웹퍼블리셔 개발을 통해 사용자 경험을 향상시키는 포트폴리오입니다." />
+        {/* <meta name="twitter:image" content="https://your-portfolio-domain.com/assets/images/og-image.jpg" /> */}
+        
+        {/* 추가 메타데이터 */}
+        <meta name="theme-color" content="#ffffff" />
         <link rel="icon" href="/assets/images/favicon.ico" />
+        <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
       </Head>
       <a href="#main-content" className="skip-link">SKIP</a>
       <div className="cursor" ref={cursorRef}>
