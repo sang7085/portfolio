@@ -114,7 +114,7 @@ const workData = [
     client: "삼성화재",
     year: "2023",
     roles: ["Sub Pages", "component"],
-    url: "https://culture.lotteshopping.com/index.do",
+    url: "https://samsungfiredirect.net/",
     visual: "/assets/images/img-visual5.jpg",
     visualAlt: "삼성화재 비주얼이미지",
     thumbnail: "/assets/images/img-visual5.jpg",
